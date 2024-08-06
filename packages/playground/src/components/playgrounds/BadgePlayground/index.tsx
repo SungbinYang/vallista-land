@@ -1,4 +1,4 @@
-import { Container, Badge } from '@vallista/core'
+import { Container, Badge } from '@SungbinYang/vallista-core'
 import { VFC } from 'react'
 
 const BadgePlayground: VFC = () => {

@@ -1,4 +1,4 @@
-import { Container, Switch, SwitchItem } from '@vallista/core'
+import { Container, Switch, SwitchItem } from '@SungbinYang/vallista-core'
 import { useState, VFC } from 'react'
 
 const items: SwitchItem[] = [

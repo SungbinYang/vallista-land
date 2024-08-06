@@ -1,4 +1,4 @@
-import { Container, Toggle } from '@vallista/core'
+import { Container, Toggle } from '@SungbinYang/vallista-core'
 import { VFC } from 'react'
 
 const TogglePlayground: VFC = () => {

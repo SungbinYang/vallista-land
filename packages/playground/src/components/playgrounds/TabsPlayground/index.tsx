@@ -1,4 +1,4 @@
-import { Container, Tabs, Text, Icon } from '@vallista/core'
+import { Container, Tabs, Text, Icon } from '@SungbinYang/vallista-core'
 import { useState, VFC } from 'react'
 
 const TogglePlayground: VFC = () => {

@@ -1,4 +1,4 @@
-import { Checkbox, Container } from '@vallista/core'
+import { Checkbox, Container } from '@SungbinYang/vallista-core'
 import { useState, VFC } from 'react'
 
 const CheckboxPlayground: VFC = () => {

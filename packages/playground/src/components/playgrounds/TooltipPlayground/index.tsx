@@ -1,4 +1,4 @@
-import { Container, Tooltip } from '@vallista/core'
+import { Container, Tooltip } from '@SungbinYang/vallista-core'
 import { VFC } from 'react'
 
 const TooltipPlayground: VFC = () => {

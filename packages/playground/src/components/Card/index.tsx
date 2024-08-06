@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Container as ContainerElement, Text } from '@vallista/core'
+import { Container as ContainerElement, Text } from '@SungbinYang/vallista-core'
 import { FC } from 'react'
 
 export const Card: FC<{ title: string }> = ({ title, children }) => {

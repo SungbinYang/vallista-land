@@ -1,4 +1,4 @@
-import { Container, Icon, Text } from '@vallista/core'
+import { Container, Icon, Text } from '@SungbinYang/vallista-core'
 import { VFC } from 'react'
 
 const IconPlayground: VFC = () => {

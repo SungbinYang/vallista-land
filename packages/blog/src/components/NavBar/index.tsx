@@ -1,5 +1,5 @@
 import { useLocation } from '@reach/router'
-import { Text, Tooltip, useWindowSize } from '@vallista/core'
+import { Text, Tooltip, useWindowSize } from '@SungbinYang/vallista-core'
 import { navigate } from 'gatsby'
 import { useEffect, useMemo, useState, VFC } from 'react'
 

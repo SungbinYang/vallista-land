@@ -1,4 +1,4 @@
-import { Footer as FooterWrapper, FooterGroup, FooterLink, Spacer, Text } from '@vallista/core'
+import { Footer as FooterWrapper, FooterGroup, FooterLink, Spacer, Text } from '@SungbinYang/vallista-core'
 import { Link } from 'gatsby'
 import { VFC } from 'react'
 
