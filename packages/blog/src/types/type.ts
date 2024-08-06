@@ -1,5 +1,5 @@
 export interface Image {
-  publicURL: string | null | undefined
+  publicURL: string
 }
 
 export interface Post {

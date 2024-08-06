@@ -5,7 +5,7 @@ tags:
 image: ./assets/resume.png
 date: 2024-08-06 11:03:27
 series: 테스트-시리즈
-draft: true
+draft: false
 ---
 
 ## 테스트 게시물
