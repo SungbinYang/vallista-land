@@ -8,6 +8,8 @@ series: Vallista-land
 draft: false
 ---
 
+![banner](./assets/01.png)
+
 ## 0\. 서론
 
 2023년 매우 많은 이벤트들이 있던 한 해입니다.  
