@@ -23,7 +23,7 @@ export const Layout: FC = (props) => {
         name: it.frontmatter.title,
         slug: it.fields.slug,
         series: it.frontmatter.series || null,
-        image: it.frontmatter.image?.publicURL || '/open-grpah.jpeg',
+        image: it.frontmatter.image?.publicURL || '/og-image.png',
         tags: it.frontmatter.tags || []
       })),
     [nodes]

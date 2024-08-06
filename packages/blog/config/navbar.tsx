@@ -91,7 +91,7 @@ export const NavFooter: NavFooterType = {
     link: 'https://github.com/SungbinYang'
   },
   linkedin: {
-    name: '',
+    name: '링크드인',
     icon: (
       <svg
         width='32'
@@ -112,7 +112,7 @@ export const NavFooter: NavFooterType = {
     link: 'https://www.linkedin.com/in/%EC%84%B1%EB%B9%88-%EC%96%91-14a23b207'
   },
   twitter: {
-    name: '',
+    name: '트위터(X)',
     icon: (
       <svg
         viewBox='0 0 24 24'
