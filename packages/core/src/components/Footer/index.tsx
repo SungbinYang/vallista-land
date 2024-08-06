@@ -22,15 +22,9 @@ export const Footer: FC<FooterProps> = (props) => {
   const { children } = props
 
   return (
-    <FooterLinkContainer>
-      {custom ? (
-        children
-      ) : (
-        <a href={href} target='_blank'>
-          {children}
-        </a>
-      )}
-    </FooterLinkContainer>
+    <FooterContainer>
+      <FooterNav role='navigation'>{children}</FooterNav>
+    </FooterContainer>
   )
 }
 
@@ -185,7 +179,17 @@ const FooterGroupTitleLabel = styled.label`
 export const FooterLink: FC<FooterLinkProps> = (props) => {
   const { href, custom = false, children } = props
 
-  return <FooterLinkContainer>{custom ? children : <a href={href}>{children}</a>}</FooterLinkContainer>
+  return (
+    <FooterLinkContainer>
+      {custom ? (
+        children
+      ) : (
+        <a href={href} target='_blank'>
+          {children}
+        </a>
+      )}
+    </FooterLinkContainer>
+  )
 }
 
 const FooterLinkContainer = styled.li`
