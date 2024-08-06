@@ -2,7 +2,7 @@
 title: 블로그 이관 및 회고
 tags:
  - 일상
-image: ./assets/resume.png
+image: ./assets/01.png
 date: 2024-08-06 16:43:27
 series: Vallista-land
 draft: true

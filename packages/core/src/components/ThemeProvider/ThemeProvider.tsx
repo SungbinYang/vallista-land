@@ -82,7 +82,7 @@ const Reset: VFC = () => {
           --code-font-family: Menlo, 'DM Mono', 'Roboto Mono', Courier New, monospace;
           --scrollbar-background: #1e1e1e;
           --scrollbar-thumb: #666;
-          --scrollbar-thumb-highlight: #1E0342;
+          --scrollbar-thumb-highlight: #9195F6;
         }
 
         html {
