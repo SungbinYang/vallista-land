@@ -36,7 +36,7 @@ const ResumePage: VFC = () => {
                 <Spacer y={1.5} />
               </Container>
               <Container row>
-                <Button size='large' width={220} onClick={() => openNewPage(profile.secondary)}>
+                <Button size='large' width={220} onClick={() => openNewPage(resume.config.github)}>
                   <Container row center>
                     <svg
                       viewBox='0 0 24 24'
@@ -57,7 +57,7 @@ const ResumePage: VFC = () => {
                     </Text>
                   </Container>
                 </Button>
-                <Button size='large' width={240} onClick={() => openNewPage(resume.config.github)}>
+                <Button size='large' width={240} onClick={() => openNewPage(profile.secondary)}>
                   <Container row center>
                     <svg
                       viewBox='0 0 24 24'
@@ -135,7 +135,7 @@ const ResumePage: VFC = () => {
                         ))}
                         <Spacer y={1} />
                         <ul>
-                          {it_.which?.map(({title, items}, idx) => (
+                          {it_.which?.map(({ title, items }, idx) => (
                             <li key={idx}>
                               <Text size={14}>{title}</Text>
                               {items?.length > 0 && (
@@ -150,7 +150,7 @@ const ResumePage: VFC = () => {
                             </li>
                           ))}
                         </ul>
-                        {idx < (it.projects?.length ?? 0) -1 && <Spacer y={2} />}
+                        {idx < (it.projects?.length ?? 0) - 1 && <Spacer y={2} />}
                       </Container>
                     ))}
                   </div>
