@@ -4,6 +4,7 @@ tags:
  - 생각정리
 image: ./assets/01.png
 date: 2024-02-24 16:43:27
+series: 생각정리
 draft: false
 ---
 

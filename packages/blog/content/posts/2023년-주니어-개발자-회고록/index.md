@@ -4,6 +4,7 @@ tags:
  - 일상
 image: ./assets/01.png
 date: 2023-12-26 16:43:27
+series: 일상 이야기
 draft: false
 ---
 
