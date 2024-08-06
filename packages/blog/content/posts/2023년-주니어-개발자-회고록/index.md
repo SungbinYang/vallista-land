@@ -4,7 +4,6 @@ tags:
  - 일상
 image: ./assets/01.png
 date: 2023-12-26 16:43:27
-series: Vallista-land
 draft: false
 ---
 
