@@ -1,5 +1,5 @@
 ---
-title: 블로그 이관 및 회고
+title: 2023년 주니어 개발자 회고록
 tags:
  - 일상
 image: ./assets/01.png
