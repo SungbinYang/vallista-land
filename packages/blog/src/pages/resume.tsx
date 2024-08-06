@@ -227,7 +227,7 @@ const ResumePage: VFC = () => {
           </Container>
         </Contents>
       </Box>
-      <Box id='speaker'>
+      {/* <Box id='speaker'>
         <Contents>
           <Container>
             <Text size={40} weight={800}>
@@ -245,7 +245,7 @@ const ResumePage: VFC = () => {
             </ul>
           </Container>
         </Contents>
-      </Box>
+      </Box> */}
       <Box id='activities'>
         <Contents>
           <Container>
@@ -271,7 +271,7 @@ const ResumePage: VFC = () => {
           </Container>
         </Contents>
       </Box>
-      <Box id='lectures'>
+      {/* <Box id='lectures'>
         <Contents>
           <Container>
             <Text size={40} weight={800}>
@@ -322,7 +322,7 @@ const ResumePage: VFC = () => {
             </ul>
           </Container>
         </Contents>
-      </Box>
+      </Box> */}
     </Container>
   )
 
