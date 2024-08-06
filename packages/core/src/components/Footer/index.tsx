@@ -22,9 +22,15 @@ export const Footer: FC<FooterProps> = (props) => {
   const { children } = props
 
   return (
-    <FooterContainer>
-      <FooterNav role='navigation'>{children}</FooterNav>
-    </FooterContainer>
+    <FooterLinkContainer>
+      {custom ? (
+        children
+      ) : (
+        <a href={href} target='_blank'>
+          {children}
+        </a>
+      )}
+    </FooterLinkContainer>
   )
 }
 
