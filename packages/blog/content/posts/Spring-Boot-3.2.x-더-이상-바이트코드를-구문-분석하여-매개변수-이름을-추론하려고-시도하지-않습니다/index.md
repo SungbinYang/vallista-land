@@ -23,7 +23,7 @@ draft: false
 
 이제 아래의 코드를 작성해 보았다.
 
-```
+``` java
 package me.sungbin.calculator.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +56,7 @@ public class CalculatorController {
 
 그리고 테스트 코드를 아래와 같이 작성하여 테스트를 실행해 보자.
 
-```
+``` java
 package me.sungbin.calculator.controller;
 
 import org.junit.jupiter.api.DisplayName;
