@@ -33,7 +33,7 @@ module.exports = {
         // Any additional optional fields
         sampleRate: 5,
         siteSpeedSampleRate: 10,
-        cookieDomain: 'sungbinyang.github.io'
+        cookieDomain: 'sungbin.kr'
       }
     },
     'gatsby-plugin-emotion',
