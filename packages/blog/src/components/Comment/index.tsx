@@ -20,10 +20,19 @@ export const Comment: VFC = () => {
       setState({ status: 'failure' })
     }
     scriptEl.async = true
-    scriptEl.src = 'https://utteranc.es/client.js'
-    scriptEl.setAttribute('repo', 'SungbinYang/SungbinYang.github.io')
-    scriptEl.setAttribute('issue-term', 'title')
-    scriptEl.setAttribute('theme', 'github-light')
+    scriptEl.src = 'https://giscus.app/client.js'
+    scriptEl.setAttribute('data-repo', 'SungbinYang/SungbinYang.github.io')
+    scriptEl.setAttribute('data-repo-id', 'R_kgDOMfhYDg')
+    scriptEl.setAttribute('data-category', 'Comments')
+    scriptEl.setAttribute('data-category-id', 'DIC_kwDOMfhYDs4ChjlR')
+    scriptEl.setAttribute('data-mapping', 'pathname')
+    scriptEl.setAttribute('data-strict', '0')
+    scriptEl.setAttribute('data-reactions-enabled', '1')
+    scriptEl.setAttribute('data-emit-metadata', '0')
+    scriptEl.setAttribute('data-input-position', 'top')
+    scriptEl.setAttribute('data-theme', 'light_high_contrast')
+    scriptEl.setAttribute('data-lang', 'ko')
+    scriptEl.setAttribute('data-loading', 'lazy')
     scriptEl.setAttribute('crossorigin', 'anonymous')
     ref.current?.appendChild(scriptEl)
   })
