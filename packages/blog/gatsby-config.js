@@ -87,6 +87,12 @@ module.exports = {
         showSpinner: false
       }
     },
+      {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: `ca-pub-8854437638395695`
+      }
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
