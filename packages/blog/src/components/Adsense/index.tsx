@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 
-import * as Styled from './AdSense.style'
+import * as Styled from './Adsense.style'
 
 interface Props {
   slotId: string

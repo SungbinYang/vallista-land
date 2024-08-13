@@ -8,7 +8,7 @@ import { PostHeader } from '../components/PostHeader'
 import { Seo } from '../components/Seo'
 import { Series } from '../components/Series'
 import { useConfig } from '../hooks/useConfig'
-import { AdSense } from '../components/AdSense'
+import { AdSense } from '../components/Adsense'
 
 const Post: VFC<PageProps<PostQuery>> = (props) => {
   const { profile } = useConfig()
@@ -33,7 +33,7 @@ const Post: VFC<PageProps<PostQuery>> = (props) => {
         {series && seriesGroup && <Series name={series} posts={cachedFilterSeries()} />}
       </PostHeader>
       <Markdown html={html} />
-      <Adsense slotId="5104795204" />
+      <AdSense slotId="5104795204" />
       <section id='comments'></section>
       <Comment />
     </div>
