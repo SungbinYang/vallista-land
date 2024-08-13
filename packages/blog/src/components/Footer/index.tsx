@@ -23,6 +23,7 @@ export const Footer: VFC = () => {
             </FooterLink>
           </FooterGroup>
           <FooterGroup title='관련 사이트'>
+            <FooterLink href='https://sungbin.kr/rss.xml'>RSS 피드</FooterLink>
             <FooterLink href='https://yang-sungbin.tistory.com'>다른 블로그</FooterLink>
           </FooterGroup>
         </FooterWrapper>
