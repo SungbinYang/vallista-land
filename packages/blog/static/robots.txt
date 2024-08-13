@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://sungbin.kr/sitemap/sitemap-index.xml
