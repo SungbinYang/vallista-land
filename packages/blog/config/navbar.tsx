@@ -109,7 +109,7 @@ export const NavFooter: NavFooterType = {
         <circle cx='4' cy='4' r='2' />
       </svg>
     ),
-    link: 'https://www.linkedin.com/in/%EC%84%B1%EB%B9%88-%EC%96%91-14a23b207'
+    link: 'https://www.linkedin.com/in/yangsungbin'
   },
   twitter: {
     name: '트위터(X)',
