@@ -3,7 +3,7 @@ title: 인프런 워밍업 스터디 클럽 출사표 및 OT 후기
 tags:
  - 스터디
 image: ./assets/01.jpg
-date: 2024-02-19 10:05:27
+date: 2024-02-18 10:05:27
 series: 인프런 워밍업 스터디 클럽
 draft: false
 ---
