@@ -8,7 +8,7 @@ series: 인프런 워밍업 스터디 클럽
 draft: false
 ---
 
-<!-- ![banner](./assets/01.png) -->
+![banner](./assets/01.png)
 
 > 이 블로그 글은 [박우빈님의 인프런 강의](https://inf.run/kHiWM)를 참조하여 작성한 글입니다.
 
