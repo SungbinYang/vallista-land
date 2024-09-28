@@ -1,5 +1,5 @@
 ---
-title: 인프런 워밍업 스터디 클럽 출사표 및 OT 후기
+title: 인프런 워밍업 스터디 클럽 0기 출사표 및 OT 후기
 tags:
  - 스터디
 image: ./assets/01.jpg
