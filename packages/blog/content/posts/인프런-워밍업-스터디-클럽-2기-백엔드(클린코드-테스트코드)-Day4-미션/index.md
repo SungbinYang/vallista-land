@@ -18,7 +18,7 @@ draft: false
 
 우리는 아래와 같은 조상님이 작성하신 코드를 개선하기 위한 업무를 맡았다고 가정해보자. 코드는 아래와 같다고 해보자.
 
-``` java
+```java
 public boolean validateOrder(Order order) {
     if (order.getItems().size() == 0) {
         log.info("주문 항목이 없습니다.");
@@ -42,7 +42,7 @@ public boolean validateOrder(Order order) {
 
 현재 해당 부분의 메서드를 보면 사용자가 생성한 '주문'이 유효한지를 검증하는 메서드이다. 그리고 메서드의 선언부를 보면 boolean타입을 반환하며 파라미터 정보로 Order라는 객체가 담겨져 있다. 그리고 아래의 코드 내용을 보고 Order의 코드를 한번 유푸해보았다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.List;
@@ -75,7 +75,7 @@ public class Order {
 
 그리고 해당 유효성 검사 로직도 OrderService 클래스 안에 있다고 가정하자.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -109,7 +109,7 @@ public class OrderService {
 
 그럼 이제 하나하나씩 바꿔보자. 일단 우리가 배운것을 바탕으로 하면 해당 메서드를 Early-Return구조로 변경이 가능할 것이다. 그러면 코드는 아래와 같을 것이다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -145,7 +145,7 @@ public class OrderService {
 
 그러면 이제 각 if문의 조건식에 부정어 연산을 뺌으로 뇌 메모리 구조를 단순화 시켜보자!
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -181,7 +181,7 @@ public class OrderService {
 
 하지만 지금 이렇게 변경하니 중복된 if문이 존재함을 알 수 있었다. 그러면 해당 if문 중복을 제거할 수 있다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -211,9 +211,9 @@ public class OrderService {
 }
 ```
 
-조금 더 코드가 간결해졌음을 알 수 있다. 그러면 일부 조건식을 변경해보자. 지금 ```order.getITems().size() == 0``` 대신 ```isEmpty()```로 변경이 가능하다. 변경하면 아래와 같다.
+조금 더 코드가 간결해졌음을 알 수 있다. 그러면 일부 조건식을 변경해보자. 지금 `order.getITems().size() == 0` 대신 `isEmpty()`로 변경이 가능하다. 변경하면 아래와 같다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -245,7 +245,7 @@ public class OrderService {
 
 다음으로 구체의 부분을 추상화시켜보자. 현재 각 조건식을이 너무 구체이다. 또한 현재 조건들은 getter를 남발하는 폭력적인 메서드이다. 그래서 해당 각 조건식을 Order 객체 안의 공개 메서드로 둘 예정이다. 변경하면 아래와 같다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.List;
@@ -276,7 +276,7 @@ public class Order {
 }
 ```
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -308,7 +308,7 @@ public class OrderService {
 
 Order 객체도 깔끔해지고 정말 읽기 좋은 코드가 된듯 보인다. 이제 중첩 if문을 변경해보자. 중첩 if문의 2번째 if문을 메서드로 변경할까해보았지만 논리상 2번째 if문을 별도로 뺄 수 있겠다는 생각이 들었다. 그렇게 변경을 해보았다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -327,12 +327,12 @@ public class OrderService {
             log.info("올바르지 않은 총 가격입니다.");
             return false;
         }
-        
+
         if (!order.hasCustomerInfo()) {
             log.info("사용자 정보가 없습니다.");
             return false;
         }
-        
+
         return true;
     }
 }
@@ -340,7 +340,7 @@ public class OrderService {
 
 좀더 명확히 분리가 되었지만 부정연산자가 생겨버렸다. 따라서 해당 부정연산자를 없애는 리팩토링을 해보았다. 부정연산자를 쓰는 대신, Order클래스의 공개 메서드를 변경해보았다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.List;
@@ -371,7 +371,7 @@ public class Order {
 }
 ```
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -403,7 +403,7 @@ public class OrderService {
 
 이제 예외처리를 적용해볼 수 있을것이다. 현재 log로 메세지들을 출력하고 return문을 하는데 그 대신에 예외를 던져 볼 수 있을것이다. 그러면 커스텀 Exception을 만들어 예외를 던져보자. 아래와 같이 할 수 있다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 public class OrderException extends RuntimeException {
@@ -413,7 +413,7 @@ public class OrderException extends RuntimeException {
 }
 ```
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.logging.Logger;
@@ -440,11 +440,11 @@ public class OrderService {
 }
 ```
 
-이렇게 깔끔히 RuntimeException을 처리하였다. 하지만 여기서 만약 CheckedException이 발생한다고 하면 어떨까? 즉, 개발자가 예상하지 못한 예외가 나올 수 있기 때문에 try-catch구조로 묶어본다. 또한 return하는 boolean형을 변수로 빼서 조금 더 명확하게 해보았다. 
+이렇게 깔끔히 RuntimeException을 처리하였다. 하지만 여기서 만약 CheckedException이 발생한다고 하면 어떨까? 즉, 개발자가 예상하지 못한 예외가 나올 수 있기 때문에 try-catch구조로 묶어본다. 또한 return하는 boolean형을 변수로 빼서 조금 더 명확하게 해보았다.
 
 하지만 여기서 끝을 두지 않고 totalPrice라는것도 따로 변수를 두지 않고 해결할 수 있지 않을까라는 고민을 하였다. 그래서 Item 클래스를 만들어서 해결을 할 수 있음을 짐작했다. 또한 item이 null인경우 또한 고려를 하지 않았기에 해결을 해보았다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 public class Item {
@@ -463,7 +463,7 @@ public class Item {
 }
 ```
 
-``` java
+```java
 package me.sungbin.day4;
 
 import java.util.Collections;
@@ -499,7 +499,7 @@ public class Order {
 
 그러면 마지막으로 해당 로직을 검증하는 테스트코드를 작성해보자. 테스트 코드는 서비스 부분만 작성하며 설명없이 코드만 제공하겠다.
 
-``` java
+```java
 package me.sungbin.day4;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -651,14 +651,18 @@ DIP는 상위 모듈이 하위 모듈에 의존하지 않고, 둘 다 추상화�
 정리를 해보면 아래와 같다.
 
 > 1. SRP (Single Responsibility Principle) - 단일 책임 원칙
-> 각 클래스는 하나의 책임만 가져야 한다는 원칙이다. 클래스가 여러 책임을 가지면, 하나의 기능을 변경할 때 다른 기능에도 영향을 줄 수 있다. 축구로 비유하자면, 공격수는 공격만, 골키퍼는 수비만 담당하는 것처럼, 각 클래스는 명확한 역할을 가져야 한다.
+>    각 클래스는 하나의 책임만 가져야 한다는 원칙이다. 클래스가 여러 책임을 가지면, 하나의 기능을 변경할 때 다른 기능에도 영향을 줄 수 있다. 축구로 비유하자면, 공격수는 공격만, 골키퍼는 수비만 담당하는 것처럼, 각 클래스는 명확한 역할을 가져야 한다.
+>
 > 2. OCP (Open-Closed Principle) - 개방-폐쇄 원칙
-> 클래스는 확장에 열려 있고, 수정에는 닫혀 있어야 한다는 원칙이다. 즉, 새로운 기능을 추가할 때 기존 코드를 변경하지 않고 확장할 수 있어야 한다는 뜻이다. 축구로 비유하면, 새로운 전술을 추가할 때 기존 선수 배치에 큰 변화를 주지 않고도 쉽게 새로운 선수를 추가하는 것과 같다.
+>    클래스는 확장에 열려 있고, 수정에는 닫혀 있어야 한다는 원칙이다. 즉, 새로운 기능을 추가할 때 기존 코드를 변경하지 않고 확장할 수 있어야 한다는 뜻이다. 축구로 비유하면, 새로운 전술을 추가할 때 기존 선수 배치에 큰 변화를 주지 않고도 쉽게 새로운 선수를 추가하는 것과 같다.
+>
 > 3. LSP (Liskov Substitution Principle) - 리스코프 치환 원칙
-> 하위 클래스는 상위 클래스의 자리를 대체할 수 있어야 한다는 원칙이다. 축구로 설명하자면, 교체 선수가 주전 선수의 역할을 대신할 수 있어야 팀의 전술이 무너지지 않듯이, 자식 클래스는 부모 클래스의 기능을 해치지 않고 그대로 사용할 수 있어야 한다.
+>    하위 클래스는 상위 클래스의 자리를 대체할 수 있어야 한다는 원칙이다. 축구로 설명하자면, 교체 선수가 주전 선수의 역할을 대신할 수 있어야 팀의 전술이 무너지지 않듯이, 자식 클래스는 부모 클래스의 기능을 해치지 않고 그대로 사용할 수 있어야 한다.
+>
 > 4. ISP (Interface Segregation Principle) - 인터페이스 분리 원칙
-> 클라이언트는 자신이 사용하지 않는 메서드에 의존하지 않아야 한다는 원칙이다. 축구에서는 공격수와 수비수가 똑같은 훈련을 받지 않고, 각자의 포지션에 맞는 훈련을 받는 것처럼, 인터페이스도 필요한 기능만 나눠서 설계해야 한다.
+>    클라이언트는 자신이 사용하지 않는 메서드에 의존하지 않아야 한다는 원칙이다. 축구에서는 공격수와 수비수가 똑같은 훈련을 받지 않고, 각자의 포지션에 맞는 훈련을 받는 것처럼, 인터페이스도 필요한 기능만 나눠서 설계해야 한다.
+>
 > 5. DIP (Dependency Inversion Principle) - 의존 역전 원칙
-> 상위 모듈은 하위 모듈에 의존하지 않고, 둘 다 추상화된 인터페이스에 의존해야 한다는 원칙이다. 축구로 비유하면, 특정 선수에게 의존하지 않고 포지션 자체에 의존하는 것처럼, 상위와 하위 모듈은 서로 구체적인 것이 아닌 추상적인 규약에 의존해야 한다.
+>    상위 모듈은 하위 모듈에 의존하지 않고, 둘 다 추상화된 인터페이스에 의존해야 한다는 원칙이다. 축구로 비유하면, 특정 선수에게 의존하지 않고 포지션 자체에 의존하는 것처럼, 상위와 하위 모듈은 서로 구체적인 것이 아닌 추상적인 규약에 의존해야 한다.
 
 이 다섯 가지 원칙을 잘 따르면, 시스템의 유지보수성, 확장성, 유연성이 훨씬 좋아진다. 마치 축구 팀이 각 선수의 역할을 잘 분배하고 새로운 전술을 도입할 때 기존 시스템에 혼란이 없도록 만드는 것처럼 말이다.
