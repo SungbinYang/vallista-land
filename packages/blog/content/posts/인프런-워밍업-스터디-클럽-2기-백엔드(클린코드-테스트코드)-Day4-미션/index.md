@@ -40,7 +40,7 @@ public boolean validateOrder(Order order) {
 }
 ```
 
-현재 해당 부분의 메서드를 보면 사용자가 생성한 '주문'이 유효한지를 검증하는 메서드이다. 그리고 메서드의 선언부를 보면 boolean타입을 반환하며 파라미터 정보로 Order라는 객체가 담겨져 있다. 그리고 아래의 코드 내용을 보고 Order의 코드를 한번 유푸해보았다.
+현재 해당 부분의 메서드를 보면 사용자가 생성한 '주문'이 유효한지를 검증하는 메서드이다. 그리고 메서드의 선언부를 보면 boolean타입을 반환하며 파라미터 정보로 Order라는 객체가 담겨져 있다. 그리고 아래의 코드 내용을 보고 Order의 코드를 한번 유추해보았다.
 
 ```java
 package me.sungbin.day4;
@@ -51,24 +51,24 @@ public class Order {
 
     private final List<String> items;
     private final long totalPrice;
-    private final String customer;
+    private final String customerInfo;
 
-    public Order(List<String> items, long totalPrice, String customer) {
+    public Order(List<String> items, long totalPrice, String customerInfo) {
         this.items = items;
         this.totalPrice = totalPrice;
-        this.customer = customer;
+        this.customerInfo = (customerInfo != null) ? customerInfo : "";
     }
 
     public List<String> getItems() {
-        return items;
+        return this.items;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public long getTotalPrice() {
+        return this.totalPrice;
     }
 
     public boolean hasCustomerInfo() {
-        return customer != null && !customer.isEmpty();
+        return !this.customerInfo.isEmpty();
     }
 }
 ```
@@ -254,16 +254,16 @@ public class Order {
 
     private final List<String> items;
     private final long totalPrice;
-    private final String customer;
+    private final String customerInfo;
 
-    public Order(List<String> items, long totalPrice, String customer) {
+    public Order(List<String> items, long totalPrice, String customerInfo) {
         this.items = items;
         this.totalPrice = totalPrice;
-        this.customer = customer;
+        this.customerInfo = (customerInfo != null) ? customerInfo : "";
     }
 
     public boolean hasCustomerInfo() {
-        return customer != null && !customer.isEmpty();
+        return !this.customerInfo.isEmpty();
     }
 
     public boolean hasNotItems() {
@@ -271,7 +271,7 @@ public class Order {
     }
 
     public boolean isValidPrice() {
-        return totalPrice > 0;
+        return this.totalPrice > 0;
     }
 }
 ```
@@ -349,16 +349,16 @@ public class Order {
 
     private final List<String> items;
     private final long totalPrice;
-    private final String customer;
+    private final String customerInfo;
 
-    public Order(List<String> items, long totalPrice, String customer) {
+    public Order(List<String> items, long totalPrice, String customerInfo) {
         this.items = items;
         this.totalPrice = totalPrice;
-        this.customer = customer;
+        this.customerInfo = (customerInfo != null) ? customerInfo : "";
     }
 
-    public boolean hasNoCustomerInfo() {
-        return customer == null || customer.isEmpty();
+    public boolean hasNotCustomerInfo() {
+        return this.customerInfo.isEmpty();
     }
 
     public boolean hasNotItems() {
@@ -366,7 +366,7 @@ public class Order {
     }
 
     public boolean isInvalidPrice() {
-        return totalPrice <= 0;
+        return this.totalPrice <= 0;
     }
 }
 ```
@@ -442,6 +442,43 @@ public class OrderService {
 
 이렇게 깔끔히 RuntimeException을 처리하였다. 하지만 여기서 만약 CheckedException이 발생한다고 하면 어떨까? 즉, 개발자가 예상하지 못한 예외가 나올 수 있기 때문에 try-catch구조로 묶어본다. 또한 return하는 boolean형을 변수로 빼서 조금 더 명확하게 해보았다.
 
+```java
+package me.sungbin.day4;
+
+import java.util.logging.Logger;
+
+public class OrderService {
+
+    private final Logger log = Logger.getLogger(this.getClass().getName());
+
+    public boolean validateOrder(Order order) {
+        boolean isValid = true;
+
+        try {
+            if (order.hasNotItems()) {
+                throw new OrderException("주문 항목이 없습니다.");
+            }
+
+            if (order.isInvalidPrice()) {
+                throw new OrderException("올바르지 않은 총 가격입니다.");
+            }
+
+            if (order.hasNoCustomerInfo()) {
+                throw new OrderException("사용자 정보가 없습니다.");
+            }
+        } catch (OrderException e) {
+            log.info(e.getMessage());
+            isValid = false;
+        } catch (Exception e) {
+            log.info("프로그램에 문제가 생겼습니다.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+}
+```
+
 하지만 여기서 끝을 두지 않고 totalPrice라는것도 따로 변수를 두지 않고 해결할 수 있지 않을까라는 고민을 하였다. 그래서 Item 클래스를 만들어서 해결을 할 수 있음을 짐작했다. 또한 item이 null인경우 또한 고려를 하지 않았기에 해결을 해보았다.
 
 ```java
@@ -458,7 +495,7 @@ public class Item {
     }
 
     public int getPrice() {
-        return price;
+        return this.price;
     }
 }
 ```
@@ -472,19 +509,19 @@ import java.util.List;
 public class Order {
 
     private final List<Item> items;
-    private final String customer;
+    private final String customerInfo;
 
-    public Order(List<Item> items, String customer) {
+    public Order(List<Item> items, String customerInfo) {
         this.items = (items != null) ? items : Collections.emptyList();
-        this.customer = customer;
+        this.customerInfo = (customerInfo != null) ? customerInfo : "";
     }
 
     public int calculateTotalPrice() {
-        return items.stream().mapToInt(Item::getPrice).sum();
+        return this.items.stream().mapToInt(Item::getPrice).sum();
     }
 
     public boolean hasNoCustomerInfo() {
-        return customer == null || customer.isEmpty();
+        return this.customerInfo.isEmpty();
     }
 
     public boolean hasNotItems() {
@@ -497,12 +534,99 @@ public class Order {
 }
 ```
 
-그러면 마지막으로 해당 로직을 검증하는 테스트코드를 작성해보자. 테스트 코드는 서비스 부분만 작성하며 설명없이 코드만 제공하겠다.
+이렇게 리팩토링을 하고 보니 문득 이런 생각이 든다. 유효성 검사는 Order 객체 생성자에서 처리할 수 있지 않을까? 그래서 OrderService 클래스의 validateOrder 메서드를 Order안으로 옮겨보자! 그러면 validateOrder의 파라미터 Order는 삭제할 수 있으며 기존 Order에 있었던 공개 메서드를 private 메서드로 변경할 수 있다. 그리고 log라는 final 변수를 Order안으로 데려 올 수 있다. 그리고 OrderService를 삭제할 수 있다. 이렇게 함으로 꼭 필요한 유효성 검사 로직 메서드만 외부세계와 소통창구 역할을 하게 할 수 있고 그 외는 캡슐화를 하여 좀 더 객체지향적일 수 있다.
 
 ```java
 package me.sungbin.day4;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Logger;
+
+public class Order {
+
+    private final List<Item> items;
+    private final String customerInfo;
+
+    private final Logger log = Logger.getLogger(this.getClass().getName());
+
+    public Order(List<Item> items, String customerInfo) {
+        this.items = (items != null) ? items : Collections.emptyList();
+        this.customerInfo = (customerInfo != null) ? customerInfo : "";
+    }
+
+    public boolean validateOrder() {
+        boolean isValid = true;
+
+        try {
+            if (hasNotItems()) {
+                throw new OrderException("주문 항목이 없습니다.");
+            }
+
+            if (isInvalidPrice()) {
+                throw new OrderException("올바르지 않은 총 가격입니다.");
+            }
+
+            if (hasNotCustomerInfo()) {
+                throw new OrderException("사용자 정보가 없습니다.");
+            }
+        } catch (OrderException e) {
+            log.info(e.getMessage());
+            isValid = false;
+        } catch (Exception e) {
+            log.info("프로그램에 문제가 생겼습니다.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private int calculateTotalPrice() {
+        return this.items.stream().mapToInt(Item::getPrice).sum();
+    }
+
+    private boolean hasNotCustomerInfo() {
+        return this.customerInfo.isEmpty();
+    }
+
+    private boolean hasNotItems() {
+        return this.items.isEmpty();
+    }
+
+    private boolean isInvalidPrice() {
+        return calculateTotalPrice() <= 0;
+    }
+}
+```
+
+이제 예제를 만들어 확인해보자.
+
+```java
+package me.sungbin.day4;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class App {
+    public static void main(String[] args) {
+        List<Item> items = Arrays.asList(new Item("햄버거", 10000), new Item("피자", 30000));
+        Order order = new Order(items, "양성빈");
+
+        System.out.println(order.validateOrder());
+    }
+}
+
+```
+
+위의 코드를 실행하면 아래와 같이 잘 작동된다.
+
+![reference](./assets/result01.png)
+
+그러면 마지막으로 해당 로직을 검증하는 테스트코드를 작성해보자. 테스트 코드는 공개 메서드인 유효성 검증 로직만 작성하였다.
+
+```java
+package me.sungbin.day4;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -512,14 +636,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrderServiceTest {
-
-    private OrderService orderService;
-
-    @BeforeEach
-    void setUp() {
-        orderService = new OrderService();
-    }
+class OrderTest {
 
     @Test
     @DisplayName("주문 유효성 테스트 - 실패(주문 항목이 null)")
@@ -528,7 +645,7 @@ class OrderServiceTest {
         Order nullItemOrder = new Order(null, "양성빈");
 
         // when
-        boolean result = orderService.validateOrder(nullItemOrder);
+        boolean result = nullItemOrder.validateOrder();
 
         // then
         assertFalse(result);
@@ -541,7 +658,7 @@ class OrderServiceTest {
         Order noItemOrder = new Order(Collections.emptyList(), "양성빈");
 
         // when
-        boolean result = orderService.validateOrder(noItemOrder);
+        boolean result = noItemOrder.validateOrder();
 
         // then
         assertFalse(result);
@@ -554,7 +671,7 @@ class OrderServiceTest {
         Order invalidPriceOrder = new Order(List.of(new Item("item1", -100)), "양성빈");
 
         // when
-        boolean result = orderService.validateOrder(invalidPriceOrder);
+        boolean result = invalidPriceOrder.validateOrder();
 
         // then
         assertFalse(result);
@@ -567,7 +684,7 @@ class OrderServiceTest {
         Order noCustomerInfoOrder = new Order(List.of(new Item("item1", 100)), "");
 
         // when
-        boolean result = orderService.validateOrder(noCustomerInfoOrder);
+        boolean result = noCustomerInfoOrder.validateOrder();
 
         // then
         assertFalse(result);
@@ -580,7 +697,7 @@ class OrderServiceTest {
         Order noCustomerInfoOrder = new Order(List.of(new Item("item1", 100)), null);
 
         // when
-        boolean result = orderService.validateOrder(noCustomerInfoOrder);
+        boolean result = noCustomerInfoOrder.validateOrder();
 
         // then
         assertFalse(result);
@@ -593,14 +710,17 @@ class OrderServiceTest {
         Order validOrder = new Order(Arrays.asList(new Item("item1", 100), new Item("item2", 200)), "양성빈");
 
         // when
-        boolean result = orderService.validateOrder(validOrder);
+        boolean result = validOrder.validateOrder();
 
         // then
         assertTrue(result);
     }
-
 }
 ```
+
+위의 코드를 수행하면 아래와 같이 테스트가 전부 통과됨으로 검증되는 로직임을 알 수 있다.
+
+![reference](./assets/result02.png)
 
 > ✅ 상세 코드는 아래의 git 주소에서 확인이 가능하다.
 >
