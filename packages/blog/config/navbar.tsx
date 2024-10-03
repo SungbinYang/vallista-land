@@ -6,7 +6,7 @@ import profile from '../static/profile.png'
 export const NavCategory: NavCategoryType = {
   me: {
     name: '제가 궁금하세요?',
-    icon: <Image src={profile} width={55} height={55} />,
+    icon: <Image src={profile} width={55} height={65} />,
     link: '/resume'
   },
   home: {
