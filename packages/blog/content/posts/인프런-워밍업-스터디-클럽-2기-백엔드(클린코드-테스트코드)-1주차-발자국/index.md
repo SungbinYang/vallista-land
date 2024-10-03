@@ -253,7 +253,7 @@ public void createLecture(String lectureTitle, LocalDate openDate) {}
 해당 미션을 진행하면서 구체와 추상에 대한 개념을 확실히 이해할 수 있었다. 조금은 어색했지만 예시들을 몇개 해보니 당연한 것들이었다.
 제가 작성한 미션 링크는 아래와 같습니다.
 
-[미션1 링크]
+[미션1 링크](https://sungbin.kr/인프런-워밍업-스터디-클럽-2기-백엔드(클린코드-테스트코드)-Day2-미션/)
 
 ## 뇌 메모리 적게 쓰기
 
