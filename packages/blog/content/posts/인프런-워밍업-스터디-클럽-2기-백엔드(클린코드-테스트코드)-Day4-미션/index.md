@@ -599,7 +599,83 @@ public class Order {
 }
 ```
 
-이제 예제를 만들어 확인해보자.
+하지만 지금 봤을때 유효성 검사 로직이 뭔가 지저분해보인다. 굳이 isValid변수를 둘 필요가 없어보인다. 그리고 해당 조건문들을 하나의 메서드로 빼고 각각 조건문들을 메서드로 분리시킬 수 있다고 생각이 들었다. 그래서 변경해보았다.
+
+``` java
+package me.sungbin.day4;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Logger;
+
+public class Order {
+
+    private final List<Item> items;
+    private final String customerInfo;
+
+    private final Logger log = Logger.getLogger(this.getClass().getName());
+
+    public Order(List<Item> items, String customerInfo) {
+        this.items = (items != null) ? items : Collections.emptyList();
+        this.customerInfo = (customerInfo != null) ? customerInfo : "";
+    }
+
+    public boolean validateOrder() {
+        try {
+            checkOrderConditions();
+            return true;
+        } catch (OrderException e) {
+            log.info(e.getMessage());
+        } catch (Exception e) {
+            log.info("프로그램에 문제가 생겼습니다.");
+        }
+
+        return false;
+    }
+
+    private void checkOrderConditions() throws OrderException {
+        validateItems();
+        validatePrice();
+        validateCustomerInfo();
+    }
+
+    private void validateItems() throws OrderException {
+        if (hasNotItems()) {
+            throw new OrderException("주문 항목이 없습니다.");
+        }
+    }
+
+    private void validatePrice() throws OrderException {
+        if (isInvalidPrice()) {
+            throw new OrderException("올바르지 않은 총 가격입니다.");
+        }
+    }
+
+    private void validateCustomerInfo() throws OrderException {
+        if (hasNotCustomerInfo()) {
+            throw new OrderException("사용자 정보가 없습니다.");
+        }
+    }
+
+    private int calculateTotalPrice() {
+        return this.items.stream().mapToInt(Item::getPrice).sum();
+    }
+
+    private boolean hasNotCustomerInfo() {
+        return this.customerInfo.isEmpty();
+    }
+
+    private boolean hasNotItems() {
+        return this.items.isEmpty();
+    }
+
+    private boolean isInvalidPrice() {
+        return calculateTotalPrice() <= 0;
+    }
+}
+```
+
+훨신 갈끔해지고 읽기 좋은 코드가 된 것 같다. 이제 예제를 만들어 확인해보자.
 
 ```java
 package me.sungbin.day4;
