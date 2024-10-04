@@ -2,7 +2,7 @@
 title: 인프런 워밍업 스터디 클럽 2기 백엔드(클린코드, 테스트코드) 1주차 발자국
 tags:
   - 스터디
-image: ./assets/01.jpg
+image: ./assets/01.png
 date: 2024-09-28 10:05:27
 series: 인프런 워밍업 스터디 클럽 2기
 draft: false
