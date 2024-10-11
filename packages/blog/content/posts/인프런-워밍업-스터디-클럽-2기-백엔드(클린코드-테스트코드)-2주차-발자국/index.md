@@ -131,7 +131,7 @@ draft: false
 
 ## 오버 엔지니어링
 
-- 필요한 적정수준보다 더 높은 수준의 엔지니어랑
+- 필요한 적정수준보다 더 높은 수준의 엔지니어링
   - ex) 구현체가 하나인 인터페이스
     - 인터페이스 형태가 아키텍쳐 이해에 도움을 주거나 근시일내에 구현체가 추가될 가능성이 높다면 OK.
     - 구현체를 수정할때마다 인터페이스도 수정해야함.
@@ -163,3 +163,53 @@ draft: false
 ## 마무리하며
 
 드디어 해당 강의가 마무리 되었다. 여기서 가장 핵심은 **추상**이다. 우리는 또한 추상과 구체를 인식할 수 있다. 김창준님께서 집필하신 '함께자라기'라는 책을 보면 알듯이 추상과 구체를 넘나들어야 한다. 때로는 bottom-up 때로는 top-dowon을 사용하면서 추상적인 시각과 구체적인 시각을 자유롭게 사용해보고 조금 더 읽기 쉽고 좋은 코드를 작성하는 개발자가 되어야 겠다는 생각이 들었다.
+
+## Day4 공통 피드백
+
+내 코드가 예시로 나왔다 우빈님께서 해주신 말씀은 아래와 같았다.
+
+> boolean으로 return하고 있는 메서드에 예외를 발생시키는데 시도는 좋으나 항상 메서드의 사용현황을 파악 후 상황에 맞게 리팩토링을 하는 것이 좋다. 또한 예외 던지는 것은 비싸기에 항상이 아닌 신중하게 하시라고 조언을 주셨다.
+
+## Day7 코드리뷰
+
+내가 만든 코드에서 StudyCafeConfigProvider라는 객체를 만들고 사용중이였는데 아래와 같이 이 안에는 전부 static 메서드만 있었다.
+
+```java
+public class StudyCafeConfigProvider {
+    private static final StudyCafeConfig CONFIG = new StudyCafeConfig();
+
+    public static InputHandler getInputHandler() {
+        return CONFIG.getInputHandler();
+    }
+
+    public static OutputHandler getOutputHandler() {
+        return CONFIG.getOutputHandler();
+    }
+
+    public static StudyCafeSeatReadProvider getStudyCafeSeatReadProvider() {
+        return CONFIG.getStudyCafeSeatReadProvider();
+    }
+
+    public static StudyCafeLockerReadProvider getStudyCafeLockerReadProvider() {
+        return CONFIG.getStudyCafeLockerReadProvider();
+    }
+
+    public static Map<StudyCafePassType, StudyCafePassType> getStrategyMap() {
+        return CONFIG.getStrategyMap();
+    }
+
+    public static Map<StudyCafePassType, LockerPolicyType> getLockerPolicyMap() {
+        return CONFIG.getLockerPolicyMap();
+    }
+}
+```
+
+이런 경우에는 private constructor를 만드는것이 좋다고 SonarLint에서 알려준다. 하지만 내 인텔리제이에서는 SonarLint를 적용되어 있지만 경고가 따로 뜨지 않았는데 이 부분은 한번 자세히 살펴봐야겠다.
+
+자세한 리뷰 및 후기는 추가 포스팅을 하여 정리해봐야겠다.
+
+## 후기
+
+이번 주도 금방 지나갔다. 리뷰를 들으면서 많은 고민과 생각이 들었다. 또한 다른 러너분들의 코드를 보면서 신박한 생각과 좋은 점들이 눈에 보이기 시작했다. 우빈님이 주신 피드백과 다른분들의 코드중에 좋은 점들을 채택해서 더 좋은 코드들로 한번 리팩토링을 다시금 해봐야겠다.
+
+다음주부터는 테스트 강의의 시작이다. 테스트도 조금은 걱정이 되지만 열심히 해서 조금 더 성장하는 주가 되었으면 하는걸로 마무리를 지어보겠다.
