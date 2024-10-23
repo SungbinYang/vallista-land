@@ -300,3 +300,9 @@ Collection<DynamicTest> dynamicTests() {
 - 단점
   - 프로덕션 코드에 침투적이다.
   - 테스트와 무관하기 때문에 신뢰도가 떨어질 수 있다.
+
+## 미션3 진행
+
+테스트코드의 마지막 미션을 진행하였다. 이번에 배운 어노테이션들, @BeforeEach가 적용하여 BDD 스타일 적용하는 실습등 미션을 진행했는데 해당 미션을 통해서 해당 어노테이션들에 대해 확실히 알 수 있었으며 BDD 스타일이 조금 적응된 것 같다.
+
+[미션링크](https://sungbin.kr/%EC%9D%B8%ED%94%84%EB%9F%B0-%EC%9B%8C%EB%B0%8D%EC%97%85-%EC%8A%A4%ED%84%B0%EB%94%94-%ED%81%B4%EB%9F%BD-2%EA%B8%B0-%EB%B0%B1%EC%97%94%EB%93%9C(%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BD%94%EB%93%9C)-Day18-%EB%AF%B8%EC%85%98/)
