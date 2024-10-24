@@ -263,7 +263,7 @@ void cannotUpdateCommentWhenUserIsNotWriter() {
 - 각 테스트의 고유 로직은 `given`, `when`, `then` 절에 분리한다.
 - `@BeforeEach`에 포함될 수 있는 부분은 모든 테스트에 공통적으로 필요한 내용으로 합치고, 테스트 케이스별 행동과 상황 설정을 각 `given`, `when` 절에 넣습니다.
 
-#### @BeforeEach에 배치할 내용
+@BeforeEach에 배치할 내용
 
 사용자 생성과 게시물 생성은 모든 테스트에서 공통적으로 필요하기 때문에 `@BeforeEach`에 배치될 수 있다. 이렇게 하면 각 테스트에서 중복 코드를 줄일 수 있다. 예를 들어, 사용자 생성에 필요한 내용 준비와 게시물 생성에 필요한 내용 준비는 반복적으로 나타나므로 공통화할 수 있다.
 
@@ -284,7 +284,7 @@ void setUp() {
 }
 ```
 
-#### writeComment 테스트
+writeComment 테스트
 
 이 테스트에서는 사용자가 댓글을 작성할 수 있는 시나리오이다. `@BeforeEach`에서 공통으로 사용자와 게시물을 생성했으니, 이제 given, when 절에서 각각의 고유 로직을 작성한다.
 
@@ -309,7 +309,7 @@ void writeComment() {
 - when: 사용자가 댓글을 생성한다.
 - then: 검증 절에서는 댓글이 제대로 작성되었는지 확인한다.
 
-#### updateComment 테스트
+updateComment 테스트
 
 이 테스트는 사용자가 댓글을 수정할 수 있는 시나리오이다. 마찬가지로 `@BeforeEach`에서 사용자와 게시물을 생성했으니, `given`, `when` 절에서 각각의 고유 로직을 작성한다.
 
@@ -337,7 +337,7 @@ void updateComment() {
 - when: 사용자가 댓글을 수정한다.
 - then: 댓글이 정상적으로 수정되었는지 검증한다.
 
-#### cannotUpdateCommentWhenUserIsNotWriter 테스트
+cannotUpdateCommentWhenUserIsNotWriter 테스트
 
 이 테스트는 댓글 작성자가 아닌 사용자가 댓글을 수정하려 할 때 수정이 불가능한 시나리오이다. @BeforeEach에서는 공통적으로 사용자1을 생성했으나, 사용자2를 추가로 생성하는 부분이 있다. 그리고 사용자1의 게시물과 댓글을 생성한 후, 사용자2가 그 댓글을 수정하려는 시도를 given, when 절에서 처리한다.
 
