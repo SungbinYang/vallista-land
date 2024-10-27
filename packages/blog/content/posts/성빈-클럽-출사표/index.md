@@ -2,7 +2,7 @@
 title: 성빈 클럽 출사표
 tags:
   - 스터디
-image: ./assets/thumbnail.jpg
+image: ./assets/thumbnail.png
 date: 2024-10-27 18:41:27
 series: 성빈클럽-자바입문
 draft: false
