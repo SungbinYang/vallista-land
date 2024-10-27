@@ -1,5 +1,5 @@
 ---
-title: JVM 밑바닥 까지 파헤치기 챕터2 자바 메모리 영역과 메모리 오버플로
+title: JVM 밑바닥 까지 파헤치기 챕터3 자바 메모리 영역과 메모리 오버플로
 tags:
   - 스터디
 image: ./assets/thumbnail.jpg
