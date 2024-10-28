@@ -1,5 +1,5 @@
 ---
-title: 성빈 클럽 출사표
+title: 성빈 클럽 미션1
 tags:
   - 스터디
 image: ./assets/01.png
