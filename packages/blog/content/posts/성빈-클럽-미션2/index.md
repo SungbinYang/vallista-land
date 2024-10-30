@@ -92,6 +92,7 @@ boolean isAvailable = true;
 ``` java
 double price = 99.99;  // 99.99가 리터럴, 초기화된 변수 price
 int quantity = 5;      // 5가 리터럴, 초기화된 변수 quantity
+boolean isAvailable = true; // true가 리터럴, 초기화된 변수 isAvaliable
 ```
 
 예시 코드에서 99.99, 5, true는 모두 리터럴로, 이 값들이 price, quantity, isAvailable에 각각 초기화되었습니다.
