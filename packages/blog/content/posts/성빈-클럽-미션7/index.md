@@ -1,5 +1,5 @@
 ---
-title: 성빈 클럽 미션6
+title: 성빈 클럽 미션7
 tags:
   - 스터디
 image: ./assets/01.png
