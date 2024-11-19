@@ -3,7 +3,7 @@ title: WDD(Why-Driven-Development)
 tags:
  - 생각정리
 image: ./assets/01.png
-date: 2024-01-19 12:06:27
+date: 2024-11-19 12:06:27
 series: 생각정리
 draft: false
 ---
