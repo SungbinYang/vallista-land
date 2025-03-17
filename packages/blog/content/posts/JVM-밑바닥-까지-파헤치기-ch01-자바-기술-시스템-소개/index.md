@@ -5,7 +5,7 @@ tags:
 image: ./assets/thumbnail.jpg
 date: 2024-10-12 15:28:27
 series: JVM 밑바닥까지 파헤치기
-draft: false
+draft: true
 ---
 
 > 이 포스팅은 [JVM 밑바닥까지 파헤치기](https://ebook.insightbook.co.kr/book/164)책을 참고하여 작성된 글이다.

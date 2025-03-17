@@ -5,7 +5,7 @@ tags:
 image: ./assets/01.png
 date: 2024-12-03 05:39:27
 series: 성빈클럽-자바-중급1
-draft: false
+draft: true
 ---
 
 ![썸네일](./assets/01.png)
