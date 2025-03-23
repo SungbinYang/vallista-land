@@ -210,8 +210,8 @@ export const _Contents = styled(_Wrapper)`
       overflow-x: auto;
       overflow-y: hidden;
       box-sizing: border-box;
-      background-color: var(--scrollbar-background);
-      padding-left: 2rem;
+      /* background-color: var(--scrollbar-background); */
+      /* padding-left: 2rem; */
 
       /** 파이어폭스 스크롤 대응 */
       scrollbar-width: 8px;
@@ -273,6 +273,11 @@ export const _Contents = styled(_Wrapper)`
         }
       }
     }
+
+    & .line-numbers-rows {
+        padding-left: 1em;
+        padding-top: 1em;
+      }
 
     p > code {
       font-weight: 600;
