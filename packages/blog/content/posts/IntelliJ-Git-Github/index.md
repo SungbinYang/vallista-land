@@ -1,9 +1,9 @@
 ---
-title: "[IntelliJ IDEA] 디버깅"
+title: "[IntelliJ IDEA] Git & Github"
 tags:
   - IntelliJ
 image: ./assets/banner.png
-date: 2025-03-23 13:13:27
+date: 2025-03-24 21:30:27
 series: 인텔리제이
 draft: false
 ---
