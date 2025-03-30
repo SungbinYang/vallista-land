@@ -146,6 +146,8 @@ public class LineJoin {
 
 이번 단축키는 맥과 윈도우/리눅스 둘다 동일하다.
 
+해당 단축키는 보통 문자열로 쿼리를 작성할 때 나눠진 쿼리를 합칠 때 유용하다. 위의 예시코드의 `createQuery()`처럼 말이다.
+
 ### 라인 단위로 옮기기
 
 라인 단위로 옮기기는 구문 이동과 라인 이동이 있다. 이 둘의 차이는 다음과 같다.
@@ -164,6 +166,21 @@ public class LineJoin {
 ### Element 단위로 옮기기
 
 이 방법은 코드를 좌우로 움직일때 유용하다. 예를 들어, html의 속성 값을 옮기거나 파라미터 값을 위치 조정할때 유용하다.
+
+``` html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1 name="titleName" id="titleId">This is Heading</h1>
+</body>
+</html>
+```
+
+위의 코드의 h1태그의 속성 name을 id속성 다음으로 이동하고 싶을 때 해당 단축키를 많이 이용한다.
 
 > ⌨️ 단축키
 >
