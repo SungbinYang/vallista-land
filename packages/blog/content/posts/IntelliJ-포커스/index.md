@@ -47,8 +47,8 @@ draft: false
 
 > ⌨️ 단축키
 >
-> 맥: Shift + command + 좌/우 방향키(Fn + Shift + 좌/우 방향키)
-> 윈도우/리눅스: Shift + Home/End
+> - 맥: Shift + command + 좌/우 방향키(Fn + Shift + 좌/우 방향키)
+> - 윈도우/리눅스: Shift + Home/End
 
 ### page up/dowm
 
