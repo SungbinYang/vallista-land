@@ -56,8 +56,8 @@ draft: false
 
 > ⌨️ 단축키
 >
-> 맥: Fn + 위/아래 방향키
-> 윈도우/리눅스: Shift + Home/End
+> - 맥: Fn + 위/아래 방향키
+> - 윈도우/리눅스: Shift + Home/End
 
 ## 포커스 특수키
 
