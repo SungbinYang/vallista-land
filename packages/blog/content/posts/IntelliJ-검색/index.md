@@ -71,6 +71,8 @@ draft: false
 
 위의 코드에서 app.js의 상단에 'robert'를 inflearn으로 변경하고 싶을 때 사용하면 된다. 방법은 다음과 같다. 먼저 **전체에서 교체** 단축키를 한 후 아래 이미지처럼 우측 상단에 *모양의 Regex를 체크하면 된다.
 
+자세한 부분은 [향로님의 블로그](https://jojoldu.tistory.com/160)를 한번 참고해보자.
+
 ![image1](./assets/01.png)
 
 ## 검색 기타
