@@ -8,7 +8,7 @@ import { onChangeThemeEvent, isDarkMode } from './src/utils'
 import { Layout } from './src/components/Layout'
 
 require('prismjs')
-require('prismjs/themes/prism-tomorrow.css')
+require('prismjs/themes/prism-dracula.css')
 require('prismjs/plugins/line-numbers/prism-line-numbers.css')
 require('prismjs/components/prism-kotlin')
 
