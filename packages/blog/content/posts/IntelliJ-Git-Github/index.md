@@ -33,9 +33,13 @@ draft: false
 
 ![image2](./assets/02.png)
 
-그러면 아래와 같이 `Local History` 탭이 보일텐데 해당 탭을 통해 변경사항들을 쉽게 알 수 있다.
+그러면 아래와 같이 `Local History` 탭이 보일텐데 해당 탭을 통해 파일의 변경사항들을 쉽게 알 수 있다.
 
 ![image3](./assets/03.png)
+
+> ✅ 추가
+>
+> Log탭이 보일텐데 해당 탭은 Git 명령 history들을 로그형식으로 보여주는 탭이고 history를 추적하는데 유용하다.
 
 ### Git option Popup
 
