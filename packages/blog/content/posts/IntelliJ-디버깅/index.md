@@ -46,8 +46,8 @@ draft: false
 
 > ⌨️ 단축키
 >
-> 맥: command + option + r
-> 윈도우/리눅스: F9
+> - 맥: command + option + r
+> - 윈도우/리눅스: F9
 
 ### Step Over: 현재 브레이크에서 다음 한 줄로 넘어가기
 
@@ -111,8 +111,8 @@ void evaluate_사용하기() {
 
 > ⌨️ 단축키
 >
-> 맥: option + F8
-> 윈도우/리눅스: Alt + F8
+> - 맥: option + F8
+> - 윈도우/리눅스: Alt + F8
 
 실행화면은 다음과 같다.
 

@@ -68,7 +68,7 @@ draft: false
 > ⌨️ 단축키
 >
 > - 맥: option + 위/아래 방향키
-> - 윈도우/맥: Ctrl + w / Shift + Ctrl + w
+> - 윈도우/리눅스: Ctrl + w / Shift + Ctrl + w
 
 ### 포커스 뒤로 앞으로 가기
 
