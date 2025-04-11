@@ -438,7 +438,7 @@ dependencies {
 
 - Build Performance: implementation은 내부 사용으로 재컴파일을 제한하기 때문에 더 빠르다.
 
-- Compatibility: api는 공개 API를 정의하는 의존성에 더 적합하고, implementation은 내부 의존성에 더 적합합니다. 즉, open API를 만든다면 api로 노출시키는게 좋고 어플레키이션을 만드는거라면 implementation을 하는게 좋다.
+- Compatibility: api는 공개 API를 정의하는 의존성에 더 적합하고, implementation은 내부 의존성에 더 적합하다. 즉, open API를 만든다면 api로 노출시키는게 좋고 어플레키이션을 만드는거라면 implementation을 하는게 좋다.
 
 - 의존성을 추가하면 소비자에게 전이적 의존성이 되어 잠재적으로 버전 충돌을 일으킬 수 있다. 즉, Producer가 api를 만들기 위해 다른 라이브러리를 가져다 쓸건데 해당 api를 가져다 쓰는 Consumer가 Producer와 같은 라이브러리를 쓰다가 버전 충돌이 발생할 우려가 있기 때문이다.
 
