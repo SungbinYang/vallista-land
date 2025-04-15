@@ -10,7 +10,7 @@ draft: false
 
 ![배너 이미지](./assets/banner.png)
 
-> 해당 블로그 글은 [영한님의 인프런 강의](https://inf.run/WUc1V)를 바탕으로 쓰여진 글입니다.
+> 해당 블로그 글은 [영한님의 인프런 강의](https://inf.run/deYaF)를 바탕으로 쓰여진 글입니다.
 
 ## 프로젝트 생성
 
