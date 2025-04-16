@@ -3,7 +3,7 @@ title: "[99클럽] 면접반 6일차"
 tags:
   - 면접
 image: ./assets/banner.png
-date: 2025-04-16 09:43:27
+date: 2025-04-16 10:17:27
 series: 면접
 draft: false
 ---
