@@ -4,7 +4,7 @@ tags:
   - 자바
 image: ./assets/banner.png
 date: 2025-04-17 20:40:27
-series: 자바
+series: 자바 입문
 draft: false
 ---
 
