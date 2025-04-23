@@ -3,7 +3,7 @@ title: "[자바 기본] 객체 지향 프로그래밍"
 tags:
   - 자바
 image: ./assets/banner.png
-date: 2025-04-23 12:26:27
+date: 2025-04-23 20:58:27
 series: 자바 기본
 draft: false
 ---
@@ -260,6 +260,74 @@ public class GameMain {
 
 ## 객체 지향 프로그래밍
 
-작성중...
+그러면 이를 바탕으로 이전 음악 플레이어 코드를 객체 지향적으로 작성해보자. 그러면 먼저 음악 플레이어라는 객체를 만들어야 한다. 그리고 기능을 객체 안에 넣어보자.
+
+``` java
+package oop;
+
+public class MusicPlayer {
+    int volume;
+
+    boolean isOn;
+
+    void on() {
+        isOn = true;
+        System.out.println("음악 플레이어를 시작합니다.");
+    }
+
+    void off() {
+        isOn = false;
+        System.out.println("음악 플레이어를 종료합니다.");
+    }
+
+    void volumeUp() {
+        volume++;
+        System.out.println("음악 플레이어 볼륨: " + volume);
+    }
+
+    void volumeDown() {
+        volume--;
+        System.out.println("음악 플레이어 볼륨: " + volume);
+    }
+
+    void showStatus() {
+        System.out.println("음악 플레이어 상태 확인");
+
+        if (isOn) {
+            System.out.println("음악 플레이어 ON, 볼륨: " + volume);
+        } else {
+            System.out.println("음악 플레이어 OFF");
+        }
+    }
+}
+```
+
+그리고 main 메서드를 작성해보자.
+
+``` java
+package oop;
+
+public class MusicPlayerMain4 {
+    public static void main(String[] args) {
+        MusicPlayer player = new MusicPlayer();
+
+        player.on();
+
+        player.volumeUp();
+        player.volumeUp();
+        player.volumeDown();
+
+        player.showStatus();
+
+        player.off();
+    }
+}
+```
+
+이제 기능과 데이터가 한 곳에 모여 있으니 데이터 명이 바뀌거나 로직이 바뀌어도 사용하는 쪽에서는 변경없이 사용하면 된다. 즉, 사용하는 입장에서는 안의 내부적인 코드를 몰라도 사용이 가능하다. 즉, **캡슐화**가 잘 이루어져 있다.
+
+> ✅ 캡슐화
+>
+> 속성과 기능을 하나로 묶어서 필요한 기능을 메서드를 통해 외부에 제공하는 것을 캡슐화라 한다.
 
 > 잘못된 지식이 있을 경우 댓글로 남겨주시면 빠르게 반영하겠습니다!
