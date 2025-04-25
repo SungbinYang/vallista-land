@@ -3,7 +3,7 @@ title: "[자바 기본] 접근 제어자"
 tags:
   - 자바
 image: ./assets/banner.png
-date: 2025-04-24 22:25:27
+date: 2025-04-25 22:25:27
 series: 자바 기본
 draft: false
 ---
