@@ -400,11 +400,32 @@ public class InstantMain {
 
 ## 기간, 시간의 간격 - Duration, Period
 
-|구분|Period|Duration|
-|---|------|--------|
-|단위|년, 월, 일|시간, 분, 초, 나노초|
-|사용 대상|날짜|시간|
-|주요 메서드|getYears(), getMonth(), getDays()|toHours(), toMinutes(), getSeconds(), getNano()|
+<table style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid black; padding: 8px;">구분</th>
+      <th style="border: 1px solid black; padding: 8px;">Period</th>
+      <th style="border: 1px solid black; padding: 8px;">Duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid black; padding: 8px;">단위</td>
+      <td style="border: 1px solid black; padding: 8px;">년, 월, 일</td>
+      <td style="border: 1px solid black; padding: 8px;">시간, 분, 초, 나노초</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid black; padding: 8px;">사용 대상</td>
+      <td style="border: 1px solid black; padding: 8px;">날짜</td>
+      <td style="border: 1px solid black; padding: 8px;">시간</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid black; padding: 8px;">주요 메서드</td>
+      <td style="border: 1px solid black; padding: 8px;">getYears(), getMonth(), getDays()</td>
+      <td style="border: 1px solid black; padding: 8px;">toHours(), toMinutes(), getSeconds(), getNano()</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Period
 
