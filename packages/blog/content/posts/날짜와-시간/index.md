@@ -400,29 +400,29 @@ public class InstantMain {
 
 ## 기간, 시간의 간격 - Duration, Period
 
-<table style="border-collapse: collapse; width: 100%;">
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
   <thead>
     <tr>
-      <th style="border: 1px solid black; padding: 8px;">구분</th>
-      <th style="border: 1px solid black; padding: 8px;">Period</th>
-      <th style="border: 1px solid black; padding: 8px;">Duration</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">구분</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">Period</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">Duration</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="border: 1px solid black; padding: 8px;">단위</td>
-      <td style="border: 1px solid black; padding: 8px;">년, 월, 일</td>
-      <td style="border: 1px solid black; padding: 8px;">시간, 분, 초, 나노초</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">단위</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">년, 월, 일</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">시간, 분, 초, 나노초</td>
     </tr>
     <tr>
-      <td style="border: 1px solid black; padding: 8px;">사용 대상</td>
-      <td style="border: 1px solid black; padding: 8px;">날짜</td>
-      <td style="border: 1px solid black; padding: 8px;">시간</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">사용 대상</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">날짜</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">시간</td>
     </tr>
     <tr>
-      <td style="border: 1px solid black; padding: 8px;">주요 메서드</td>
-      <td style="border: 1px solid black; padding: 8px;">getYears(), getMonth(), getDays()</td>
-      <td style="border: 1px solid black; padding: 8px;">toHours(), toMinutes(), getSeconds(), getNano()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">주요 메서드</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">getYears(), getMonth(), getDays()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">toHours(), toMinutes(), getSeconds(), getNano()</td>
     </tr>
   </tbody>
 </table>
@@ -544,43 +544,135 @@ public class DurationMain {
 
 ##### 시간 단위
 
-|ChronoUnit|설명|
-|------|---|
-|NANOS|나노초 단위|
-|MICROS|마이크로초 단위|
-|MILLIS|밀리초 단위|
-|SECONDS|초 단위|
-|MINUTES|분 단위|
-|HOURS|시간 단위|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoUnit</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">NANOS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">나노초 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">MICROS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">마이크로초 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">MILLIS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">밀리초 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">SECONDS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">초 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">MINUTES</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">분 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">HOURS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">시간 단위</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### 날짜 단위
 
-|ChronoUnit|설명|
-|------|---|
-|DAYS|일 단위|
-|WEEKS|주 단위|
-|MONTHS|월 단위|
-|YEARS|년 단위|
-|DECADES|10년 단위|
-|CENTURIES|세기 단위|
-|MILLENNIA|천년 단위|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoUnit</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">DAYS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">일 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">WEEKS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">주 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">MONTHS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">월 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">YEARS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">년 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">DECADES</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">10년 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">CENTURIES</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">세기 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">MILLENNIA</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">천년 단위</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### 기타 단위
 
-|ChronoUnit|설명|
-|------|---|
-|ERAS|시대 단위|
-|FOREVER|무한대의 시간 단위|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoUnit</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">ERAS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">시대 단위</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">FOREVER</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">무한대의 시간 단위</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### ChronoUnit의 주요 메서드
 
-|메서드 이름|설명|
-|------|---|
-|between(Temporal, Temporal)|두 Temporal 객체 사이의 시간을 현재 ChronoUnit 단위로 측정하여 반환한다.|
-|isDateBased()|현재 ChronoUnit이 날짜 기반 단위인지 여부를 반환한다.|
-|isTimeBased()|현재 ChronoUnit이 시간 기반 단위인지 여부를 반환한다.|
-|isSupportedBy(Temporal)|주어진 Temporal 객체가 현재 ChronoUnit 단위를 지원하는지 여부를 반환한다.|
-|getDuration()|현재 ChronoUnit의 기간을 Duration 객체로 반환한다.|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">메서드 이름</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">between(Temporal, Temporal)</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">두 Temporal 객체 사이의 시간을 현재 ChronoUnit 단위로 측정하여 반환한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">isDateBased()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">현재 ChronoUnit이 날짜 기반 단위인지 여부를 반환한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">isTimeBased()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">현재 ChronoUnit이 시간 기반 단위인지 여부를 반환한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">isSupportedBy(Temporal)</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">주어진 Temporal 객체가 현재 ChronoUnit 단위를 지원하는지 여부를 반환한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">getDuration()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">현재 ChronoUnit의 기간을 Duration 객체로 반환한다.</td>
+    </tr>
+  </tbody>
+</table>
 
 #### 시간 필드 - ChronoField
 
@@ -595,62 +687,203 @@ ChronoField` 는 날짜 및 시간을 나타내는 데 사용되는 열거형이
 
 ##### 연도 관련 필드
 
-|ChronoField|설명|
-|------|---|
-|ERA|연대, 예를 들어 서기(AD) 또는 기원전(BC)|
-|YEAR_OF_ERA|연대 내의 연도|
-|YEAR|연도|
-|EPOCH_DAY|1970-01-01부터의 일 수|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoField</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">ERA</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">연대, 예를 들어 서기(AD) 또는 기원전(BC)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">YEAR_OF_ERA</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">연대 내의 연도</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">YEAR</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">연도</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">EPOCH_DAY</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">1970-01-01부터의 일 수</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### 월 관련 필드
 
-|ChronoField|설명|
-|------|---|
-|MONTH_OF_YEAR|월 (1월 = 1)|
-|PROLEPTIC_MONTH|연도를 월로 확장한 값|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoField</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">MONTH_OF_YEAR</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">월 (1월 = 1)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">PROLEPTIC_MONTH</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">연도를 월로 확장한 값</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### 주 및 일 관련 필드
 
-|ChronoField|설명|
-|------|---|
-|DAY_OF_WEEK|요일 (월요일 = 1)|
-|ALIGNED_DAY_OF_WEEK_IN_MONTH|월의 첫 번째 요일을 기준으로 정렬된 요일|
-|ALIGNED_DAY_OF_WEEK_IN_YEAR|연의 첫 번째 요일을 기준으로 정렬된 요일|
-|DAY_OF_MONTH|월의 일 (1일 = 1)|
-|DAY_OF_YEAR|연의 일 (1월 1일 = 1)|
-|EPOCH_DAY|유닉스 에폭(1970-01-01)부터의 일 수|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoField</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">DAY_OF_WEEK</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">요일 (월요일 = 1)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">ALIGNED_DAY_OF_WEEK_IN_MONTH</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">월의 첫 번째 요일을 기준으로 정렬된 요일</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">ALIGNED_DAY_OF_WEEK_IN_YEAR</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">연의 첫 번째 요일을 기준으로 정렬된 요일</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">DAY_OF_MONTH</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">월의 일 (1일 = 1)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">DAY_OF_YEAR</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">연의 일 (1월 1일 = 1)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">EPOCH_DAY</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">유닉스 에폭(1970-01-01)부터의 일 수</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### 시간 관련 필드
 
-|ChronoField|설명|
-|------|---|
-|HOUR_OF_DAY|시간 (0-23)|
-|CLOCK_HOUR_OF_DAY|시계 시간 (1-24)|
-|HOUR_OF_AMPM|오전/오후 시간 (0-11)|
-|CLOCK_HOUR_OF_AMPM|오전/오후 시계 시간 (1-12)|
-|MINUTE_OF_HOUR|분 (0-59)|
-|SECOND_OF_MINUTE|초 (0-59)|
-|NANO_OF_SECOND|초의 나노초 (0-999,999,999)|
-|MICRO_OF_SECOND|초의 마이크로초 (0-999,999)|
-|MILLI_OF_SECOND|초의 밀리초 (0-999)|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoField</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">HOUR_OF_DAY</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">시간 (0-23)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">CLOCK_HOUR_OF_DAY</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">시계 시간 (1-24)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">HOUR_OF_AMPM</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">오전/오후 시간 (0-11)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">CLOCK_HOUR_OF_AMPM</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">오전/오후 시계 시간 (1-12)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">MINUTE_OF_HOUR</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">분 (0-59)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">SECOND_OF_MINUTE</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">초 (0-59)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">NANO_OF_SECOND</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">초의 나노초 (0-999,999,999)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">MICRO_OF_SECOND</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">초의 마이크로초 (0-999,999)</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">MILLI_OF_SECOND</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">초의 밀리초 (0-999)</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### 기타 필드
 
-|ChronoField|설명|
-|------|---|
-|AMPM_OF_DAY|하루의 AM/PM 부분|
-|INSTANT_SECONDS|초를 기준으로 한 시간|
-|OFFSET_SECONDS|UTC/GMT에서의 시간 오프셋 초|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">ChronoField</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">AMPM_OF_DAY</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">하루의 AM/PM 부분</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">INSTANT_SECONDS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">초를 기준으로 한 시간</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">OFFSET_SECONDS</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">UTC/GMT에서의 시간 오프셋 초</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### 주요 메서드
 
-|메서드|반환 타입|설명|
-|------|---|---|
-|getBaseUnit()|TemporalUnit|필드의 기본 단위를 반환한다. 예를 들어, 분 필드의 기본 단위는 ChronoUnit.MINUTES이다.|
-|getRangeUnit()|TemporalUnit|필드의 범위 단위를 반환한다. 예를 들어, MONTH_OF_YEAR의 범위 단위는 ChronoUnit.YEARS이다.|
-|isDateBased()|boolean|필드가 주로 날짜를 기반으로 하는지 여부를 나타냅니다. YEAR와 같은 날짜 기반 필드는 true를 반환한다.|
-|isTimeBased()|boolean|필드가 주로 시간을 기반으로 하는지 여부를 나타낸다. HOUR_OF_DAY와 같은 시간 기반 필드는 true를 반환한다.|
-|range()|ValueRange|필드가 가질 수 있는 값의 유효 범위를 ValueRange 객체로 반환한다. 이 객체는 최소값과 최대값을 제공한다.|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">메서드</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">반환 타입</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">getBaseUnit()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">TemporalUnit</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">필드의 기본 단위를 반환한다. 예를 들어, 분 필드의 기본 단위는 ChronoUnit.MINUTES이다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">getRangeUnit()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">TemporalUnit</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">필드의 범위 단위를 반환한다. 예를 들어, MONTH_OF_YEAR의 범위 단위는 ChronoUnit.YEARS이다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">isDateBased()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">boolean</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">필드가 주로 날짜를 기반으로 하는지 여부를 나타냅니다. YEAR와 같은 날짜 기반 필드는 true를 반환한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">isTimeBased()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">boolean</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">필드가 주로 시간을 기반으로 하는지 여부를 나타낸다. HOUR_OF_DAY와 같은 시간 기반 필드는 true를 반환한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">range()</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">ValueRange</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">필드가 가질 수 있는 값의 유효 범위를 ValueRange 객체로 반환한다. 이 객체는 최소값과 최대값을 제공한다.</td>
+    </tr>
+  </tbody>
+</table>
 
 `TemporalUnit(ChronoUnit)`,`TemporalField(ChronoField)` 는 단독으로 사용하기 보다는 주로 날짜와 시간을 조회하거나 조작할 때 사용한다.
 
@@ -806,23 +1039,76 @@ public class ChangeTimeWithMain {
 
 #### TemporalAdjusters 클래스가 제공하는 주요 기능
 
-|메서드 이름|설명|
-|------|---|
-|dayOfWeekInMonth|주어진 요일이 몇 번째인지에 따라 날짜를 조정한다.|
-|firstDayOfMonth|해당 월의 첫째 날로 조정한다.|
-|firstDayOfNextMonth|다음 달의 첫째 날로 조정한다.|
-|firstDayOfNextYear|다음 해의 첫째 날로 조정한다.|
-|firstDayOfYear|해당 해의 첫째 날로 조정한다.|
-|firstInMonth|주어진 요일 중 해당 월의 첫 번째 요일로 조정한다.|
-|lastDayOfMonth|해당 월의 마지막 날로 조정한다.|
-|lastDayOfNextMonth|다음 달의 마지막 날로 조정한다.|
-|lastDayOfNextYear|다음 해의 마지막 날로 조정한다.|
-|lastDayOfYear|해당 해의 마지막 날로 조정한다.|
-|lastInMonth|주어진 요일 중 해당 월의 마지막 요일로 조정한다.|
-|next|주어진 요일 이후의 가장 가까운 요일로 조정한다.|
-|nextOrSame|주어진 요일 이후의 가장 가까운 요일로 조정하되, 현재 날짜가 주어진 요일인 경우 현재 날짜를 반환한다.|
-|previous|주어진 요일 이전의 가장 가까운 요일로 조정한다.|
-|previousOrSame|주어진 요일 이전의 가장 가까운 요일로 조정하되, 현재 날짜가 주어진 요일인 경우 현재 날짜를 반환한다.|
+<table style="border-collapse: collapse; width: 100%; border: 2px solid #666;">
+  <thead>
+    <tr>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">메서드 이름</th>
+      <th style="border: 2px solid #666; padding: 8px; background-color: slateblue; color: white;">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">dayOfWeekInMonth</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">주어진 요일이 몇 번째인지에 따라 날짜를 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">firstDayOfMonth</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">해당 월의 첫째 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">firstDayOfNextMonth</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">다음 달의 첫째 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">firstDayOfNextYear</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">다음 해의 첫째 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">firstDayOfYear</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">해당 해의 첫째 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">firstInMonth</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">주어진 요일 중 해당 월의 첫 번째 요일로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">lastDayOfMonth</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">해당 월의 마지막 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">lastDayOfNextMonth</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">다음 달의 마지막 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">lastDayOfNextYear</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">다음 해의 마지막 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">lastDayOfYear</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">해당 해의 마지막 날로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">lastInMonth</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">주어진 요일 중 해당 월의 마지막 요일로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">next</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">주어진 요일 이후의 가장 가까운 요일로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">nextOrSame</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">주어진 요일 이후의 가장 가까운 요일로 조정하되, 현재 날짜가 주어진 요일인 경우 현재 날짜를 반환한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">previous</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.1);">주어진 요일 이전의 가장 가까운 요일로 조정한다.</td>
+    </tr>
+    <tr>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">previousOrSame</td>
+      <td style="border: 2px solid #666; padding: 8px; background-color: rgba(200, 200, 200, 0.2);">주어진 요일 이전의 가장 가까운 요일로 조정하되, 현재 날짜가 주어진 요일인 경우 현재 날짜를 반환한다.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## 날짜와 시간 문자열 파싱과 포맷팅
 
