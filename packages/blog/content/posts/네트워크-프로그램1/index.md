@@ -1,5 +1,5 @@
 ---
-title: "[자바 고급2] 네트워크 - 기본 이론"
+title: "[자바 고급2] 네트워크 프로그램1"
 tags:
   - 자바
 image: ./assets/banner.png
