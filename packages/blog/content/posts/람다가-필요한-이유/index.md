@@ -3,7 +3,7 @@ title: "[자바 고급3] 람다가 필요한 이유"
 tags:
   - 자바
 image: ./assets/banner.png
-date: 2025-05-26 17:09:27
+date: 2025-05-26 17:11:27
 series: 자바 고급3
 draft: false
 ---
