@@ -781,35 +781,35 @@ Flow API 추가의 의미를 한 문장으로 정리해 보자면 리액티브 �
 
 표를 통하여 간단히 정리해보자.
 
-<table style="border-collapse: collapse; width: 100%;">
-  <thead>
-    <tr style="background-color: #6699CC; color: black;">
-      <th style="border: 1px solid #ddd; padding: 12px; text-align: center;"></th>
-      <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">RxJava</th>
-      <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">reactor</th>
-      <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">Flow API</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="background-color: black;">
-      <td style="border: 1px solid #ddd; padding: 12px; font-weight: bold;">JDK 버전</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">8 이상에서<br>사용 가능</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">8 이상에서만<br>사용 가능</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">9 이상에서만<br>사용 가능</td>
-    </tr>
-    <tr style="background-color: black;">
-      <td style="border: 1px solid #ddd; padding: 12px; font-weight: bold;">활용</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">클라이언트</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">spring webflux</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">호환성<br>표준 라이브러리</td>
-    </tr>
-    <tr style="background-color: black;">
-      <td style="border: 1px solid #ddd; padding: 12px; font-weight: bold;">리액티브 스트림즈</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">약간 다르다</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">완전히 동일</td>
-      <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">완전히 동일</td>
-    </tr>
-  </tbody>
+<table style="width: 100%; border-collapse: collapse; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <thead>
+        <tr style="background-color: #4a90e2; color: white;">
+            <th style="padding: 16px; text-align: left; font-weight: 600; border: 1px solid #3a7bc8;"></th>
+            <th style="padding: 16px; text-align: left; font-weight: 600; border: 1px solid #3a7bc8;">RxJava</th>
+            <th style="padding: 16px; text-align: left; font-weight: 600; border: 1px solid #3a7bc8;">reactor</th>
+            <th style="padding: 16px; text-align: left; font-weight: 600; border: 1px solid #3a7bc8;">Flow API</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: white; color: black;">
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0; font-weight: 600;">JDK 버전</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">8 이상에서<br>사용 가능</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">8 이상에서만<br>사용 가능</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">9 이상에서만<br>사용 가능</td>
+        </tr>
+        <tr style="background-color: #f8f9fa; color: black;">
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0; font-weight: 600;">활용</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">클라이언트</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">spring webflux</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">호환성<br>표준 라이브러리</td>
+        </tr>
+        <tr style="background-color: white; color: black;">
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0; font-weight: 600;">리액티브 스트림즈</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">약간 다르다</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">완전히 동일</td>
+            <td style="padding: 14px 16px; border: 1px solid #e0e0e0;">완전히 동일</td>
+        </tr>
+    </tbody>
 </table>
 
 ## 자바 10의 주요 변경 내용
