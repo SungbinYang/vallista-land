@@ -4,7 +4,7 @@ tags:
   - 자바
 image: ./assets/banner.png
 date: 2025-06-09 20:23:27
-series: 오브젝트
+series: 오브젝트 - 기초편
 draft: false
 ---
 
