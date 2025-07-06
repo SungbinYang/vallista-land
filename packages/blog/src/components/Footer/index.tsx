@@ -22,8 +22,8 @@ export const Footer: VFC = () => {
               <Link to='/resume'>이력서</Link>
             </FooterLink>
           </FooterGroup>
-          <FooterGroup title='코드 플레이'>
-            <FooterLink href='https://open.kakao.com/o/g0lXVoRg'>채팅방(참여코드: develop)</FooterLink>
+          <FooterGroup title='슬기로운 개발자 생활'>
+            <FooterLink href='https://open.kakao.com/o/g5lbCQEh'>채팅방(참여코드: 0702)</FooterLink>
           </FooterGroup>
           <FooterGroup title='관련 사이트'>
             <FooterLink href='https://sungbin.kr/rss.xml'>RSS 피드</FooterLink>
