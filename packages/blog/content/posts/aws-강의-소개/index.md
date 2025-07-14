@@ -81,9 +81,7 @@ AWS는 전 세계적으로 분포한 데이터 센터에서 300개가 넘는 완
         • AWS Systems Manager<br>
         • AWS CloudTrail
       </td>
-      <td style="padding: 10px;">
-        
-      </td>
+      <td style="padding: 10px;"></td>
     </tr>
   </tbody>
 </table>
