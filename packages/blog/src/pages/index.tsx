@@ -28,7 +28,7 @@ const IndexPage: VFC<PageProps<IndexQuery>> = (props) => {
           </Title>
           <SubTitle>
             <Text as='p' size={20} weight={400} lineHeight={40}>
-              대한민국 경기도에서 <strong>소프트웨어 엔지니어</strong>로 일하고 있어요.
+              대한민국 서울에서 <strong>소프트웨어 엔지니어</strong>로 일하고 있어요.
               개발을 접해보기 전부터 몰입하는 즐거움을 따라 살다가, 지금은 개발에 푹 빠져 있습니다.
               항상 무언가를 배우는데 있어서 매일 같이 꾸준히 공부를 하고 있습니다.
               함께 발전 및 성장해나가는 것을 즐겨합니다.
