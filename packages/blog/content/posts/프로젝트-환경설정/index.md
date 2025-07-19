@@ -156,6 +156,14 @@ gradle같은 빌드 툴을 사용하면 의존관계를 관리해준다. 즉, �
     - spring-boot-starter-logging
         - logback, slf4j(로깅 라이브러리, slf4j는 인터페이스라 생각, logback이 구현체)
 
+### 테스트 라이브러리
+
+- spring-boot-starter-test
+    - junit: 테스트 프레임워크
+    - mockito: 목 라이브러리
+    - assertJ: 테스트 코드를 좀 더 편하게 작성하게끔 도와주는 라이브러리
+    - spring-test: 스프링 통합 테스트 지원
+
 > 📚 꿀팁
 >
 > 실제 실무에서는 `System.out.println()`을 사용하지 않는다. 대신에 로깅 라이브러리를 이용한다. 왜냐하면 실제 여러가지 기능도 있고 나중에 한데 모아서 보기 좋기 때문이다. 로깅 라이브러리들은 여러가지가 존재하지만 그중에 slf4j-logback 조합을 많이 이용한다. 왜냐하면 성능도 더 좋고 기능도 다양하기 때문이다.
