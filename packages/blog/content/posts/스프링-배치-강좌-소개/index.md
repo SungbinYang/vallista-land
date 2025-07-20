@@ -1,6 +1,7 @@
 ---
 title: "[스프링 배치] 소개"
 tags:
+  - 스프링
   - 스프링 배치
 image: ./assets/banner.png
 date: 2025-07-14 12:10:27
