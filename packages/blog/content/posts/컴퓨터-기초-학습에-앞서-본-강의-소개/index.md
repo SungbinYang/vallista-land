@@ -1,10 +1,10 @@
 ---
 title: "[컴퓨터 기초] 학습에 앞서 본 강의 소개"
 tags:
-  - 일상
+  - cs
 image: ./assets/banner.png
 date: 2025-10-04 11:30:27
-series: cs
+series: 컴퓨터 기초
 draft: false
 ---
 
