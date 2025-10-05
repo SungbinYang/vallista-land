@@ -3,7 +3,7 @@ title: "[컴퓨터 기초] 넓고 얕은 컴퓨터 구조"
 tags:
   - cs
 image: ./assets/banner.png
-date: 2025-10-04 11:30:27
+date: 2025-10-05 19:42:27
 series: 컴퓨터 기초
 draft: false
 ---
