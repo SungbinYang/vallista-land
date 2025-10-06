@@ -3,7 +3,7 @@ title: "[컴퓨터 기초] 넓고 얕은 운영체제"
 tags:
   - cs
 image: ./assets/banner.png
-date: 2025-10-05 21:39:27
+date: 2025-10-06 21:39:27
 series: 컴퓨터 기초
 draft: false
 ---
