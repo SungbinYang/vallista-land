@@ -3,7 +3,7 @@ title: "코틀린 상속 간 주의점"
 tags:
   - 트러블 슈팅
 image: ./assets/banner.png
-date: 2025-10-07 16:38:27
+date: 2025-10-07 18:38:27
 series: 트러블 슈팅
 draft: false
 ---
