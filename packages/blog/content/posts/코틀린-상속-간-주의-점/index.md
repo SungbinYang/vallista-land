@@ -1,17 +1,16 @@
 ---
 title: "코틀린 상속 간 주의점"
 tags:
-  - 트러블슈팅
+  - 트러블 슈팅
 image: ./assets/banner.png
 date: 2025-10-07 16:38:27
-series: 트러블슈팅
+series: 트러블 슈팅
 draft: false
 ---
 
 ![banner](./assets/banner.png)
 
 ## 코틀린 넌 왜 나에게 이런 시련을 주는건가..
-
 
 연휴기간 동안 코틀린 상속 관련 공부를 진행하다가 재미난 이슈가 있어서 한번 공유드릴려구요!
 
