@@ -10,7 +10,7 @@ draft: false
 
 ![banner](./assets/banner.png)
 
-> 본 포스팅은 인프런의 [넓고 얕게 외워서 컴공 전공자 되기](https://inf.run/udDJ6)를 참조하여 작성한 글입니다.
+> 본 포스팅은 인프런의 [만들면서 쉽게 배우는 컴퓨터 구조](https://inf.run/PnrRu)를 참조하여 작성한 글입니다.
 
 ## 컴퓨터 구조를 배워야 하는 이유
 
