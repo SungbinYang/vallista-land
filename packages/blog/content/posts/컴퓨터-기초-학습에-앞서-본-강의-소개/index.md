@@ -59,4 +59,12 @@ DDR5도 대역폭을 높이려면 2개를 사용하여 쿼드채널로 구성하
 
 PS/2, VGA, Type C, HDMI, USB 3.0, USB2.0등이 소켓처럼 장착되어 있는데 고급진 용어로 인터페이스라고 불린다. 인터페이스란 즉, 컴퓨터와 주변기기를 연결시켜주는 접점의 역할을 한다.
 
+### 추가 알아 본 사항
+
+- QPI와 FSB: 메모리와 CPU를 연결하는 버스의 일종으로 요즘의 시스템에서는 FSB 대신 QPI(QuickPath Interconnect)를 사용한다.
+- DMI 4.0 8 GT/s: DMI(Direct Media Interface)는 CPU와 PCH(Platform Controller Hub)를 연결하는 인터페이스로, PCIe와는 다른 독립적인 버스이다. 8 GT/s는 Giga Transfers per second를 의미하며, 하나의 전송 당 크기는 프로토콜에 따라 다르지만, 보통 PCIe에서는 1 Transfer가 1비트입니다. 따라서 8 GT/s는 대략 1GB/s의 전송 속도로 이해될 수 있다.
+- CPU와 메모리 클럭 동기화: 흔히 CPU 클럭과 메모리 클럭은 동기화되지 않는다. 각각 고유의 클럭 속도로 동작하며, 메모리 컨트롤러와 타이밍 메커니즘이 있어서 이는 원활하게 동작할 수 있게 합니다.
+
+> DMI는 메인보드의 PCH와 연결을 하는 CPU만 사용하는 PCIe 버스이다.
+
 > 잘못된 정보가 있을 시, 댓글 부탁드립니다.
