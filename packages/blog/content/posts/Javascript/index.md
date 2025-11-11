@@ -3,7 +3,7 @@ title: "[프론트엔드] Javascript"
 tags:
   - 프론트엔드
 image: ./assets/banner.png
-date: 2025-11-11 08:29:27
+date: 2025-11-11 20:17:27
 series: 프론트엔드
 draft: false
 ---
@@ -405,6 +405,14 @@ AJAX_REQUEST.send();
 
 ![image19](./assets/19.png)
 
+위와 같이 로그가 찍힌 것도 잘 볼 수가 있으며, 네트워크 탭을 통해 아래처럼 응답이 잘 간 것도 확인 할 수 있다.
+
+![image20](./assets/20.png)
+
+![image21](./assets/21.png)
+
+여기서 네트워크 탭에서 우리가 만든 API가 xhr방식으로 잘 전송 된 것도 확인 할 수 있다. 즉, ajax로 잘 날라갔다는 것이 확인 되는 것이다.
+
 그러면 이제 조금 더 복잡한 예제를 들어보겠다.
 
 ``` kotlin
@@ -533,4 +541,177 @@ function getBookmarkListRequest() {
 
 코드를 그러면 살펴보자. 등록 API부터 보자. 다른건 이전이랑 비슷한데 여기서 핵심은 `@RequestBody`로 Bookmark 객체를 받는 다는 것을 알 수 있다. 이 부분이 Ajax 요청의 body에 json으로 이 bookmark에 대한 body를 받는 것이다. 조회 API는 이전과 동일하니 설명을 생략하겠다.
 
-다음으로 프론트 코드에 대해서 살펴보자.
+다음으로 프론트 코드에 대해서 살펴보자. 프론트 코드를 보면 form 태그가 존재한다. 그리고 form 태그 안에 input 태그들이 존재한다. 해당 input 태그는 UI로 보면 알겠지만 사용자가 무언가를 입력하는 창을 보여주는 태그이다. 그리고 그 input 태그들에 name 속성으로 이름을 지정해준 것을 볼 수 있는데 해당 이름이, 등록 API의 request body로 들어가는 네이밍들과 일치하는 것을 알 수 있다. 또한, 마지막 input 태그를 보면 type이 submit으로 되어 있는 것을 볼 수 있는데 이것은 서버로 무언가 데이터를 보낼 때 자주 사용되는 타입이다. 정확히는 input의 type이 submit으로 태그를 생성하면 브라우저에 제출 버튼이 생성되고 해당 버튼을 클릭하면 input의 부모 태그인 form 태그의 onsubmit 속성의 값이 자바스크립트로 실행이 된다. 또한, onsubmit 속성의 value 값을 보면 `return` 키워드가 나와 있는데 이 부분은 이후에 설명해보도록 하겠다.
+
+그러면 자바스크립트 코드를 보자 `addBookmarkRequest` 함수를 보면 `querySelector`로 무언가를 가져오는게 있는데 이 부분은 css때 설명을 하겠지만 지금 잠깐 설명을 해보자면 `querySelector`는 HTML의 특정 태그를 가져올 수 있다라고 보면 좋을 것이다. 지금은 input 태그의 name 속성의 값이 있는 것들을 가져오고 있는 것을 볼 수 있다. 정확히는 input 태그의 사용자가 입력한 value 값을 가져오는 것이다. 이유는 `.value`라는 것 때문이다. 다음으로 코드를 보면 자바스크립트 object로 만들고 이것을 JSON으로 직렬화를 한다. 이후는 이전에 살펴본 것과 유사하니 자세한 설명은 생략하겠다.
+
+> ✅ 참고
+>
+> post 메서드로 데이터를 전달할 때 header에 Content-Type: application/json으로 넣어줘야 한다. ajax에서는 `setRequestHeader`로 지정해주면 된다.
+
+다음으로 보면 button 태그가 있는데 해당 태그를 보면 `onclick` 속성이 있다. 이 속성은 해당 버튼을 클릭할 때 호출되는 자바스크립트 코드를 지정할 수 있다. 그리고 자바스크립트 코드를 보면 `event.currentTarget`을 볼 수 있는데 이것은 지금은 굳이 필요 없을 수 있겠으나 만약 여러 XHR 객체를 쓸 수도 있다. 그러면 뭔가 꼬일 수도 있기에 보통은 해당 함수를 호출하는 target정보로 이용하는게 좋다. 즉, 해당 함수를 호출하는 target정보의 readyState값이 DONE이고 상태가 200일 때 id가 bookmark-list인 태그를 찾아서 해당 태그의 자식 태그들을 전부 비워주고 응답 값들을 받아와서 해당 응답 값들을 li 태그를 생성하여 넣어주는 행위를 하고 있다. 여기서 몇가지 함수와 속성에 대해 알아볼건데 먼저 `innerHTML`은 해당 태그의 HTML 태그들을 넣어주는 역할인데 뒤에서 나오는 `appendChild`와 기능이 유사하다. `createElement`가 HTML 태그들을 생성해주는 자바스크립트 내장 함수이며, `createTextNode`를 통해 텍스트를 생성해주는 함수이다. 또한, `appendChild`는 인자로 들어가는 HTML 태그를 해당 함수를 호출하는 태그에 넣어준다고 이해하면 편할 것이다.
+
+그러면 실제 실행해보고 네트워크 탭을 통해 살펴보자.
+
+![image22](./assets/22.png)
+
+![image23](./assets/23.png)
+
+위의 화면은 네트워크 탭의 payload 탭이고 해당 부분은 프론트에서 request body에 들어가는 값들이 존재한다. 우리가 만든 Bookmark 값이 json꼴로 잘 들어가는 것을 볼 수 있다.
+
+![image24](./assets/24.png)
+
+다음으로, `fetch`로 API를 불러오는 방법에 대해 알아보자.
+
+``` html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form onsubmit="return addBookmarkRequest();">
+    <label>즐겨찾기 이름 : </label><input type="text" name="name"><br>
+    <label>즐겨찾기 URL : </label><input type="text" name="url"><br>
+    <input type="submit"><br>
+</form>
+<button onclick="getBookmarkListRequest();">즐겨찾기 목록 가져오기</button>
+<ol id="bookmark-list">
+    <!-- 여기에 즐겨찾기 목록이 나옵니다. -->
+</ol>
+<script src="./bookmark-ajax-fetch.js"></script>
+</body>
+</html>
+```
+
+``` js
+function addBookmarkRequest() {
+    const name = document.querySelector('input[name=name]').value;
+    const url = document.querySelector('input[name=url]').value;
+    const requestObject = {name: name, url: url};
+
+    fetch('/bookmark', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestObject)
+    })
+        .then(response => {
+            if (response.status === 200) {
+                alert("즐겨찾기가 등록되었습니다.");
+            } else {
+                console.error('request failed');
+            }
+        })
+        .catch(error => {
+            console.error('request failed', error);
+        });
+
+    return false;
+}
+
+function getBookmarkListRequest() {
+    fetch('/bookmarks')
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                console.error('request failed');
+                throw new Error('request failed');
+            }
+        })
+        .then(bookmarks => {
+            const bookmarkListDom = document.querySelector('#bookmark-list');
+            bookmarkListDom.innerHTML = '';
+
+            bookmarks.forEach(bookmark => {
+                const liNode = document.createElement('li');
+                const textNode = document.createTextNode(bookmark.name + ' - ' + bookmark.url);
+                liNode.appendChild(textNode);
+                bookmarkListDom.appendChild(liNode);
+            });
+        })
+        .catch(error => {
+            console.error('request failed', error);
+        });
+}
+```
+
+코드는 방금 XHR과 봤던 코드와 유사하지만 `fetch`라는 내장 함수를 사용했다. 차이는 XHR보다 간결하고 현대적인 느낌이 있다. 아마 ajax를 학습했다면 이해가 어느정도 될 것이니 자세한 설명은 생략하겠다. 상세한 자바스크립트 설명을 드리고 싶지만, 이러면 포스팅이 너무 길어질 것 같다. 그래서 간단히만 설명을 드렸는데 자세하게 궁금한 사항이 있을 시, 댓글로 질문 작성 바란다.
+
+## form 태그와 AJAX
+
+다음으로 form 태그와 함께 Ajax를 활용해보는 방법에 대해 알아볼 예정이다.
+
+``` html
+<form onsubmit="return addBookmarkRequest();">
+    <label>즐겨찾기 이름 : </label><input type="text" name="name"><br>
+    <label>즐겨찾기 URL : </label><input type="text" name="url"><br>
+    <input type="submit"><br>
+</form>
+```
+
+이전에 위와 같은 form 태그를 보았을 것이다. form 태그는 원래 사용자에게 어떤 내용들을 입력 받는 기능을 수행한다. 이전에 했던 것처럼 즐겨찾기의 이름과 url을 입력받게 할 수도 있지만 더 복잡하게는 회원가입 페이지 같은 것을 만들 수도 있다. 단순히 이렇게 입력만 받는다면 크게 설명은 안 했겠지만 `document.querySelector`로 태그를 선택하여 value 속성으로 value값을 가져와서 서버로 전송할 수 있기에 우리가 유심히 살펴 본 것이다.
+
+form 태그를 사용할 때 가장 좋은 장점은 html 태그만으로 유효성 검사를 할 수 있다. 그래서 이번에는 form 태그가 사용할 수 있는 여러가지 유효성 검사를 알아보고 이 유효성 검사 기능과 Ajax를 함께 결합하여 사용하는 방법에 대해 알아보겠다.
+
+``` html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form onsubmit="return onSubmit();">
+    <label>아이디 : </label><input type="text" name="user-id" minlength="4" maxlength="20" required>
+    <label>나이 : </label><input type="number" name="age" min="0" max="200">
+    <label>URL : </label><input type="url" name="url">
+    <input type="submit">
+    <script src="./validation-check.js"></script>
+</form>
+</body>
+</html>
+```
+
+``` js
+function onSubmit(event) {
+    console.log(event);
+
+    // AJAX 요청 로직
+
+    return false;
+}
+```
+
+위의 프론트 코드가 있다고 가정하자. 먼저 html 코드부터 확인해보자. 먼저 form 태그가 존재하고 그 form 태그 안에 label과 input 태그가 존재한다. 이 input 태그에서 유효성 검사를 진행할 수 있는데 위의 코드를 보면 `minlength`, `maxlength`, `required`, `min`, `max`등이 존재한다.
+
+`minlength`는 해당 입력 폼에 최소 길이를 설정해줄 수 있다. `maxlength`는 해당 입력 폼에 최대 길이를 설정해 줄 수 있다. 이 속성을 이용하면 입력 폼의 길이의 제약을 줄 수 있다. 그리고 `required`를 이용하면 해당 input이 반드시 입력이 되어야 한다라고 설정할 수 있다.
+
+다음 input을 보면 이번엔 type이 number로 되어 있는 것을 볼 수 있다. 이렇게 `type`을 number로 설정하면 숫자만 들어 올 수 있다. 이렇게 type이 number로 지정을 하면 `min`이나 `max`같은 속성을 쓸 수 있는데 `min`은 입력하는 값의 최소 값이고 `max`는 입력하는 값의 최대 값을 지정할 수 있는 것이다.
+
+다음 input을 보면 type이 url로 되어 있는 것을 볼 수 있다. 이렇게 `type`을 url로 설정을 하면 입력 값이 문자열인데 url형식인지 유효성 검사를 해줄 수 있다.
+
+다음 input을 보면 type이 submit인데 앞에서 살펴봤듯이 해당 태그를 설정하면 제출 버튼이 나오고 그 버튼을 클릭했을 때 form 태그의 onsubmit의 자바스크립트 코드를 실행 시켜 준다. 실행 화면은 아래와 같다.
+
+![image25](./assets/25.png)
+
+그러면 여기서 좀 더 살펴 볼 부분이 있다. 바로 form 태그의 `onsubmit`의 `return onSubmit();` 부분의 `return`부분이다. 여기에는 왜 `return`을 넣어줬을까? 그걸 알기 위해서 한번 `return false`하는 부분을 `return true`로 변경해보자. 즉, js 코드처럼 작성해보자는 의미이다.
+
+``` js
+function onSubmit(event) {
+    console.log(event);
+
+    // AJAX 요청 로직
+
+    return true;
+}
+```
+
+실제 바꿔서 해본 독자는 알겠지만 입력했던 값들이 전부 없어진 것을 알 수 있을 것이다. 그리고 뭔가 url도 바뀌고 네트워크 탭을 보면 뭔가 나온 것을 볼 수 있다.
+
+![image26](./assets/26.png)
+
+url을 자세히 보면 기존 url에 우리가 입력했던 값들이 쿼리스트링으로 붙어나간 것을 볼 수 있다. 그러면 왜 이런 일이 발생했을까? 그것을 알기 위해서는 해당 폼에 `onSubmit` 이벤트 핸들러가 어떤 식으로 동작을 하는지 이해할 필요가 있다. 해당 `onSubmit` 이벤트 핸들러 같은 경우 `return onSubmit()`으로 호출을 해주는데 이때 이 결과가 `return true`이면 form의 정의된 행동, 즉 웹 페이지에 제출하면서 웹 페이지가 이동하려는 것을 하려고 한다. 그런데 우리는 여기서 ajax 요청을 하려고 하는데 즉, 페이지를 새로고침하지 않고 서버로 요청을 보내려고 하는 것이다. 그렇기 때문에 우리는 원래 form 태그가 정의한 html의 기능을 차단시켜야 한다. 그래서 우리는 return값을 `false`로 지정해줌으로서 폼 자체가 제출되지 않게 하고 오직 ajax로만 제출하게 하는 것이다.
