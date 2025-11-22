@@ -80,6 +80,6 @@ draft: false
 >
 > 현재 나는 개발자 관련 오픈채팅방을 운영하고 있다. 관심이 있으신 분들은 참여바랍니다.
 >
-> 링크: https://open.kakao.com/o/g0lXVoRg
+> 링크: https://open.kakao.com/o/g5lbCQEh
 >
-> 참여코드: develop
+> 참여코드: 0702
