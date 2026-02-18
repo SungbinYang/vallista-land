@@ -3,7 +3,7 @@ title: "[컴퓨터 구조론] 제어장치가 없는 컴퓨터"
 tags:
   - cs
 image: ./assets/banner.png
-date: 2026-02-18 17:55:27
+date: 2026-02-18 11:25:27
 series: 컴퓨터 구조론
 draft: false
 ---
