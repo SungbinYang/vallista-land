@@ -506,7 +506,7 @@ StringFilter filter = new StringFilter() {
 StringFilter filter = s -> s.startsWith("A");
 ```
 
-핵심은, Java에서 SAM interface를 인스턴스화할 때 Java의 람다를 사용할 수 있다는 점이다. 반면, 코틀린에서는 람다를 이용해 SAM을 인스턴스화할 수 없다! 물론 코틀린 1.x 버전일때 이다. 코틀린 2.x에서는 가능하다. 해당 내용은 다른 포스팅에서 다루도록 하겠다.
+핵심은, Java에서 SAM interface를 인스턴스화할 때 Java의 람다를 사용할 수 있다는 점이다. 반면, 코틀린에서는 람다를 이용해 SAM을 인스턴스화할 수 없다! 물론 코틀린 1.x 버전일때 이다. 코틀린 2.x에서는 가능하다. 해당 내용은 [블로그](https://sungbin.kr/코틀린-K2-컴파일러/)를 참조 바란다.
 
 ``` kotlin
 val filter: StringFilter = { s -> s.startsWith("A") } // Error: Type mismatch
