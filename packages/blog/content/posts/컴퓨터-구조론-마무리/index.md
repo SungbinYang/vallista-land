@@ -3,7 +3,7 @@ title: "[컴퓨터 구조론] 마무리"
 tags:
   - cs
 image: ./assets/banner.png
-date: 2026-02-18 17:01:27
+date: 2026-02-18 17:50:27
 series: 컴퓨터 구조론
 draft: false
 ---
