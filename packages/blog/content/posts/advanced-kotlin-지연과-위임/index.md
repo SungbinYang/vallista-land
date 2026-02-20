@@ -526,7 +526,7 @@ class Person3 {
 
 ``` kotlin
 class Person {
-    val name by DelegateProperty("최태현", "name")
+    val name by DelegateProperty("양성빈", "name")
 
     val country by DelegateProperty("한국", "country")
 }
