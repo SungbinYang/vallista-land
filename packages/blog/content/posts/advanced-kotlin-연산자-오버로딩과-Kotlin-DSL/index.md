@@ -3,7 +3,7 @@ title: "[코틀린 고급] 연산자 오버로딩과 Kotlin DSL"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2026-02-21 18:21:27
+date: 2026-02-21 16:49:27
 series: 코틀린 고급
 draft: false
 ---
