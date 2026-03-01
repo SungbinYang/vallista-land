@@ -3,7 +3,7 @@ title: "[운영체제 기초] CPU 스케줄링"
 tags:
   - cs
 image: ./assets/banner.png
-date: 2026-03-01 14:12:27
+date: 2026-03-01 16:01:27
 series: 운영체제 기초
 draft: false
 ---
