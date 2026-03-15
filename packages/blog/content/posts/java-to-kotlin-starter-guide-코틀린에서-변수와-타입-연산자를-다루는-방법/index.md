@@ -3,7 +3,7 @@ title: "[코틀린 입문] 코틀린에서 변수와 타입, 연산자를 다루
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2025-10-04 17:13:27
+date: 2026-03-15 16:11:27
 series: 코틀린 입문
 draft: false
 ---
