@@ -3,7 +3,7 @@ title: "[코틀린 입문] 강의 소개"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2025-10-04 12:12:27
+date: 2026-03-15 14:53:27
 series: 코틀린 입문
 draft: false
 ---
