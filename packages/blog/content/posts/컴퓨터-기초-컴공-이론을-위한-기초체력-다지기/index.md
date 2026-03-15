@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 기초] 컴공 이론을 위한 기초체력 다지기"
 tags:
-  - cs
+  - 컴퓨터 기초
 image: ./assets/banner.png
-date: 2025-10-05 15:46:27
+date: 2026-03-15 13:03:27
 series: 컴퓨터 기초
 draft: false
 ---
