@@ -2,40 +2,35 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.5.0",
-    "@typescript-eslint/parser": "^5.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
     "cross-env": "^7.0.3",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.4",
-    "lerna": "^4.0.0",
-    "lint-staged": "^12.1.2",
-    "prettier": "^2.5.0",
-    "typescript": "^4.5.2"
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "husky": "^9.1.7",
+    "lerna": "^9.0.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist",
-    "run:core": "lerna run run:core --stream",
-    "build:core": "lerna run build:core",
-    "publish:core": "lerna run publish:core",
-    "run:playground": "lerna run run:playground --stream",
-    "build:playground": "lerna run build:playground",
+    "bootstrap": "pnpm install",
+    "run:core": "pnpm --filter @SungbinYang/vallista-core run run:core",
+    "build:core": "pnpm --filter @SungbinYang/vallista-core run build:core",
+    "publish:core": "pnpm --filter @SungbinYang/vallista-core run publish:core",
+    "run:playground": "pnpm --filter @vallista-land/playground run run:playground",
+    "build:playground": "pnpm --filter @vallista-land/playground run build:playground",
     "clean:playground": "cd packages/playground && gatsby clean",
-    "run:blog": "lerna run run:blog --stream",
-    "build:blog": "lerna run build:blog",
+    "run:blog": "pnpm --filter @vallista-land/blog run run:blog",
+    "build:blog": "pnpm --filter @vallista-land/blog run build:blog",
     "clean:blog": "cd packages/blog && gatsby clean",
-    "post:blog": "cd packages/blog && yarn post:blog",
-    "deploy:blog": "cd packages/blog && yarn deploy:blog",
+    "post:blog": "cd packages/blog && pnpm post:blog",
+    "deploy:blog": "cd packages/blog && pnpm deploy:blog",
     "directory:blog": "cd packages/blog",
-    "deploy:blog-ex": "yarn deploy:blog"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+    "deploy:blog-ex": "pnpm deploy:blog"
   },
   "husky": {
     "hooks": {
@@ -50,5 +45,20 @@
       "prettier --write"
     ]
   },
-  "dependencies": {}
+  "dependencies": {},
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "core-js",
+      "core-js-pure",
+      "es5-ext",
+      "gatsby",
+      "gatsby-cli",
+      "lmdb",
+      "msgpackr-extract",
+      "nx",
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
 }

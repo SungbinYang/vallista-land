@@ -1,3 +1,5 @@
+import React from 'react'
+
 export type CollapseSizeType = 'small' | 'medium'
 
 export interface CollapseProps {
@@ -6,6 +8,7 @@ export interface CollapseProps {
   defaultExpanded: boolean
   size: CollapseSizeType
   card: boolean
+  children?: React.ReactNode
 }
 
 export interface ReturningUseCollapse {

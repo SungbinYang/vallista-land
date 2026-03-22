@@ -1,12 +1,13 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { FC } from 'react'
+import React, { FC } from 'react'
 
 import { useModalContext } from '../context'
 
 interface ActionProps {
   type?: 'button' | 'submit'
   disabled?: boolean
+  children?: React.ReactNode
   onClick: (() => void) | (() => Promise<void>)
 }
 

@@ -1,3 +1,5 @@
+import React from 'react'
+
 export type BadgeType = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'violet'
 export type BadgeVariant = 'primary' | 'contrast'
 
@@ -6,4 +8,5 @@ export interface BadgeProps {
   variant: BadgeVariant
   outline?: boolean
   size: 'small' | 'normal' | 'large'
+  children?: React.ReactNode
 }

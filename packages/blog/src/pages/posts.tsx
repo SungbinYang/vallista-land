@@ -123,7 +123,7 @@ export default PostsPage
 
 export const pageQuery = graphql`
   query BlogPostsQuery {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       nodes {
         fields {
           slug

@@ -1,9 +1,12 @@
+import React from 'react'
+
 /** 라디오 그룹 컴포넌트의 프롭 */
 export interface RadioGroupProps {
   value: string
   onChange: (value: string) => void
   disabled: boolean
   label: string
+  children?: React.ReactNode
 }
 
 /** useRadioGroup의 반환 인터페이스 */
@@ -19,7 +22,7 @@ export interface RadioProps {
 }
 
 /** partial된 RadioProps의 값과 아닌 값을 배합한 타입 */
-export type NeedRadioProp = Partial<Pick<RadioProps, 'disabled'>> & Pick<RadioProps, 'value'>
+export type NeedRadioProp = Partial<Pick<RadioProps, 'disabled'>> & Pick<RadioProps, 'value'> & { children?: React.ReactNode }
 
 /** useRadio의 반환 인터페이스 */
 export interface ReturningUseRadio extends NeedRadioProp {

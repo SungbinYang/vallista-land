@@ -2,9 +2,6 @@ const profile = require('./config/profile.json')
 const defaultOpenGraphImage = '/og-image.png';
 
 module.exports = {
-  flags: {
-    FAST_DEV: true
-  },
   siteMetadata: {
     title: profile.title,
     titleTemplate: profile.titleTemplate,
@@ -67,7 +64,7 @@ module.exports = {
             query: `
               {
                 allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
+                  sort: { frontmatter: { date: DESC } }
                 ) {
                   nodes {
                     excerpt

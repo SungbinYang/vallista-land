@@ -52,7 +52,7 @@ export default Post
 
 export const pageQuery = graphql`
   query BlogPostBySlug($id: String!) {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       nodes {
         fields {
           slug
@@ -63,7 +63,7 @@ export const pageQuery = graphql`
           series
         }
       }
-      group(field: frontmatter___series) {
+      group(field: { frontmatter: { series: SELECT } }) {
         fieldValue
         totalCount
       }

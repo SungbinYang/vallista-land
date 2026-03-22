@@ -1,6 +1,9 @@
+import React from 'react'
+
 export interface ModalProps {
   active: boolean
   onClickOutSide: () => void
+  children?: React.ReactNode
 }
 
 export interface ReturningUseModal {

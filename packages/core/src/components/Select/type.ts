@@ -5,6 +5,7 @@ export interface SelectProps {
   onChange: (value: string) => void
   disabled: boolean
   icon: boolean | ReactNode
+  children?: ReactNode
 }
 
 export type NeedSelectProps = Pick<SelectProps, 'disabled' | 'icon'>

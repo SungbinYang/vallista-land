@@ -9,6 +9,7 @@ export interface NoteProps {
   variant: 'standard' | 'contrast'
   type: NoteType
   size: 'small' | 'medium' | 'large'
+  children?: ReactNode
 }
 
 export type NoteType = 'success' | 'error' | 'warning' | 'primary' | 'secondary'

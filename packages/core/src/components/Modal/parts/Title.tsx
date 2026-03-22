@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { FC } from 'react'
+import React, { FC } from 'react'
 
 import { useModalContext } from '../context'
 
@@ -12,7 +12,7 @@ import { useModalContext } from '../context'
  * <Modal.Title>This is a modal</Modal.Title>
  * ```
  */
-const Title: FC = (props) => {
+const Title: FC<{ children?: React.ReactNode }> = (props) => {
   const { children } = useModalContext(props)
 
   return <H3>{children}</H3>

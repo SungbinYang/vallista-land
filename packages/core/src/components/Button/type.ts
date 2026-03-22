@@ -31,6 +31,7 @@ export interface ButtonProps extends ButtonStateColors {
   loading: boolean
   disabled: boolean
   block: boolean
+  children?: React.ReactNode
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { FC } from 'react'
+import React, { FC } from 'react'
 
 import { useModalContext } from '../context'
 
@@ -12,7 +12,7 @@ import { useModalContext } from '../context'
  * <Modal.Actions>This is a modal</Modal.Actions>
  * ```
  */
-const Actions: FC = (props) => {
+const Actions: FC<{ children?: React.ReactNode }> = (props) => {
   const { children } = useModalContext(props)
 
   return <Footer>{children}</Footer>

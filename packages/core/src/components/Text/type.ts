@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { AvailablePickedColor } from '../ThemeProvider/type'
 
 export type FontSizeType = 10 | 12 | 14 | 16 | 20 | 24 | 32 | 40 | 48
@@ -12,6 +14,7 @@ export interface TextProps {
   align: 'left' | 'center' | 'right'
   color: AvailablePickedColor
   wrap: boolean
+  children?: React.ReactNode
 }
 
 export type ReturningUseText<T extends Partial<TextProps> = Partial<TextProps>> = T & {

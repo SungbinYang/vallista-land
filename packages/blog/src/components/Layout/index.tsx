@@ -59,7 +59,7 @@ export const Layout: FC = (props) => {
 
 const allPostsQuery = graphql`
   query {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       nodes {
         fields {
           slug

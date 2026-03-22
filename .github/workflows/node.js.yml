@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Node.js CI
+name: CI / CD
 
 on:
   push:
@@ -9,42 +6,55 @@ on:
   pull_request:
     branches: ['main']
 
+# 같은 브랜치에 새 push가 오면 이전 실행 자동 취소
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.TOKEN }}
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - name: yarn 설치
-        run: npm install -g yarn
-      - name: lerna 설치
-        run: npm install -g lerna
-      - name: yarn workspaces 옵션 활성화
-        run: yarn config set workspaces-experimental true
-      - name: node.js 패키지 installation
-        run: yarn
+          version: 10
+
+      - name: Node.js 22 LTS 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: 의존성 설치
+        run: pnpm install --frozen-lockfile
+
+      # Gatsby 캐시 복원 (빌드 시간 대폭 단축)
+      - name: Gatsby 캐시 복원
+        uses: actions/cache@v4
+        with:
+          path: |
+            packages/blog/.cache
+            packages/blog/public
+          key: gatsby-build-${{ hashFiles('packages/blog/package.json') }}-${{ hashFiles('packages/blog/gatsby-config.js') }}
+          restore-keys: |
+            gatsby-build-${{ hashFiles('packages/blog/package.json') }}-
+            gatsby-build-
+
       - name: 코어 (디자인시스템) 빌드
-        run: yarn build:core
+        run: pnpm build:core
+
       - name: 블로그 빌드
-        run: yarn build:blog
-      - name: git config 이메일 변경
-        run: git config --global user.email "ysb05222@naver.com"
-      - name: git config 이름 변경
-        run: git config --global user.name "SungbinYang"
-      # blog 들어가서 deploy 스크립트에 TOKEN 주입해 실행
-      - name: 디랙토리 이동 및 SungbinYang.github.io 배포
+        run: pnpm build:blog
+
+      - name: GitHub Pages 배포
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          yarn directory:blog
-          yarn deploy:blog-ex ${{ secrets.TOKEN }}
+          git config --global user.email "ysb05222@naver.com"
+          git config --global user.name "SungbinYang"
+          pnpm deploy:blog-ex ${{ secrets.TOKEN }}

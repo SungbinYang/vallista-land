@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Children, FC, useEffect, useMemo, useRef, useState } from 'react'
+import React, { Children, FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { createContext } from '../../utils/createContext'
 import { CollapseProps, CollapseSizeType } from './type'
@@ -99,7 +99,7 @@ export const useCollapseContext = useContext
   </CollapseGroup>
  * ```
  */
-export const CollapseGroup: FC = ({ children }) => {
+export const CollapseGroup: FC<{ children?: React.ReactNode }> = ({ children }) => {
   const collapses = useMemo(() => {
     const result: { key: string; expanded: boolean }[] = []
     Children.forEach(children, (c) => {

@@ -7,6 +7,7 @@ export interface TooltipProps {
   text: ReactNode
   position?: TooltipPosition
   type?: TooltipType
+  children?: ReactNode
 }
 
 export interface ReturningUseTooltip {
