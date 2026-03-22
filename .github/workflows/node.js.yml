@@ -11,15 +11,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           token: ${{ secrets.TOKEN }}
 
@@ -29,7 +26,7 @@ jobs:
           version: 10
 
       - name: Node.js 22 LTS 설정
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'pnpm'
@@ -40,7 +37,7 @@ jobs:
       # 코어 빌드 결과 캐시 (코어 소스 변경 없으면 빌드 스킵)
       - name: 코어 빌드 캐시 복원
         id: core-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: packages/core/lib
           key: core-build-${{ hashFiles('packages/core/src/**', 'packages/core/tsconfig.json') }}
@@ -51,7 +48,7 @@ jobs:
 
       # Gatsby 캐시 복원 (증분 빌드 - 변경된 페이지만 다시 빌드)
       - name: Gatsby 캐시 복원
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             packages/blog/.cache

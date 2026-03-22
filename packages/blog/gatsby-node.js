@@ -28,6 +28,9 @@ exports.createPages = async function ({ actions, graphql }) {
           fields {
             slug
           }
+          frontmatter {
+            series
+          }
         }
       }
     }
@@ -41,7 +44,8 @@ exports.createPages = async function ({ actions, graphql }) {
         path: post.fields.slug,
         component: postPage,
         context: {
-          id: post.id
+          id: post.id,
+          series: post.frontmatter.series || ''
         }
       })
     })
