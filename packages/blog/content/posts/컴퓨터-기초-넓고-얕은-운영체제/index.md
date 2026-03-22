@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 기초] 넓고 얕은 운영체제"
 tags:
-  - cs
+  - 컴퓨터 기초
 image: ./assets/banner.png
-date: 2025-10-06 21:39:27
+date: 2026-03-22 14:21:27
 series: 컴퓨터 기초
 draft: false
 ---
