@@ -3,49 +3,19 @@ name: CI / CD
 on:
   push:
     branches: ['main']
-    paths:
-      - 'packages/blog/**'
-      - 'packages/core/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - '.github/workflows/**'
   pull_request:
     branches: ['main']
-    paths:
-      - 'packages/blog/**'
-      - 'packages/core/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - '.github/workflows/**'
 
 # 같은 브랜치에 새 push가 오면 이전 실행 자동 취소
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:
-  # 1단계: 어떤 파일이 변경되었는지 감지
-  detect-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      core: ${{ steps.filter.outputs.core }}
-      blog: ${{ steps.filter.outputs.blog }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            core:
-              - 'packages/core/**'
-            blog:
-              - 'packages/blog/**'
-              - 'packages/core/**'
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-  # 2단계: 빌드 및 배포
+jobs:
   build-and-deploy:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.blog == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -67,7 +37,7 @@ jobs:
       - name: 의존성 설치
         run: pnpm install --frozen-lockfile
 
-      # 코어 빌드 결과 캐시 (코어 변경 없으면 빌드 스킵)
+      # 코어 빌드 결과 캐시 (코어 소스 변경 없으면 빌드 스킵)
       - name: 코어 빌드 캐시 복원
         id: core-cache
         uses: actions/cache@v4
@@ -79,7 +49,7 @@ jobs:
         if: steps.core-cache.outputs.cache-hit != 'true'
         run: pnpm build:core
 
-      # Gatsby 캐시 복원 (증분 빌드용)
+      # Gatsby 캐시 복원 (증분 빌드 - 변경된 페이지만 다시 빌드)
       - name: Gatsby 캐시 복원
         uses: actions/cache@v4
         with:
