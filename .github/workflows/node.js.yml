@@ -3,8 +3,20 @@ name: CI / CD
 on:
   push:
     branches: ['main']
+    paths:
+      - 'packages/blog/**'
+      - 'packages/core/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/**'
   pull_request:
     branches: ['main']
+    paths:
+      - 'packages/blog/**'
+      - 'packages/core/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/**'
 
 # 같은 브랜치에 새 push가 오면 이전 실행 자동 취소
 concurrency:
@@ -12,7 +24,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # 1단계: 어떤 파일이 변경되었는지 감지
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      core: ${{ steps.filter.outputs.core }}
+      blog: ${{ steps.filter.outputs.blog }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            core:
+              - 'packages/core/**'
+            blog:
+              - 'packages/blog/**'
+              - 'packages/core/**'
+
+  # 2단계: 빌드 및 배포
   build-and-deploy:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.blog == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -34,20 +67,29 @@ jobs:
       - name: 의존성 설치
         run: pnpm install --frozen-lockfile
 
-      # Gatsby 캐시 복원 (빌드 시간 대폭 단축)
+      # 코어 빌드 결과 캐시 (코어 변경 없으면 빌드 스킵)
+      - name: 코어 빌드 캐시 복원
+        id: core-cache
+        uses: actions/cache@v4
+        with:
+          path: packages/core/lib
+          key: core-build-${{ hashFiles('packages/core/src/**', 'packages/core/tsconfig.json') }}
+
+      - name: 코어 (디자인시스템) 빌드
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: pnpm build:core
+
+      # Gatsby 캐시 복원 (증분 빌드용)
       - name: Gatsby 캐시 복원
         uses: actions/cache@v4
         with:
           path: |
             packages/blog/.cache
             packages/blog/public
-          key: gatsby-build-${{ hashFiles('packages/blog/package.json') }}-${{ hashFiles('packages/blog/gatsby-config.js') }}
+          key: gatsby-${{ hashFiles('packages/blog/package.json', 'packages/blog/gatsby-config.js') }}-${{ github.sha }}
           restore-keys: |
-            gatsby-build-${{ hashFiles('packages/blog/package.json') }}-
-            gatsby-build-
-
-      - name: 코어 (디자인시스템) 빌드
-        run: pnpm build:core
+            gatsby-${{ hashFiles('packages/blog/package.json', 'packages/blog/gatsby-config.js') }}-
+            gatsby-
 
       - name: 블로그 빌드
         run: pnpm build:blog
