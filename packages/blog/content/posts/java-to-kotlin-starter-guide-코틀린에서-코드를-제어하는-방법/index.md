@@ -3,7 +3,7 @@ title: "[코틀린 입문] 코틀린에서 코드를 제어하는 방법"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2025-10-06 16:18:27
+date: 2026-03-22 16:18:27
 series: 코틀린 입문
 draft: false
 ---
