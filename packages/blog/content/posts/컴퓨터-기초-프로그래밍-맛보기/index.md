@@ -3,7 +3,7 @@ title: "[컴퓨터 기초] 프로그래밍 맛보기"
 tags:
   - cs
 image: ./assets/banner.png
-date: 2025-10-07 22:43:27
+date: 2026-03-23 19:32:27
 series: 컴퓨터 기초
 draft: false
 ---
