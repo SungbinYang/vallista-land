@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 기초] 자료구조 소개와 마무리"
 tags:
-  - cs
+  - 컴퓨터 기초
 image: ./assets/banner.png
-date: 2025-10-07 23:25:27
+date: 2026-03-24 01:02:27
 series: 컴퓨터 기초
 draft: false
 ---
