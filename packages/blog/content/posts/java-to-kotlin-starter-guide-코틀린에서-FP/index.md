@@ -3,7 +3,7 @@ title: "[코틀린 입문] 코틀린에서 FP"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2025-10-08 17:34:27
+date: 2026-03-23 21:33:27
 series: 코틀린 입문
 draft: false
 ---
