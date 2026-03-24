@@ -3,7 +3,7 @@ title: "[코틀린 입문] 추가적으로 알아두어야 할 코틀린 특성"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2025-10-08 21:21:27
+date: 2026-03-24 17:54:27
 series: 코틀린 입문
 draft: false
 ---
