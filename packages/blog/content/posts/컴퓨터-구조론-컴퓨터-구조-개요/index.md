@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] 컴퓨터 구조 개요"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2025-10-08 22:54:27
+date: 2026-03-26 17:34:27
 series: 컴퓨터 구조론
 draft: false
 ---
