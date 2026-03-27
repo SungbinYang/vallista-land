@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] 컴퓨터 구성 요소"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2025-10-09 14:29:27
+date: 2026-03-27 16:58:27
 series: 컴퓨터 구조론
 draft: false
 ---
