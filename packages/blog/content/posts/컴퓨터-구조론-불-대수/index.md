@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] 불 대수"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2025-11-01 14:06:27
+date: 2026-03-28 10:59:27
 series: 컴퓨터 구조론
 draft: false
 ---
