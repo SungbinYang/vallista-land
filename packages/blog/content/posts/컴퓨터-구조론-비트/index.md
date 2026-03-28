@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] 비트"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-14 15:21:27
+date: 2026-03-28 11:38:27
 series: 컴퓨터 구조론
 draft: false
 ---
