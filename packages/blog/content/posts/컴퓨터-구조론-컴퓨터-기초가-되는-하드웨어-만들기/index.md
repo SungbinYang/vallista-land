@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] 컴퓨터의 기초가 되는 하드웨어 만들기"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-15 20:28:27
+date: 2026-03-29 12:16:27
 series: 컴퓨터 구조론
 draft: false
 ---
