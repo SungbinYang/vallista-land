@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] CPU 만들기: 산술논리연산장치(ALU)"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-16 22:35:27
+date: 2026-03-29 22:35:27
 series: 컴퓨터 구조론
 draft: false
 ---
