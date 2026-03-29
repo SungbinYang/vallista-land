@@ -49,6 +49,76 @@ export const _Contents = styled(_Wrapper)`
       margin: 0 0 2rem;
     }
 
+    /* Table */
+
+    table {
+      width: 100% !important;
+      max-width: 100% !important;
+      border-collapse: collapse !important;
+      border-spacing: 0 !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+      box-shadow: none !important;
+      border: 1px solid ${theme.colors.PRIMARY.ACCENT_2} !important;
+      background: ${theme.colors.PRIMARY.BACKGROUND} !important;
+      display: table !important;
+      table-layout: auto !important;
+    }
+
+    table thead tr {
+      background: ${theme.colors.PRIMARY.ACCENT_2} !important;
+    }
+
+    table th {
+      padding: 12px 16px !important;
+      color: ${theme.colors.PRIMARY.FOREGROUND} !important;
+      font-weight: 600 !important;
+      text-align: left !important;
+      border: none !important;
+      border-bottom: 2px solid ${theme.colors.PRIMARY.ACCENT_3} !important;
+      font-size: 0.9rem !important;
+      line-height: 1.5 !important;
+      background: transparent !important;
+    }
+
+    table td {
+      padding: 10px 16px !important;
+      color: ${theme.colors.PRIMARY.ACCENT_8} !important;
+      text-align: left !important;
+      border: none !important;
+      border-bottom: 1px solid ${theme.colors.PRIMARY.ACCENT_2} !important;
+      font-size: 0.9rem !important;
+      line-height: 1.5 !important;
+      background: transparent !important;
+    }
+
+    table tbody tr {
+      background: ${theme.colors.PRIMARY.BACKGROUND} !important;
+      transition: background 0.15s ease !important;
+    }
+
+    table tbody tr:nth-of-type(even) {
+      background: ${theme.colors.PRIMARY.ACCENT_1} !important;
+    }
+
+    table tbody tr:hover {
+      background: ${theme.colors.PRIMARY.ACCENT_2} !important;
+    }
+
+    table tbody tr:last-of-type td {
+      border-bottom: none !important;
+    }
+
+    table th[style],
+    table td[style] {
+      color: inherit !important;
+      background: inherit !important;
+    }
+
+    table tr[style] {
+      background: inherit !important;
+    }
+
     center {
       color: ${theme.colors.PRIMARY.ACCENT_5};
       font-size: 0.8rem;
