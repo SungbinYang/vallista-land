@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] 제어장치가 없는 컴퓨터"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-18 11:25:27
+date: 2026-03-31 17:44:27
 series: 컴퓨터 구조론
 draft: false
 ---
