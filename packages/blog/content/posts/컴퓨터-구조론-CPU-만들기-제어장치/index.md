@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] CPU 만들기 - 제어장치"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-18 15:33:27
+date: 2026-04-01 19:10:27
 series: 컴퓨터 구조론
 draft: false
 ---
