@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론] 기계어와 어셈블리어"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-18 17:01:27
+date: 2026-04-02 06:23:27
 series: 컴퓨터 구조론
 draft: false
 ---
