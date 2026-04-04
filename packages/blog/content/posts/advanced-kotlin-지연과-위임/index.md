@@ -3,7 +3,7 @@ title: "[코틀린 고급] 지연과 위임"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2026-02-20 15:55:27
+date: 2026-04-04 16:50:27
 series: 코틀린 고급
 draft: false
 ---
