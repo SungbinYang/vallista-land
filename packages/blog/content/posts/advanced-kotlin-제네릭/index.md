@@ -3,7 +3,7 @@ title: "[코틀린 고급] 제네릭"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2026-02-19 15:14:27
+date: 2026-04-04 15:14:27
 series: 코틀린 고급
 draft: false
 ---

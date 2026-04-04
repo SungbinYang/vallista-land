@@ -3,7 +3,7 @@ title: "[Git & Github] 시간 여행하기"
 tags:
   - git
 image: ./assets/banner.png
-date: 2026-04-04 11:41:27
+date: 2026-04-04 13:26:27
 series: git
 draft: false
 ---
