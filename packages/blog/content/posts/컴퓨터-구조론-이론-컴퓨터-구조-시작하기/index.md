@@ -3,7 +3,7 @@ title: "[컴퓨터 구조론 이론] 컴퓨터 구조 시작하기"
 tags:
   - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-04-05 12:13:27
+date: 2026-04-05 12:34:27
 series: 컴퓨터 구조론 이론
 draft: false
 ---
