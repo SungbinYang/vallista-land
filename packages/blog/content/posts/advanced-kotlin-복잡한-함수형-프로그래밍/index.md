@@ -3,7 +3,7 @@ title: "[코틀린 고급] 복잡한 함수형 프로그래밍"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2026-02-20 18:21:27
+date: 2026-04-05 17:44:27
 series: 코틀린 고급
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "[Git & Github] Github 시작하기"
 tags:
   - git
 image: ./assets/banner.png
-date: 2026-04-05 14:21:27
+date: 2026-04-05 16:49:27
 series: git
 draft: false
 ---
