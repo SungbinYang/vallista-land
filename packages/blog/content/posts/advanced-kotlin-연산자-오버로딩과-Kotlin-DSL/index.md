@@ -3,7 +3,7 @@ title: "[코틀린 고급] 연산자 오버로딩과 Kotlin DSL"
 tags:
   - kotlin
 image: ./assets/banner.png
-date: 2026-02-21 16:49:27
+date: 2026-04-05 19:12:27
 series: 코틀린 고급
 draft: false
 ---
@@ -197,140 +197,39 @@ fun calculate(num1: Int, num2: Int, oper: Operator) = oper(num1, num2)
 
 ### 코틀린 연산자 오버로딩 정리
 
-<table style="border-collapse: collapse; width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 15px;">
-  <thead style="color: black;">
-    <tr style="background-color: #f5f5f5;">
-      <th style="border: 1px solid #ddd; padding: 12px 16px; text-align: left; font-weight: 600;">연산자 표현</th>
-      <th style="border: 1px solid #ddd; padding: 12px 16px; text-align: left; font-weight: 600;">대응되는 함수</th>
-    </tr>
-  </thead>
-  <tbody style="color: black;">
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">+a</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.unaryPlus()</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">-a</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.unaryMinus()</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">!a</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.not()</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a++</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.inc()</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a--</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.dec()</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a + b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.plus(b)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a - b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.minus(b)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a * b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.times(b)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a / b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.div(b)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a % b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.rem(b)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a..b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.rangeTo(b)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a in b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>b.contains(a)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a !in b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>!b.contains(a)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a[i]</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.get(i)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a[i, j] 수를 늘릴 수 있다. (ex. a[1, 2, 3])</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.get(i, j)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a[i] = b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.set(i, b)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a[i, j] = b 수를 늘릴 수 있다. (ex. a[1, 2, 3] = 4)</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.set(i, j, b)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a()</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.invoke()</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a(i)</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.invoke(i)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a(i, j) 수를 늘릴 수 있다. (ex. a(1, 2, 3))</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.invoke(i, j)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a += b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.plusAssign(b)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a -= b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.minusAssign(b)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a *= b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.timesAssign(b)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a /= b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.divAssign(b)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a %= b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.remAssign(b)</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a == b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a?.equals(b) ?: (b === null)</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a != b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>!(a?.equals(b) ?: (b === null))</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a &gt; b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.compareTo(b) &gt; 0</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a &lt; b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.compareTo(b) &lt; 0</code></td>
-    </tr>
-    <tr style="background-color: #fafafa;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a &gt;= b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.compareTo(b) &gt;= 0</code></td>
-    </tr>
-    <tr style="background-color: #fff;">
-      <td style="border: 1px solid #ddd; padding: 10px 16px;">a &lt;= b</td>
-      <td style="border: 1px solid #ddd; padding: 10px 16px;"><code>a.compareTo(b) &lt;= 0</code></td>
-    </tr>
-  </tbody>
-</table>
+| 연산자 표현                                       | 대응되는 함수                         |
+|----------------------------------------------|---------------------------------|
+| +a                                           | a.unaryPlus()                   |
+| -a                                           | a.unaryMinus()                  |
+| !a                                           | a.not()                         |
+| a++                                          | a.inc()                         |
+| a--                                          | a.dec()                         |
+| a + b                                        | a.plus(b)                       |
+| a - b                                        | a.minus(b)                      |
+| a * b                                        | a.times(b)                      |
+| a / b                                        | a.div(b)                        |
+| a % b                                        | a.rem(b)                        |
+| a..b                                         | a.rangeTo(b)                    |
+| a in b                                       | b.contains(a)                   |
+| a !in b                                      | !b.contains(a)                  |
+| a[i]                                         | a.get(i)                        |
+| a[i, j] 수를 늘릴 수 있다. (ex. a[1, 2, 3])         | a.get(i, j)                     |
+| a[i] = b                                     | a.set(i, b)                     |
+| a[i, j] = b 수를 늘릴 수 있다. (ex. a[1, 2, 3] = 4) | a.set(i, j, b)                  |
+| a()                                          | a.invoke()                      |
+| a(i)                                         | a.invoke(i)                     |
+| a(i, j) 수를 늘릴 수 있다. (ex. a(1, 2, 3))         | a.invoke(i, j)                  |
+| a += b                                       | a.plusAssign(b)                 |
+| a -= b                                       | a.minusAssign(b)                |
+| a *= b                                       | a.timesAssign(b)                |
+| a /= b                                       | a.divAssign(b)                  |
+| a %= b                                       | a.remAssign(b)                  |
+| a == b                                       | a?.equals(b) ?: (b === null)    |
+| a != b                                       | !(a?.equals(b) ?: (b === null)) |
+| a > b                                        | a.compareTo(b) > 0              |
+| a < b                                        | a.compareTo(b) < 0              |
+| a >= b                                       | a.compareTo(b) >= 0             |
+| a <= b                                       | a.compareTo(b) <= 0             |
 
 ## Kotlin DSL 직접 만들어보기
 
