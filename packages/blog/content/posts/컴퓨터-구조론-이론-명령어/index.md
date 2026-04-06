@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론 이론] 명령어"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-21 14:15:27
+date: 2026-04-06 12:08:27
 series: 컴퓨터 구조론 이론
 draft: false
 ---
