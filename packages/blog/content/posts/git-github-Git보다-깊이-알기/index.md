@@ -3,7 +3,7 @@ title: "[Git & Github] Git보다 깊이 알기"
 tags:
   - git
 image: ./assets/banner.png
-date: 2026-04-06 16:49:27
+date: 2026-04-06 14:14:27
 series: git
 draft: false
 ---
