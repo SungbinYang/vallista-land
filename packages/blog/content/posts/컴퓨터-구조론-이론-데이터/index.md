@@ -1,9 +1,9 @@
 ---
 title: "[컴퓨터 구조론 이론] 데이터"
 tags:
-  - cs
+  - 컴퓨터 구조론
 image: ./assets/banner.png
-date: 2026-02-21 12:13:27
+date: 2026-04-06 11:10:27
 series: 컴퓨터 구조론 이론
 draft: false
 ---
