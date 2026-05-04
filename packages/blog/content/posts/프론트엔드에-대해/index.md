@@ -3,7 +3,7 @@ title: "[프론트엔드] 프론트엔드에 대해"
 tags:
   - 프론트엔드
 image: ./assets/banner.png
-date: 2026-04-23 19:09:27
+date: 2026-05-04 12:16:27
 series: 프론트엔드
 draft: false
 ---
