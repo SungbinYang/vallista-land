@@ -3,7 +3,7 @@ title: "[프론트엔드] Javascript"
 tags:
   - 프론트엔드
 image: ./assets/banner.png
-date: 2026-05-04 14:44:27
+date: 2026-06-11 17:40:27
 series: 프론트엔드
 draft: false
 ---
