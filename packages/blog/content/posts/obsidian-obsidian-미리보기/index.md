@@ -1,5 +1,5 @@
 ---
-title: "Obsidian 미리보기"
+title: "[obsidian] Obsidian 미리보기"
 tags:
   - obsidian
 image: ./assets/banner.png
