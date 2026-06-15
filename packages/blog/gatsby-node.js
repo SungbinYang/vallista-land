@@ -29,48 +29,9 @@ exports.onCreateBabelConfig = ({ actions }) => {
   })
 }
 
-// You can delete this file if you're not using it
-exports.createPages = async function ({ actions, graphql }) {
-  const { createPage } = actions
-
-  const postPage = path.resolve(`./src/template/post.tsx`)
-  const errorPage = path.resolve(`./src/pages/404.tsx`)
-
-  const result = await graphql(`
-    {
-      allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-          }
-        }
-      }
-    }
-  `)
-
-  const posts = result.data.allMarkdownRemark.nodes
-
-  if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      actions.createPage({
-        path: post.fields.slug,
-        component: postPage,
-        context: {
-          id: post.id,
-          series: post.frontmatter.series || ''
-        }
-      })
-    })
-  }
-}
-
 // 검색 인덱스(search-index.json) 생성
-// develop / build 양쪽에서 실행되도록 onPostBootstrap 사용
-exports.onPostBootstrap = async ({ graphql, store, reporter }) => {
+// createPages 안에서 호출 → develop / build 양쪽에서 실행되고 graphql도 사용 가능
+async function writeSearchIndex({ graphql, store, reporter }) {
   const result = await graphql(`
     {
       allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
@@ -109,6 +70,44 @@ exports.onPostBootstrap = async ({ graphql, store, reporter }) => {
   fs.writeFileSync(path.join(publicPath, 'search-index.json'), JSON.stringify(index))
 
   reporter.info(`검색 인덱스 생성 완료: ${index.length}개 포스트`)
+}
+
+// You can delete this file if you're not using it
+exports.createPages = async function ({ actions, graphql, store, reporter }) {
+  const postPage = path.resolve(`./src/template/post.tsx`)
+
+  const result = await graphql(`
+    {
+      allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            series
+          }
+        }
+      }
+    }
+  `)
+
+  const posts = result.data.allMarkdownRemark.nodes
+
+  if (posts.length > 0) {
+    posts.forEach((post, index) => {
+      actions.createPage({
+        path: post.fields.slug,
+        component: postPage,
+        context: {
+          id: post.id,
+          series: post.frontmatter.series || ''
+        }
+      })
+    })
+  }
+
+  await writeSearchIndex({ graphql, store, reporter })
 }
 
 // 노드 환경 생성될 때
