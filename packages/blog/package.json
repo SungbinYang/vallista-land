@@ -20,6 +20,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mdx-js/mdx": "^2.3.0",
+    "flexsearch": "^0.8.212",
     "@mdx-js/react": "^2.3.0",
     "cross-env": "^10.1.0",
     "gatsby": "^5.16.1",

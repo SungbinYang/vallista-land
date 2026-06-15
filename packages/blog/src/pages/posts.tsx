@@ -4,7 +4,9 @@ import { graphql } from 'gatsby'
 import { useMemo, useState, VFC } from 'react'
 
 import { ListTable } from '../components/ListTable'
+import { SearchResults } from '../components/SearchResults'
 import { Seo } from '../components/Seo'
+import { useSearch } from '../hooks/useSearch'
 import { IndexQuery, PageProps } from '../types/type'
 import { toDate, getTime, filteredByDraft } from '../utils'
 
@@ -22,24 +24,6 @@ const PostsPage: VFC<PageProps<IndexQuery>> = (props) => {
         return target.getTime() - base.getTime()
       }),
     [nodes]
-  )
-
-  const sortPosts = useMemo(
-    () =>
-      posts.map((it) => {
-        const { slug } = it.fields
-        const { date, title: name } = it.frontmatter
-        const [, month, day] = getTime(date)
-        const time = toDate(date)
-
-        return {
-          time: time.getTime(),
-          date: `${Number(month)}월 ${Number(day)}일`,
-          name,
-          slug
-        }
-      }),
-    [posts]
   )
 
   const views = useMemo(() => {
@@ -68,12 +52,9 @@ const PostsPage: VFC<PageProps<IndexQuery>> = (props) => {
       .sort((a, b) => Number(b.year) - Number(a.year))
   }, [nodes])
 
-  const filteredSearchPosts = useMemo(
-    () => sortPosts.filter((it) => it.name.toLocaleUpperCase().includes(search.toLocaleUpperCase())),
-    [sortPosts, search]
-  )
+  const { results, loading } = useSearch(search)
 
-  const hasSearchText = search.length !== 0
+  const hasSearchText = search.trim().length !== 0
 
   return (
     <Container>
@@ -86,7 +67,11 @@ const PostsPage: VFC<PageProps<IndexQuery>> = (props) => {
           <Spacer y={2} />
         </Container>
         {hasSearchText ? (
-          filteredSearchPosts.length === 0 ? (
+          loading ? (
+            <Text size={20} weight={600}>
+              검색 중이에요...
+            </Text>
+          ) : results.length === 0 ? (
             <>
               <Text size={20} weight={600}>
                 검색된 결과가 없어요 :(
@@ -96,7 +81,7 @@ const PostsPage: VFC<PageProps<IndexQuery>> = (props) => {
               </Text>
             </>
           ) : (
-            <ListTable underline title='검색결과' list={filteredSearchPosts} />
+            <SearchResults title={`검색결과 (${results.length})`} keyword={search} list={results} />
           )
         ) : (
           views.map((it) => (
