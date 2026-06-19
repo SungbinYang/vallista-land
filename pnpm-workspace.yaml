@@ -1,14 +1,37 @@
 packages:
   - 'packages/*'
+
+# 공급망 공격(Supply-Chain-Attack) 방어 — pnpm 11 보안 설정
+# 참고: https://tech.inflab.com/20260601-supply-chain-attack/
+minimumReleaseAge: 1440        # 게시 후 24시간(분 단위) 미경과 버전 설치 제외 (Cool-Down)
+minimumReleaseAgeStrict: true  # Cool-Down 충족 버전이 없으면 폴백하지 않고 설치 실패
+blockExoticSubdeps: true       # 간접 의존성이 Git URL/HTTP tarball 등 비-레지스트리 소스에서 설치되는 것 차단
+strictDepBuilds: true          # 허용 목록에 없는 빌드 스크립트(preinstall/install/postinstall) 발견 시 설치 실패
+dangerouslyAllowAllBuilds: false  # 모든 빌드 스크립트 무조건 허용 금지 (strictDepBuilds 무력화 방지)
+trustPolicy: no-downgrade      # 신뢰 수준 하락(Trusted Publisher→None 등) 시 설치 차단
+verifyDepsBeforeRun: error     # pnpm run/exec 전 의존성이 불완전하면 자동 설치 대신 실행 중단
+
+# trustPolicy: no-downgrade 예외 목록.
+# 아래는 모두 오랜 기간 널리 쓰여 온 검증된 패키지로, 유지보수 과정에서
+# 수동 게시(None) 패치가 섞이며 신뢰 수준 하락으로 오탐된 기존 간접 의존성이다.
+# 새 항목 추가 시 반드시 출처/버전을 확인하고 최소한으로만 유지할 것.
+trustPolicyExclude:
+  - '@octokit/endpoint@9.0.6'
+  - 'css-declaration-sorter@6.4.1'
+  - 'detect-port@1.6.1'
+  - 'semver@5.7.2 || 6.3.1'
+  - 'ua-parser-js@1.0.41'
+
+# 빌드 스크립트 실행을 명시적으로 허용한 신뢰 패키지 (네이티브 바이너리/번들러)
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  core-js: set this to true or false
-  core-js-pure: set this to true or false
-  es5-ext: set this to true or false
-  gatsby: set this to true or false
-  gatsby-cli: set this to true or false
-  lmdb: set this to true or false
-  msgpackr-extract: set this to true or false
-  nx: set this to true or false
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
+  '@parcel/watcher': true
+  core-js: true
+  core-js-pure: true
+  es5-ext: true
+  gatsby: true
+  gatsby-cli: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
+  sharp: true
+  unrs-resolver: true

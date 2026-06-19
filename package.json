@@ -1,6 +1,7 @@
 {
   "name": "root",
   "private": true,
+  "packageManager": "pnpm@11.8.0",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
@@ -45,20 +46,5 @@
       "prettier --write"
     ]
   },
-  "dependencies": {},
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "core-js",
-      "core-js-pure",
-      "es5-ext",
-      "gatsby",
-      "gatsby-cli",
-      "lmdb",
-      "msgpackr-extract",
-      "nx",
-      "sharp",
-      "unrs-resolver"
-    ]
-  }
+  "dependencies": {}
 }
