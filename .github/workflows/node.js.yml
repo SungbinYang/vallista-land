@@ -21,9 +21,8 @@ jobs:
           token: ${{ secrets.TOKEN }}
 
       - name: pnpm 설치
+        # 버전은 package.json의 packageManager(pnpm@11.8.0)에서 자동으로 읽음
         uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - name: Node.js 24 LTS 설정
         uses: actions/setup-node@v5
