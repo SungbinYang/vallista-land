@@ -3,7 +3,7 @@ title: "AI 시대에 개발을 처음 입문한다면"
 tags:
   - mac
 image: ./assets/banner.png
-date: 2026-06-08 12:05:27
+date: 2026-07-07 19:00:27
 series: mac
 draft: false
 ---
