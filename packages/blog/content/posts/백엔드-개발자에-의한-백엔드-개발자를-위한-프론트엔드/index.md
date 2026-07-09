@@ -3,7 +3,7 @@ title: "[프론트엔드] 백엔드 개발자에 의한, 백엔드 개발자를 
 tags:
   - 프론트엔드
 image: ./assets/banner.png
-date: 2026-06-10 13:56:27
+date: 2026-07-10 08:20:27
 series: 프론트엔드
 draft: false
 ---
