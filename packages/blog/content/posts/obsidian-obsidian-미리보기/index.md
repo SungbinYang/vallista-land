@@ -3,7 +3,7 @@ title: "[obsidian] Obsidian 미리보기"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-14 13:15:27
+date: 2026-07-13 13:15:27
 series: obsidian
 draft: false
 ---
