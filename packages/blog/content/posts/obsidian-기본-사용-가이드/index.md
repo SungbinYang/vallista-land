@@ -3,7 +3,7 @@ title: "[obsidian] 기본 사용 가이드"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-14 14:05:27
+date: 2026-07-13 21:06:27
 series: obsidian
 draft: false
 ---
