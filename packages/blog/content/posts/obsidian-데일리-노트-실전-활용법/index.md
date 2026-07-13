@@ -3,7 +3,7 @@ title: "[obsidian] 데일리 노트 실전 활용법"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-14 14:59:27
+date: 2026-07-13 21:46:27
 series: obsidian
 draft: false
 ---
