@@ -3,7 +3,7 @@ title: "[obsidian] 책에서 지식으로, 독서 기록법"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-14 16:28:27
+date: 2026-07-14 20:15:27
 series: obsidian
 draft: false
 ---
