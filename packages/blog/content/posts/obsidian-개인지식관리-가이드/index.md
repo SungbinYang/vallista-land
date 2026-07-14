@@ -3,7 +3,7 @@ title: "[obsidian] 개인지식관리(PKM) 가이드"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-14 15:45:27
+date: 2026-07-14 19:41:27
 series: obsidian
 draft: false
 ---
