@@ -3,7 +3,7 @@ title: "[obsidian] 세팅과 활용, 한 단계 더 나아가기!"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-15 19:56:27
+date: 2026-07-15 21:38:27
 series: obsidian
 draft: false
 ---
