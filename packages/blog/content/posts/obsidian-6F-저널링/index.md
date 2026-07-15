@@ -3,7 +3,7 @@ title: "[obsidian] 6F 저널링"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-15 14:18:27
+date: 2026-07-15 20:03:27
 series: obsidian
 draft: false
 ---
