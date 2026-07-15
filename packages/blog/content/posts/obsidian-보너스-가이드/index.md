@@ -3,7 +3,7 @@ title: "[obsidian] 보너스 가이드"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-15 15:09:27
+date: 2026-07-15 20:49:27
 series: obsidian
 draft: false
 ---
