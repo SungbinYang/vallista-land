@@ -3,7 +3,7 @@ title: "[obsidian] 신규 업데이트"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-16 15:56:27
+date: 2026-07-16 21:27:27
 series: obsidian
 draft: false
 ---
