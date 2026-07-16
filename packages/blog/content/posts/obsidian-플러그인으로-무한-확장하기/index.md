@@ -3,7 +3,7 @@ title: "[obsidian] 플러그인으로 무한 확장하기"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-16 13:03:27
+date: 2026-07-16 20:30:27
 series: obsidian
 draft: false
 ---
