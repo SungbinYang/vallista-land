@@ -3,7 +3,7 @@ title: "[obsidian] AI로 옵시디언 10배 활용하기"
 tags:
   - obsidian
 image: ./assets/banner.png
-date: 2026-06-16 20:16:27
+date: 2026-07-17 12:35:27
 series: obsidian
 draft: false
 ---
