@@ -3,7 +3,7 @@ title: "[Claude Code] 클로드 코드 맛보기 및 초기화"
 tags:
   - claude
 image: ./assets/banner.png
-date: 2026-06-20 14:14:27
+date: 2026-07-19 14:33:27
 series: claude
 draft: false
 ---
