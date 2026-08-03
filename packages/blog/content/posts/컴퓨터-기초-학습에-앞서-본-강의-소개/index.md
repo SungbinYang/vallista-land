@@ -3,7 +3,7 @@ title: "[컴퓨터 기초] 학습에 앞서 본 강의 소개"
 tags:
   - 컴퓨터 기초
 image: ./assets/banner.png
-date: 2026-08-02 14:42:27
+date: 2026-08-03 20:42:27
 series: 컴퓨터 기초
 draft: false
 ---
