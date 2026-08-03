@@ -3,7 +3,7 @@ title: "[Claude Code] 터미널 익숙해지기"
 tags:
   - claude
 image: ./assets/banner.png
-date: 2026-08-02 12:42:27
+date: 2026-08-04 04:28:27
 series: claude
 draft: false
 ---
