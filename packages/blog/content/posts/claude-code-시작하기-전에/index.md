@@ -3,7 +3,7 @@ title: "[Claude Code] 시작하기 전에"
 tags:
   - claude
 image: ./assets/banner.png
-date: 2026-08-02 12:17:27
+date: 2026-08-03 20:09:27
 series: claude
 draft: false
 ---
