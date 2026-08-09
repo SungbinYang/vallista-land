@@ -3,7 +3,7 @@ title: "[Claude Code] 개발환경 및 클로드 코드 설치"
 tags:
   - claude
 image: ./assets/banner.png
-date: 2026-07-19 13:56:27
+date: 2026-08-05 13:56:27
 series: claude
 draft: false
 ---
