@@ -3,7 +3,7 @@ title: "[IntelliJ] 플러그인"
 tags:
   - IDE
 image: ./assets/banner.png
-date: 2026-03-27 17:24:27
+date: 2026-08-20 04:17:27
 series: IntelliJ
 draft: false
 ---
