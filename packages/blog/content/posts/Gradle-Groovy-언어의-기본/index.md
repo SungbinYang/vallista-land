@@ -3,7 +3,7 @@ title: "[Gradle] Groovy 언어의 기본"
 tags:
   - gradle
 image: ./assets/banner.png
-date: 2026-03-30 19:21:27
+date: 2026-08-22 15:32:27
 series: gradle
 draft: false
 ---
@@ -17,7 +17,7 @@ draft: false
 지금까지 Gradle 시리즈에서 빌드 스크립트를 Groovy DSL로 작성해왔다. `build.gradle` 파일의 문법이 Java와 비슷하면서도 다른 느낌이었는데, 이번 글에서는 Gradle의 빌드 스크립트 언어인
 **Groovy**가 어떤 언어인지 알아보자.
 
-Apache Groovy는 Java 플랫폼을 위한 강력하고 선택적으로 타입을 지정할 수 있는(optionally typed) **동적 언어**이다. 스크립팅과 애플리케이션 개발 모두를 지원하는 다목적 언어로
+Apache Groovy는 Java 플랫폼을 위한 강력하고 선택적으로 타입을 지정할 수 있는 (optionally typed) **동적 언어**이다. 스크립팅과 애플리케이션 개발 모두를 지원하는 다목적 언어로
 설계되었다.
 
 ### Groovy의 주요 특징
@@ -74,19 +74,19 @@ names.each { println it }
 
 Groovy에서 자주 사용되는 간결한 문법을 Java와 비교하면 다음과 같다.
 
-| 기능            | Java                                       | Groovy            |
-|---------------|--------------------------------------------|-------------------|
-| 리스트 생성        | `new ArrayList<>(Arrays.asList("a", "b"))` | `["a", "b"]`      |
-| 맵 생성          | `Map.of("key", "value")`                   | `[key: "value"]`  |
-| 문자열 보간        | `"Hello " + name`                          | `"Hello ${name}"` |
-| getter/setter | 직접 작성 또는 lombok                            | 자동 생성             |
-| 세미콜론          | 필수                                         | 생략 가능             |
-| 괄호            | 필수                                         | 경우에 따라 생략 가능      |
-| null 안전 접근    | `obj != null ? obj.method() : null`        | `obj?.method()`   |
+| 기능           | Java                                       | Groovy                |
+|----------------|--------------------------------------------|-----------------------|
+| 리스트 생성    | `new ArrayList<>(Arrays.asList("a", "b"))` | `["a", "b"]`          |
+| 맵 생성        | `Map.of("key", "value")`                   | `[key: "value"]`      |
+| 문자열 보간    | `"Hello " + name`                          | `"Hello ${name}"`     |
+| getter/setter  | 직접 작성 또는 lombok                      | 자동 생성             |
+| 세미콜론       | 필수                                       | 생략 가능             |
+| 괄호           | 필수                                       | 경우에 따라 생략 가능 |
+| null 안전 접근 | `obj != null ? obj.method() : null`        | `obj?.method()`       |
 
 #### 인터프리터 & 컴파일러
 
-Groovy는 스크립팅 언어(런타임에 인터프리트)로도, 컴파일 언어(JVM 바이트코드로 컴파일)로도 사용할 수 있다. `.groovy` 파일을 `groovy` 명령어로 바로 실행할 수도 있고, `groovyc`로
+Groovy는 스크립팅 언어 (런타임에 인터프리트)로도, 컴파일 언어 (JVM 바이트코드로 컴파일)로도 사용할 수 있다. `.groovy` 파일을 `groovy` 명령어로 바로 실행할 수도 있고, `groovyc`로
 컴파일하여 `.class` 파일을 생성할 수도 있다.
 
 ### Groovy 설치 및 실행
@@ -133,6 +133,61 @@ Hello World!
 
 ![image02](./assets/02.png)
 
+#### 대화형 셸: groovysh
+
+파일을 만들지 않고 한두 줄만 빠르게 확인하고 싶을 때는 `groovysh`를 사용한다. Python의 `python` REPL과 같은 대화형 셸이다.
+
+```bash
+$ groovysh
+Groovy Shell (5.0.5, JVM: 25.0.2)
+Type ':help' or ':h' for help.
+---------------------------------------------------------------------------
+groovy:000> def name = "Gradle"
+===> Gradle
+groovy:000> println "Hello, ${name}!"
+Hello, Gradle!
+===> null
+groovy:000> [1, 2, 3].collect { it * 2 }
+===> [2, 4, 6]
+groovy:000> :quit
+```
+
+입력한 표현식의 결과가 `===>` 뒤에 바로 표시된다. 이 글에서 다룰 문법들을 눈으로 확인하기에 가장 빠른 방법이므로, 학습 중에는 셸을 하나 띄워두고 따라가는 것을 권한다.
+
+GUI 환경을 선호한다면 `groovyConsole`을 실행하면 된다. 여러 줄의 스크립트를 편집기에 작성하고 `Ctrl+R`(macOS는 `Cmd+R`)로 실행하여 결과를 아래 창에서 확인할 수 있다.
+
+```bash
+groovyConsole
+```
+
+#### 컴파일해서 사용하기: groovyc
+
+Groovy는 스크립트로 바로 실행할 수도 있지만, `groovyc`로 컴파일하여 `.class` 파일을 만들 수도 있다.
+
+```bash
+$ groovyc HelloWorld.groovy
+$ ls
+HelloWorld.class    HelloWorld.groovy
+```
+
+생성된 `.class`는 일반적인 JVM 바이트코드이므로 `java` 명령으로 실행할 수 있다. 다만 Groovy 런타임 라이브러리가 클래스패스에 필요하다.
+
+```bash
+java -cp .:$GROOVY_HOME/lib/groovy-5.0.5.jar HelloWorld
+```
+
+여기서 기억할 점은 **`.groovy` 스크립트도 실행 시점에 결국 클래스로 컴파일된다**는 것이다. `groovy HelloWorld.groovy`는 컴파일 과정을 눈에 보이지 않게 대신 해줄 뿐이다. 이 사실은
+`build.gradle`이 어떻게 동작하는지 이해할 때 다시 등장하므로 기억해두자.
+
+#### 여러 버전을 함께 쓴다면: SDKMAN!
+
+프로젝트마다 다른 Groovy 버전이 필요하다면 Homebrew보다 SDKMAN!이 편하다. Gradle과 마찬가지로 버전을 전환하며 사용할 수 있다.
+
+```bash
+sdk install groovy
+sdk use groovy 4.0.23
+```
+
 ### Groovy의 주요 활용 분야
 
 #### 빌드 자동화
@@ -155,7 +210,7 @@ dependencies {
 }
 ```
 
-위 코드가 가능한 이유는 Groovy의 문법적 특성 때문이다. 메서드 호출 시 괄호를 생략할 수 있고, 클로저(Closure)를 마지막 인자로 전달할 때 중괄호를 사용할 수 있다. `plugins { }`,
+위 코드가 가능한 이유는 Groovy의 문법적 특성 때문이다. 메서드 호출 시 괄호를 생략할 수 있고, 클로저 (Closure)를 마지막 인자로 전달할 때 중괄호를 사용할 수 있다. `plugins { }`,
 `dependencies { }` 같은 블록이 모두 Groovy의 클로저 문법이다.
 
 #### 스크립팅과 자동화
@@ -168,19 +223,19 @@ Groovy 기반의 웹 프레임워크인 **Grails**는 Ruby on Rails에서 영감
 
 #### 테스팅
 
-Groovy는 **Spock** 테스트 프레임워크의 기반 언어이다. Spock은 BDD(Behavior-Driven Development) 스타일의 테스트를 간결하게 작성할 수 있어 Java/Kotlin
-프로젝트에서도 테스트 코드만 Groovy(Spock)로 작성하는 경우가 많다. `gradle init`에서 테스트 프레임워크를 선택할 때 Spock이 있었던 것도 이 때문이다.
+Groovy는 **Spock** 테스트 프레임워크의 기반 언어이다. Spock은 BDD (Behavior-Driven Development) 스타일의 테스트를 간결하게 작성할 수 있어 Java/Kotlin
+프로젝트에서도 테스트 코드만 Groovy (Spock)로 작성하는 경우가 많다. `gradle init`에서 테스트 프레임워크를 선택할 때 Spock이 있었던 것도 이 때문이다.
 
 ### Groovy vs Kotlin DSL
 
 이 시리즈의 첫 글에서 Groovy DSL과 Kotlin DSL을 비교한 적이 있다. Gradle에서 두 언어의 위상을 정리하면 다음과 같다.
 
-| 항목    | Groovy DSL         | Kotlin DSL         |
-|-------|--------------------|--------------------|
-| 파일명   | `build.gradle`     | `build.gradle.kts` |
-| 현재 위상 | 레거시로 분류되는 추세       | Gradle 공식 권장       |
-| 장점    | 간결한 문법, 유연한 동적 타이핑 | 타입 안전성, IDE 자동 완성  |
-| 학습 가치 | 기존 프로젝트 유지보수에 필수   | 신규 프로젝트에 권장        |
+| 항목      | Groovy DSL                      | Kotlin DSL                 |
+|-----------|---------------------------------|----------------------------|
+| 파일명    | `build.gradle`                  | `build.gradle.kts`         |
+| 현재 위상 | 레거시로 분류되는 추세          | Gradle 공식 권장           |
+| 장점      | 간결한 문법, 유연한 동적 타이핑 | 타입 안전성, IDE 자동 완성 |
+| 학습 가치 | 기존 프로젝트 유지보수에 필수   | 신규 프로젝트에 권장       |
 
 Gradle 공식 문서에서는 Kotlin DSL을 권장하고 있지만, 여전히 많은 프로젝트와 레퍼런스가 Groovy DSL로 작성되어 있다. 또한 Groovy의 문법을 이해하면 `build.gradle`을 읽고
 수정하는 데 어려움이 없으므로, 두 DSL 모두 알아두는 것이 좋다.
@@ -189,12 +244,12 @@ Gradle 공식 문서에서는 Kotlin DSL을 권장하고 있지만, 여전히 �
 
 ### Groovy의 데이터 타입
 
-Groovy의 개요와 주요 특징을 살펴보았다. 이번에는 Groovy의 **데이터 타입**을 구체적으로 알아보자. Groovy는 JVM 기반 언어이므로 Java의 원시 타입(Primitive Types)을 그대로
-사용하면서도, 필요할 때 자동으로 래퍼 클래스(Wrapper Class)로 변환한다. 여기에 Groovy만의 편리한 타입들이 추가된다.
+Groovy의 개요와 주요 특징을 살펴보았다. 이번에는 Groovy의 **데이터 타입**을 구체적으로 알아보자. Groovy는 JVM 기반 언어이므로 Java의 원시 타입 (Primitive Types)을 그대로
+사용하면서도, 필요할 때 자동으로 래퍼 클래스 (Wrapper Class)로 변환한다. 여기에 Groovy만의 편리한 타입들이 추가된다.
 
 ### 원시 데이터 타입 (Primitive Data Types)
 
-Groovy는 Java의 8가지 원시 타입을 모두 지원한다. 다만 Groovy 내부에서는 원시 타입도 객체로 취급되어, 필요 시 자동으로 래퍼 클래스로 박싱(boxing)된다.
+Groovy는 Java의 8가지 원시 타입을 모두 지원한다. 다만 Groovy 내부에서는 원시 타입도 객체로 취급되어, 필요 시 자동으로 래퍼 클래스로 박싱 (boxing)된다.
 
 ```groovy
 // Byte — 8비트 정수
@@ -236,22 +291,22 @@ println "Boolean: $bool"
 
 각 원시 타입과 래퍼 클래스의 대응 관계를 정리하면 다음과 같다.
 
-| 원시 타입     | 크기   | 래퍼 클래스      | 설명                         |
-|-----------|------|-------------|----------------------------|
-| `byte`    | 8비트  | `Byte`      | 정수 (-128 ~ 127)            |
-| `short`   | 16비트 | `Short`     | 정수 (-32,768 ~ 32,767)      |
-| `int`     | 32비트 | `Integer`   | 정수 (약 ±21억)                |
+| 원시 타입 | 크기   | 래퍼 클래스 | 설명                                     |
+|-----------|--------|-------------|------------------------------------------|
+| `byte`    | 8비트  | `Byte`      | 정수 (-128 ~ 127)                        |
+| `short`   | 16비트 | `Short`     | 정수 (-32,768 ~ 32,767)                  |
+| `int`     | 32비트 | `Integer`   | 정수 (약 ±21억)                          |
 | `long`    | 64비트 | `Long`      | 정수 (매우 큰 범위), 리터럴에 `L` 접미사 |
-| `float`   | 32비트 | `Float`     | 부동소수점, 리터럴에 `F` 접미사        |
-| `double`  | 64비트 | `Double`    | 부동소수점 (기본 소수점 타입)          |
-| `char`    | 16비트 | `Character` | 유니코드 문자                    |
-| `boolean` | -    | `Boolean`   | `true` 또는 `false`          |
+| `float`   | 32비트 | `Float`     | 부동소수점, 리터럴에 `F` 접미사          |
+| `double`  | 64비트 | `Double`    | 부동소수점 (기본 소수점 타입)            |
+| `char`    | 16비트 | `Character` | 유니코드 문자                            |
+| `boolean` | -      | `Boolean`   | `true` 또는 `false`                      |
 
 ### 참조 데이터 타입 (Reference Data Types)
 
 #### String
 
-Groovy의 문자열은 `java.lang.String` 인스턴스이지만, 더 편리한 문법을 제공한다. 큰따옴표(`"`), 작은따옴표(`'`), 삼중 따옴표(`"""`, `'''`)를 사용할 수 있다.
+Groovy의 문자열은 `java.lang.String` 인스턴스이지만, 더 편리한 문법을 제공한다. 큰따옴표 (`"`), 작은따옴표 (`'`), 삼중 따옴표 (`"""`, `'''`)를 사용할 수 있다.
 
 ```groovy
 // 작은따옴표 — 순수 문자열 (java.lang.String)
@@ -297,7 +352,7 @@ println x.class  // class java.math.BigDecimal
 
 #### List
 
-Groovy의 리스트는 `java.util.List` 인스턴스이지만, 대괄호(`[]`)로 간편하게 생성할 수 있다. 중복 요소를 허용하는 순서가 있는 컬렉션이다.
+Groovy의 리스트는 `java.util.List` 인스턴스이지만, 대괄호 (`[]`)로 간편하게 생성할 수 있다. 중복 요소를 허용하는 순서가 있는 컬렉션이다.
 
 ```groovy
 // 리스트 생성
@@ -371,7 +426,8 @@ println chars.toList()        // [a, b, c, d, e, f]
 
 #### Closure
 
-클로저(Closure)는 Groovy에서 가장 중요한 특수 타입이다. `groovy.lang.Closure`의 인스턴스로, 주변 스코프의 변수를 캡처할 수 있는 익명 함수이다. 중괄호(`{}`)로 정의하고, `->`
+클로저 (Closure)는 Groovy에서 가장 중요한 특수 타입이다. `groovy.lang.Closure`의 인스턴스로, 주변 스코프의 변수를 캡처할 수 있는 익명 함수이다. 중괄호 (`{}`)로 정의하고,
+`->`
 기호로 파라미터와 본문을 구분한다.
 
 ```groovy
@@ -425,7 +481,7 @@ Gradle에서 `dependencies { ... }`, `tasks.register('hello') { ... }` 같은 �
 #### Null과 Safe Navigation Operator
 
 Groovy에서 `null`은 `java.lang.Void` 타입의 객체로 취급된다. Java에서 `null`에 메서드를 호출하면 `NullPointerException`이 발생하지만, Groovy는 **Safe
-Navigation Operator(`?.`)** 를 통해 이를 안전하게 처리할 수 있다.
+Navigation Operator (`?.`)** 를 통해 이를 안전하게 처리할 수 있다.
 
 ```groovy
 String nullableString = null
@@ -455,18 +511,96 @@ println "Value: $dynamicVar (Type: ${dynamicVar.getClass().name})"
 같은 변수에 문자열, 정수, 리스트를 순서대로 대입할 수 있다. Java에서는 불가능한 일이지만, Groovy의 동적 타이핑 덕분에 가능하다. 빌드 스크립트처럼 유연성이 중요한 상황에서 편리하지만, 대규모 코드에서는
 타입 안전성이 떨어질 수 있으므로 상황에 맞게 사용해야 한다.
 
+### 연산자 오버로딩과 Spread 연산자
+
+Groovy의 모든 연산자는 사실 **메서드 호출의 축약형**이다. `a + b`는 내부적으로 `a.plus(b)`를 호출한다. 이 규칙 덕분에 컬렉션에도 연산자를 그대로 쓸 수 있다.
+
+```groovy
+def list = [1, 2]
+list << 3                    // leftShift — 요소 추가
+println list                 // [1, 2, 3]
+ 
+println [1, 2, 3] + [4, 5]   // plus     → [1, 2, 3, 4, 5]
+println [1, 2, 3] - [2]      // minus    → [1, 3]
+println [1, 2] * 2           // multiply → [1, 2, 1, 2]
+ 
+def map = [a: 1]
+map << [b: 2]                // Map에도 동작
+println map                  // [a:1, b:2]
+ 
+println 2 in [1, 2, 3]       // isCase   → true
+```
+
+주요 연산자와 대응 메서드는 다음과 같다.
+
+| 연산자    | 대응 메서드      |
+|-----------|------------------|
+| `a + b`   | `a.plus(b)`      |
+| `a - b`   | `a.minus(b)`     |
+| `a * b`   | `a.multiply(b)`  |
+| `a << b`  | `a.leftShift(b)` |
+| `a[b]`    | `a.getAt(b)`     |
+| `a in b`  | `b.isCase(a)`    |
+| `a <=> b` | `a.compareTo(b)` |
+| `a == b`  | `a.equals(b)`    |
+
+#### Java와 다른 함정: `==`는 `equals()`이다
+
+표의 마지막 줄이 Java 개발자가 가장 자주 걸려 넘어지는 지점이다. Java에서 `==`는 참조 비교이지만, **Groovy에서 `==`는 `equals()` 호출로 변환된다.**
+
+```groovy
+def a = new String("hello")
+def b = new String("hello")
+ 
+println a == b       // true  — Groovy는 equals() 비교
+println a.is(b)      // false — 참조 비교는 is()를 사용
+```
+
+Java 습관대로 `==`를 참조 비교로 생각하면 안 되고, 반대로 문자열 비교에 `equals()`를 장황하게 쓸 필요도 없다. 참조 동일성이 정말 필요하면 `is()` 메서드를 사용한다.
+
+#### Spread 연산자 (`*.`)
+
+컬렉션의 모든 요소에서 같은 프로퍼티를 뽑거나 같은 메서드를 호출할 때 사용한다. `collect`의 축약형이라고 보면 된다.
+
+```groovy
+def words = ['gradle', 'groovy', 'kotlin']
+ 
+println words*.length()               // [6, 6, 6]
+println words.collect { it.length() } // [6, 6, 6] — 위와 동일
+ 
+println words*.toUpperCase()          // [GRADLE, GROOVY, KOTLIN]
+```
+
+`*`를 인자 자리에 쓰면 리스트를 개별 인자로 펼치는 **spread argument**가 된다.
+
+```groovy
+def sum(a, b, c) { a + b + c }
+def args = [1, 2, 3]
+println sum(*args)   // 6
+```
+
+Gradle 빌드 스크립트에서도 이 문법들이 그대로 쓰인다.
+
+```groovy
+// 소스 디렉토리 추가 — plus 연산자
+sourceSets.main.java.srcDirs += 'src/generated/java'
+ 
+// 등록된 모든 태스크의 이름만 추출 — spread 연산자
+println tasks*.name
+```
+
 ### Groovy 데이터 타입과 Gradle의 관계
 
 지금까지 배운 Groovy 데이터 타입들이 Gradle 빌드 스크립트에서 어떻게 활용되는지 연결해보자.
 
 | Groovy 데이터 타입 | Gradle에서의 활용 예시                                                                  |
-|---------------|----------------------------------------------------------------------------------|
-| String        | 의존성 좌표 (`'org.springframework:spring-core:6.0.0'`)                               |
-| List          | 소스 디렉토리 설정, 태스크 입력 파일 목록                                                         |
-| Map           | 태스크 속성 전달, 플러그인 설정                                                               |
-| Closure       | `dependencies { }`, `tasks.register { }`, `doFirst { }`, `doLast { }` 등 거의 모든 블록 |
-| Range         | 버전 범위 지정                                                                         |
-| `def`         | 빌드 스크립트 내 변수 선언                                                                  |
+|--------------------|-----------------------------------------------------------------------------------------|
+| String             | 의존성 좌표 (`'org.springframework:spring-core:6.0.0'`)                                 |
+| List               | 소스 디렉토리 설정, 태스크 입력 파일 목록                                               |
+| Map                | 태스크 속성 전달, 플러그인 설정                                                         |
+| Closure            | `dependencies { }`, `tasks.register { }`, `doFirst { }`, `doLast { }` 등 거의 모든 블록 |
+| Range              | 버전 범위 지정                                                                          |
+| `def`              | 빌드 스크립트 내 변수 선언                                                              |
 
 특히 **Closure**는 Gradle 빌드 스크립트의 근간이 되는 타입이다. `build.gradle` 파일의 거의 모든 `{ }` 블록이 클로저이며, 이를 이해하면 빌드 스크립트가 어떻게 동작하는지 훨씬
 명확해진다.
@@ -475,7 +609,7 @@ println "Value: $dynamicVar (Type: ${dynamicVar.getClass().name})"
 
 ### Groovy의 메서드
 
-Groovy의 데이터 타입을 살펴보았다. 이번에는 Groovy의 **메서드(Method)** 를 알아보자. Groovy의 메서드는 Java와 유사하지만, 동적 타이핑과 암묵적 반환 등 Groovy만의 특성이 더해져
+Groovy의 데이터 타입을 살펴보았다. 이번에는 Groovy의 **메서드 (Method)** 를 알아보자. Groovy의 메서드는 Java와 유사하지만, 동적 타이핑과 암묵적 반환 등 Groovy만의 특성이 더해져
 훨씬 간결하게 작성할 수 있다.
 
 ### 메서드 선언 방식
@@ -525,7 +659,7 @@ println(add3("Hello", " World"))  // Hello World
 
 #### 4. `return` 키워드 생략 (암묵적 반환)
 
-Groovy에서는 `return` 키워드를 생략할 수 있다. **메서드의 마지막 표현식(expression)의 결과가 자동으로 반환된다.**
+Groovy에서는 `return` 키워드를 생략할 수 있다. **메서드의 마지막 표현식 (expression)의 결과가 자동으로 반환된다.**
 
 ```groovy
 def add4(a, b) {
@@ -535,7 +669,7 @@ def add4(a, b) {
 println(add4(5, 6))  // 11
 ```
 
-이 코드에서 `a * b`는 평가되지만 그 결과(`30`)는 어디에도 저장되지 않고 버려진다. 마지막 표현식인 `a + b`의 결과(`11`)만 반환된다. 이 동작을 명확히 이해하는 것이 중요하다.
+이 코드에서 `a * b`는 평가되지만 그 결과 (`30`)는 어디에도 저장되지 않고 버려진다. 마지막 표현식인 `a + b`의 결과 (`11`)만 반환된다. 이 동작을 명확히 이해하는 것이 중요하다.
 
 ```groovy
 int add5(int a, int b) {
@@ -548,13 +682,13 @@ println(add5(3, 4))  // 7
 
 #### 메서드 선언 방식 비교
 
-| 방식     | 반환 타입      | 파라미터 타입    | return 키워드 | 특징                |
-|--------|------------|------------|------------|-------------------|
-| `add1` | `int` (명시) | `int` (명시) | 사용         | Java와 동일, 가장 명확   |
-| `add2` | `def` (동적) | `int` (명시) | 사용         | 반환 타입만 유연하게       |
-| `add3` | `def` (동적) | 생략 (동적)    | 사용         | 완전한 동적 타이핑        |
-| `add4` | `def` (동적) | 생략 (동적)    | 생략         | 가장 간결, 마지막 표현식 반환 |
-| `add5` | `int` (명시) | `int` (명시) | 생략         | 타입 안전 + 간결한 반환    |
+| 방식   | 반환 타입    | 파라미터 타입 | return 키워드 | 특징                          |
+|--------|--------------|---------------|---------------|-------------------------------|
+| `add1` | `int` (명시) | `int` (명시)  | 사용          | Java와 동일, 가장 명확        |
+| `add2` | `def` (동적) | `int` (명시)  | 사용          | 반환 타입만 유연하게          |
+| `add3` | `def` (동적) | 생략 (동적)   | 사용          | 완전한 동적 타이핑            |
+| `add4` | `def` (동적) | 생략 (동적)   | 생략          | 가장 간결, 마지막 표현식 반환 |
+| `add5` | `int` (명시) | `int` (명시)  | 생략          | 타입 안전 + 간결한 반환       |
 
 ### 암묵적 반환의 동작 원리
 
@@ -626,15 +760,121 @@ def addMethod(a, b) {
 def addClosure = { a, b -> a + b }
 ```
 
-| 항목        | 메서드                             | 클로저                        |
-|-----------|---------------------------------|----------------------------|
-| 정의 방식     | `def name(params) { }`          | `def name = { params -> }` |
-| 일급 객체 여부  | 아님 (직접 변수에 대입 불가)               | 일급 객체 (변수에 대입, 인자로 전달 가능)  |
-| `this` 참조 | 메서드가 속한 클래스                     | 클로저를 정의한 클래스               |
-| 인자로 전달    | `.&` 연산자 필요 (`this.&addMethod`) | 그대로 전달 가능                  |
+| 항목           | 메서드                               | 클로저                                    |
+|----------------|--------------------------------------|-------------------------------------------|
+| 정의 방식      | `def name(params) { }`               | `def name = { params -> }`                |
+| 일급 객체 여부 | 아님 (직접 변수에 대입 불가)         | 일급 객체 (변수에 대입, 인자로 전달 가능) |
+| `this` 참조    | 메서드가 속한 클래스                 | 클로저를 정의한 클래스                    |
+| 인자로 전달    | `.&` 연산자 필요 (`this.&addMethod`) | 그대로 전달 가능                          |
 
 Gradle 빌드 스크립트에서는 대부분 **클로저**가 사용된다. `dependencies { }`, `doFirst { }`, `doLast { }` 등이 모두 클로저이다. 하지만 커스텀 태스크 클래스나 플러그인을
 작성할 때는 메서드도 사용하므로 둘 다 이해해두는 것이 좋다.
+
+### 메서드 호출 규칙: 괄호 생략과 Named Argument
+
+지금까지는 메서드를 **선언**하는 방법을 봤다. Gradle 빌드 스크립트를 이해하려면 메서드를 **호출**할 때의 규칙을 아는 것이 더 중요하다. `build.gradle`의 낯선 문법들은 대부분 여기서 나온다.
+
+#### 규칙 1: 인자가 있으면 괄호를 생략할 수 있다
+
+```groovy
+println("Hello")
+println "Hello"      // 동일 — 괄호 생략
+```
+
+단, **인자가 없는 메서드는 괄호를 생략할 수 없다.** 괄호가 없으면 Groovy가 메서드 호출이 아니라 프로퍼티 접근으로 해석하기 때문이다.
+
+```groovy
+def now() { new Date() }
+ 
+println now()   // OK
+// println now  // 에러 — now라는 프로퍼티를 찾으려 한다
+```
+
+`build.gradle`에서 `implementation`에는 괄호가 없는데 `mavenCentral()`에는 괄호가 붙어 있는 이유가 바로 이것이다.
+
+```groovy
+repositories {
+    mavenCentral()      // 인자가 없으므로 괄호 필수
+}
+ 
+dependencies {
+    implementation 'org.apache.commons:commons-math3:3.6.1'   // 인자가 있으므로 생략 가능
+}
+```
+
+또 하나 주의할 점은, 괄호 생략이 **최상위 표현식에서만** 허용된다는 것이다. 다른 표현식 안에 중첩된 호출은 괄호가 필요하다.
+
+```groovy
+def add(a, b) { a + b }
+ 
+println add(1, 2)     // OK
+// println add 1, 2   // 에러 — 중첩된 호출은 괄호 필요
+```
+
+#### 규칙 2: Named Argument는 Map이다
+
+Groovy에서 `key: value` 형태로 인자를 넘기면, 그것들이 모여 **하나의 Map으로 첫 번째 인자에 전달된다.**
+
+```groovy
+def createUser(Map options) {
+    println "name=${options.name}, age=${options.age}"
+}
+ 
+createUser(name: 'Groovy', age: 20)   // name=Groovy, age=20
+createUser([name: 'Groovy', age: 20]) // 위와 완전히 동일
+```
+
+Gradle에서 자주 보는 다음 구문의 정체가 이것이다.
+
+```groovy
+apply plugin: 'java'
+// 실제로는 → apply([plugin: 'java'])
+ 
+tasks.register('copyDocs', Copy) { ... }
+// 타입을 Map으로 넘기는 스타일도 있다 → task([type: Copy], 'copyDocs')
+```
+
+#### 규칙 3: 마지막 인자가 클로저면 괄호 밖으로 뺄 수 있다
+
+메서드의 마지막 파라미터가 클로저일 때, 그 클로저를 괄호 바깥에 쓸 수 있다.
+
+```groovy
+def repeat(int count, Closure action) {
+    count.times { action() }
+}
+ 
+repeat(3, { println "Hi" })   // 일반적인 호출
+ 
+repeat(3) {                   // 클로저를 괄호 밖으로
+    println "Hi"
+}
+```
+
+이 규칙이 Gradle 빌드 스크립트를 "설정 파일처럼" 보이게 만드는 결정적인 문법이다.
+
+```groovy
+tasks.register('hello') {
+    doLast { println 'Hello' }
+}
+// 실제로는 → tasks.register('hello', { doLast({ println 'Hello' }) })
+```
+
+#### 규칙 4: 커맨드 체인 (Command Chain)
+
+Groovy는 `a b c d` 형태의 나열을 `a(b).c(d)`로 해석한다. 괄호와 점을 번갈아 생략하는 문법이다.
+
+```groovy
+// 이 두 줄은 동일하다
+plugins {
+    id 'org.springframework.boot' version '3.2.0'
+}
+ 
+plugins {
+    id('org.springframework.boot').version('3.2.0')
+}
+```
+
+`id 'x' version 'y'`가 자연어처럼 읽히는 이유가 여기에 있다. 이 네 가지 규칙만 알면 `build.gradle`에 등장하는 문법 중 "이게 도대체 무슨 문법이지?" 싶은 부분은 거의 사라진다.
 
 ### Gradle 빌드 스크립트에서의 메서드 활용
 
@@ -665,7 +905,7 @@ def configureCommonDependencies(project) {
 
 ### Groovy의 클래스
 
-이전 글에서 Groovy의 메서드를 살펴보았다. 이번에는 Groovy의 **클래스(Class)** 를 알아보자. Groovy의 클래스는 Java와 기본 구조가 같지만, 보일러플레이트를 크게 줄여주는 편의 기능들이
+이전 글에서 Groovy의 메서드를 살펴보았다. 이번에는 Groovy의 **클래스 (Class)** 를 알아보자. Groovy의 클래스는 Java와 기본 구조가 같지만, 보일러플레이트를 크게 줄여주는 편의 기능들이
 있다. 특히 자동 생성되는 getter/setter와 맵 기반 생성자는 Gradle 플러그인이나 커스텀 태스크를 이해하는 데 핵심적인 개념이다.
 
 ### 기본 클래스 정의
@@ -745,7 +985,7 @@ println p.name  // My name is Joon
 
 #### 맵 기반 생성자 (기본 제공)
 
-Groovy는 별도의 생성자를 정의하지 않아도 **맵 기반 생성자**를 자동으로 제공한다. 이름 있는 인자(named arguments)로 객체를 생성할 수 있다.
+Groovy는 별도의 생성자를 정의하지 않아도 **맵 기반 생성자**를 자동으로 제공한다. 이름 있는 인자 (named arguments)로 객체를 생성할 수 있다.
 
 ```groovy
 class Person {
@@ -788,7 +1028,7 @@ println "Model: ${car.model}, Year: ${car.year}"
 // def car2 = new Car(model: "BMW", year: 2023)  // ❌ 에러
 ```
 
-맵 기반 생성자와 커스텀 생성자를 모두 사용하고 싶다면, 기본 생성자(no-arg constructor)를 함께 정의해야 한다.
+맵 기반 생성자와 커스텀 생성자를 모두 사용하고 싶다면, 기본 생성자 (no-arg constructor)를 함께 정의해야 한다.
 
 ```groovy
 class Car {
@@ -950,8 +1190,8 @@ class Parrot implements Speakable {
 
 #### 트레잇 (Trait)
 
-Groovy는 Java의 인터페이스보다 강력한 **Trait**을 제공한다. Trait은 인터페이스처럼 사용하면서 기본 구현(메서드 본문과 상태)을 가질 수 있다. Java 8의 `default` 메서드와 비슷하지만
-필드(상태)도 가질 수 있다는 점이 다르다.
+Groovy는 Java의 인터페이스보다 강력한 **Trait**을 제공한다. Trait은 인터페이스처럼 사용하면서 기본 구현 (메서드 본문과 상태)을 가질 수 있다. Java 8의 `default` 메서드와
+비슷하지만 필드 (상태)도 가질 수 있다는 점이 다르다.
 
 ```groovy
 trait Loggable {
@@ -975,6 +1215,77 @@ new Service().execute()
 ```
 
 여러 Trait을 동시에 구현하여 다중 상속과 유사한 효과를 낼 수 있다.
+
+### AST 변환 애노테이션
+
+Groovy 클래스의 강력한 기능 중 하나가 **AST 변환 (AST Transformation)** 애노테이션이다. 애노테이션 하나로 `toString()`, `equals()`, 생성자 같은 반복적인 코드를
+컴파일 시점에 자동으로 생성해준다. Java 진영의 Lombok과 같은 역할을 언어 차원에서 기본 제공하는 셈이다.
+
+```groovy
+import groovy.transform.ToString
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.TupleConstructor
+ 
+@ToString             // toString() 자동 생성
+@EqualsAndHashCode    // equals()/hashCode() 자동 생성
+@TupleConstructor     // 프로퍼티 순서대로 받는 생성자 자동 생성
+class Person {
+    String name
+    int age
+}
+ 
+def p1 = new Person('Groovy', 20)   // TupleConstructor 덕분에 가능
+def p2 = new Person('Groovy', 20)
+ 
+println p1          // toString()이 생성되어 사람이 읽을 수 있는 형태로 출력
+println p1 == p2    // true — EqualsAndHashCode가 값 비교를 구현
+```
+
+앞에서 `==`가 `equals()`를 호출한다고 했는데, `@EqualsAndHashCode`가 없다면 `Object.equals()`가 사용되어 `p1 == p2`는 `false`가 된다. 두 기능이 맞물려
+동작하는 지점이다.
+
+#### @Canonical과 @Immutable
+
+세 애노테이션을 매번 붙이기 번거롭다면 `@Canonical` 하나로 대체할 수 있다.
+
+```groovy
+import groovy.transform.Canonical
+ 
+@Canonical   // = @ToString + @EqualsAndHashCode + @TupleConstructor
+class Person {
+    String name
+    int age
+}
+```
+
+값 객체를 만들 때는 `@Immutable`이 더 적합하다. 모든 프로퍼티를 `final`로 만들고 수정을 차단한다.
+
+```groovy
+import groovy.transform.Immutable
+ 
+@Immutable
+class Version {
+    String major
+    String minor
+}
+ 
+def v = new Version('8', '5')
+// v.major = '9'   // 실행하면 ReadOnlyPropertyException 발생
+```
+
+자주 쓰는 애노테이션을 정리하면 다음과 같다.
+
+| 애노테이션           | 생성해주는 것                                      |
+|----------------------|----------------------------------------------------|
+| `@ToString`          | `toString()`                                       |
+| `@EqualsAndHashCode` | `equals()`, `hashCode()`                           |
+| `@TupleConstructor`  | 프로퍼티 순서대로 받는 생성자                      |
+| `@Canonical`         | 위 세 가지를 한 번에                               |
+| `@Immutable`         | 불변 클래스 (final 필드 + 값 기반 equals/hashCode) |
+| `@Builder`           | 빌더 패턴 클래스                                   |
+| `@Sortable`          | `Comparable` 구현 및 비교자                        |
+
+`buildSrc`나 커스텀 플러그인에서 빌드 설정을 담는 클래스를 만들 때 특히 유용하다. 설정 객체는 대부분 값 객체이므로 `@Canonical` 하나로 필요한 메서드가 모두 갖춰진다.
 
 ### Gradle에서의 클래스 활용
 
@@ -1002,7 +1313,7 @@ tasks.register('greet', GreetTask) {
 `DefaultTask`를 상속하여 커스텀 태스크를 만들 수 있다. `@TaskAction`이 붙은 메서드가 Execution Phase에서 실행되고, `@Input`이 붙은 프로퍼티가 증분 빌드의 입력으로
 사용된다.
 
-#### 확장(Extension) 클래스
+#### 확장 (Extension) 클래스
 
 플러그인에서 설정을 받을 때 확장 클래스를 사용한다. Groovy의 자동 프로퍼티 덕분에 간결하게 정의할 수 있다.
 
@@ -1066,13 +1377,13 @@ if (number > 0) {
 Groovy에서 가장 주목할 점은 **Groovy Truth**이다. Java에서는 `if`문의 조건에 반드시 `boolean` 타입이 와야 하지만, Groovy에서는 boolean이 아닌 다양한 타입을 조건으로
 사용할 수 있다. Groovy가 자동으로 해당 값을 `true` 또는 `false`로 평가해준다.
 
-| 타입          | false로 평가        | true로 평가         |
-|-------------|------------------|------------------|
-| Numbers     | `0`              | `0`이 아닌 모든 숫자    |
-| Strings     | 빈 문자열 `""`, `''` | 비어있지 않은 문자열      |
-| Collections | 빈 컬렉션 `[]`       | 비어있지 않은 컬렉션      |
-| Objects     | `null`           | `null`이 아닌 모든 객체 |
-| Boolean     | `false`          | `true`           |
+| 타입        | false로 평가         | true로 평가             |
+|-------------|----------------------|-------------------------|
+| Numbers     | `0`                  | `0`이 아닌 모든 숫자    |
+| Strings     | 빈 문자열 `""`, `''` | 비어있지 않은 문자열    |
+| Collections | 빈 컬렉션 `[]`       | 비어있지 않은 컬렉션    |
+| Objects     | `null`               | `null`이 아닌 모든 객체 |
+| Boolean     | `false`              | `true`                  |
 
 #### Collections에서의 Groovy Truth
 
@@ -1217,7 +1528,7 @@ switch (value) {
 // 두 자리 수
 ```
 
-`case`에 Range(`1..9`, `10..99`)를 사용하는 것은 Java에서는 불가능한 Groovy만의 기능이다.
+`case`에 Range (`1..9`, `10..99`)를 사용하는 것은 Java에서는 불가능한 Groovy만의 기능이다.
 
 클래스 타입과 정규표현식도 사용할 수 있다.
 
@@ -1236,6 +1547,61 @@ switch (input) {
         break
 }
 // 이메일 형식
+```
+
+### 정규표현식 연산자
+
+Groovy는 정규표현식을 위한 전용 연산자 세 가지를 제공한다. 조건문과 함께 자주 쓰이므로 여기서 살펴본다.
+
+먼저 정규식 패턴은 **슬래시 문자열 (`/.../`)** 로 작성한다. 일반 문자열과 달리 백슬래시를 이중으로 이스케이프할 필요가 없다.
+
+```groovy
+def pattern1 = "\\d+"   // 일반 문자열 — 백슬래시를 두 번 써야 한다
+def pattern2 = /\d+/     // 슬래시 문자열 — 그대로 쓰면 된다
+```
+
+| 연산자 | 의미                          | 반환 타입 |
+|--------|-------------------------------|-----------|
+| `~`    | 패턴 생성                     | `Pattern` |
+| `=~`   | 부분 일치 검색 (Matcher 생성) | `Matcher` |
+| `==~`  | 전체 일치 여부                | `boolean` |
+
+```groovy
+// ~ : Pattern 객체 생성
+def pattern = ~/\d+/
+println pattern.class          // class java.util.regex.Pattern
+ 
+// =~ : Matcher 생성 — 문자열 안에서 패턴을 찾는다
+def matcher = "gradle-8.5-bin.zip" =~ /(\d+)\.(\d+)/
+if (matcher) {                 // Groovy Truth: 일치하는 것이 있으면 true
+    println matcher[0][1]      // 8  — 첫 번째 캡처 그룹
+    println matcher[0][2]      // 5  — 두 번째 캡처 그룹
+}
+ 
+// ==~ : 문자열 전체가 패턴과 일치하는지 (boolean)
+println "8.5" ==~ /\d+\.\d+/          // true
+println "gradle-8.5" ==~ /\d+\.\d+/   // false — 전체가 일치하지 않는다
+```
+
+여기서 `if (matcher)`가 동작하는 것에 주목하자. 앞서 다룬 **Groovy Truth**가 `Matcher`에도 적용되어, 일치하는 결과가 있으면 `true`로 평가된다. `matcher.find()`를
+직접 호출할 필요가 없다.
+
+`=~`와 `==~`의 차이를 헷갈리기 쉬운데, **`=~`는 "포함되어 있는가", `==~`는 "정확히 그것인가"** 로 기억하면 된다.
+
+빌드 스크립트에서는 버전 문자열을 판별하거나 태스크를 이름으로 골라낼 때 유용하다.
+
+```groovy
+// 릴리스 버전과 스냅샷 버전 구분
+if (project.version ==~ /\d+\.\d+\.\d+/) {
+    println '릴리스 버전입니다'
+} else {
+    println '스냅샷 버전입니다'
+}
+ 
+// 이름이 test로 시작하는 태스크만 골라 설정
+tasks.matching { it.name ==~ /test.*/ }.configureEach {
+    println "설정 대상: ${it.name}"
+}
 ```
 
 ### Gradle 빌드 스크립트에서의 조건문 활용
@@ -1293,7 +1659,7 @@ tasks.register('deploy') {
 
 ### for-in 루프
 
-Groovy의 `for` 루프는 Java의 향상된 for문(enhanced for)과 유사하지만, `:`대신 `in` 키워드를 사용한다.
+Groovy의 `for` 루프는 Java의 향상된 for문 (enhanced for)과 유사하지만, `:`대신 `in` 키워드를 사용한다.
 
 ```groovy
 for (variable in iterable) {
@@ -1392,7 +1758,7 @@ fruits.eachWithIndex { fruit, index ->
 
 #### Map에서의 each
 
-Map에서 `each`를 사용하면 키와 값을 구조 분해(destructure)하여 받을 수 있다.
+Map에서 `each`를 사용하면 키와 값을 구조 분해 (destructure)하여 받을 수 있다.
 
 ```groovy
 def colors = [red: '#FF0000', green: '#00FF00', blue: '#0000FF']
@@ -1409,12 +1775,12 @@ colors.each { key, value ->
 
 두 방식 모두 반복을 수행하지만 차이가 있다.
 
-| 항목                 | `for-in` | `each`            |
-|--------------------|----------|-------------------|
-| 문법 스타일             | 전통적 제어문  | 클로저 기반 메서드        |
-| `break`/`continue` | 사용 가능    | 사용 불가             |
-| 반환값                | 없음       | 원본 컬렉션 반환         |
-| Groovy 관용성         | 보통       | 높음 (Groovy다운 스타일) |
+| 항목               | `for-in`      | `each`                   |
+|--------------------|---------------|--------------------------|
+| 문법 스타일        | 전통적 제어문 | 클로저 기반 메서드       |
+| `break`/`continue` | 사용 가능     | 사용 불가                |
+| 반환값             | 없음          | 원본 컬렉션 반환         |
+| Groovy 관용성      | 보통          | 높음 (Groovy다운 스타일) |
 
 `break`나 `continue`가 필요한 경우에는 `for-in`을, 그 외에는 `each`를 사용하는 것이 Groovy 관용적이다.
 
@@ -1498,14 +1864,14 @@ def product = numbers.inject(1) { acc, val -> acc * val }
 println product  // 120
 ```
 
-| 메서드       | Java Stream 대응 | 설명             |
-|-----------|----------------|----------------|
-| `collect` | `map()`        | 각 요소를 변환       |
-| `findAll` | `filter()`     | 조건에 맞는 요소 필터링  |
-| `find`    | `findFirst()`  | 조건에 맞는 첫 요소    |
-| `any`     | `anyMatch()`   | 하나라도 만족하면 true |
-| `every`   | `allMatch()`   | 모두 만족하면 true   |
-| `inject`  | `reduce()`     | 누적 연산          |
+| 메서드    | Java Stream 대응 | 설명                    |
+|-----------|------------------|-------------------------|
+| `collect` | `map()`          | 각 요소를 변환          |
+| `findAll` | `filter()`       | 조건에 맞는 요소 필터링 |
+| `find`    | `findFirst()`    | 조건에 맞는 첫 요소     |
+| `any`     | `anyMatch()`     | 하나라도 만족하면 true  |
+| `every`   | `allMatch()`     | 모두 만족하면 true      |
+| `inject`  | `reduce()`       | 누적 연산               |
 
 ### Gradle 빌드 스크립트에서의 반복문 활용
 
@@ -1552,3 +1918,194 @@ environments.each { env ->
 ```
 
 `each`로 리스트를 순회하면서 동적으로 태스크를 생성하는 패턴은 실무에서 자주 사용된다.
+
+## Closure 심화: delegate와 Gradle DSL의 원리
+
+지금까지 `build.gradle`의 `{ }` 블록이 전부 클로저라는 점을 여러 번 확인했다. 하지만 아직 설명하지 않은 것이 하나 남아 있다.
+
+```groovy
+repositories {
+    mavenCentral()
+}
+```
+
+`mavenCentral()`은 어디에도 정의되어 있지 않다. 우리가 만든 메서드도 아니고, 스크립트 최상위에 선언한 적도 없다. **그런데 왜 동작할까?** 이 질문의 답이 Groovy 클로저의 **위임 (
+delegation)** 메커니즘이며, Gradle DSL 전체가 이 위에 세워져 있다.
+
+### 클로저의 세 가지 컨텍스트: this, owner, delegate
+
+클로저 안에서 어떤 이름을 만나면, Groovy는 세 곳을 차례로 뒤져서 그것을 해석한다.
+
+| 이름       | 가리키는 대상                                                  |
+|------------|----------------------------------------------------------------|
+| `this`     | 클로저가 **정의된 클래스**                                     |
+| `owner`    | 클로저를 **직접 감싸고 있는 객체** (클래스 또는 바깥쪽 클로저) |
+| `delegate` | **위임 대상 객체** — 기본값은 `owner`와 같지만 변경할 수 있다  |
+
+이 중에서 우리가 마음대로 바꿀 수 있는 것이 `delegate`이다. 그리고 클로저 안의 이름 해석을 이 위임 대상 쪽으로 돌리는 것이 Gradle DSL의 핵심 트릭이다.
+
+### 위임 전략 (resolveStrategy)
+
+이름을 `owner`에서 먼저 찾을지, `delegate`에서 먼저 찾을지는 `resolveStrategy`가 결정한다.
+
+```groovy
+class Owner {
+    def name = "owner"
+    def method() { "owner method" }
+}
+ 
+class Delegate {
+    def name = "delegate"
+    def method() { "delegate method" }
+}
+ 
+def closure = {
+    println name
+    println method()
+}
+ 
+closure.delegate = new Delegate()
+ 
+// 기본 전략: OWNER_FIRST — owner를 먼저 찾는다
+println closure.resolveStrategy == Closure.OWNER_FIRST   // true
+ 
+// 전략 변경: DELEGATE_FIRST — delegate를 먼저 찾는다
+closure.resolveStrategy = Closure.DELEGATE_FIRST
+closure()
+// delegate
+// delegate method
+```
+
+선택할 수 있는 전략은 다음과 같다.
+
+| 전략                     | 동작                      |
+|--------------------------|---------------------------|
+| `Closure.OWNER_FIRST`    | owner → delegate (기본값) |
+| `Closure.DELEGATE_FIRST` | delegate → owner          |
+| `Closure.OWNER_ONLY`     | owner만 확인              |
+| `Closure.DELEGATE_ONLY`  | delegate만 확인           |
+| `Closure.TO_SELF`        | 클로저 자신에서만 확인    |
+
+### 직접 만들어보는 미니 DSL
+
+이제 `repositories { mavenCentral() }`을 직접 구현해보자. 원리를 알고 나면 놀라울 정도로 단순하다.
+
+```groovy
+// 1. 설정을 받아줄 핸들러 클래스
+class RepositoryHandler {
+    List<String> urls = []
+ 
+    void mavenCentral() {
+        urls << 'https://repo.maven.apache.org/maven2/'
+    }
+ 
+    void maven(String url) {
+        urls << url
+    }
+}
+ 
+// 2. 클로저를 받아 핸들러에 위임하는 메서드
+def repositories(Closure closure) {
+    def handler = new RepositoryHandler()
+ 
+    closure.delegate = handler                          // 위임 대상 지정
+    closure.resolveStrategy = Closure.DELEGATE_FIRST    // 위임 대상을 먼저 찾도록
+    closure()                                           // 실행
+ 
+    return handler
+}
+ 
+// 3. 사용 — Gradle과 똑같은 모양이 된다
+def result = repositories {
+    mavenCentral()
+    maven 'https://plugins.gradle.org/m2/'
+}
+ 
+println result.urls
+// [https://repo.maven.apache.org/maven2/, https://plugins.gradle.org/m2/]
+```
+
+핵심은 두 줄이다. `closure.delegate = handler`로 위임 대상을 지정하고, `resolveStrategy`를 `DELEGATE_FIRST`로 바꾸는 것. 이 두 줄 덕분에 클로저 안에서 쓴
+`mavenCentral()`이 `handler.mavenCentral()`로 해석된다.
+
+앞에서 배운 문법들이 여기서 한꺼번에 맞물린다는 점도 확인하자.
+
+- `repositories { ... }` — 마지막 인자가 클로저이므로 괄호 밖으로 뺐다 (메서드 호출 규칙 3)
+- `mavenCentral()` — 인자가 없으므로 괄호를 생략할 수 없다 (규칙 1)
+- `maven 'https://...'` — 인자가 있으므로 괄호를 생략했다 (규칙 1)
+- `urls << url` — `leftShift` 연산자로 리스트에 추가 (연산자 오버로딩)
+
+### build.gradle의 정체
+
+이제 마지막 조각을 맞출 차례이다. 앞서 "`.groovy` 스크립트도 결국 클래스로 컴파일된다"고 했는데, `build.gradle`도 예외가 아니다. Gradle은 `build.gradle`을
+`org.gradle.api.Script`의 서브클래스로 컴파일한 뒤, **그 스크립트의 delegate를 해당 프로젝트의 `Project` 객체로 설정하여 실행한다.**
+
+```groovy
+// build.gradle에 이렇게 쓰면
+repositories {
+    mavenCentral()
+}
+ 
+// Gradle은 이렇게 실행하는 것과 같다
+project.repositories({
+    mavenCentral()
+})
+```
+
+`build.gradle` 최상위에서 `repositories`, `dependencies`, `tasks`, `plugins`를 아무 선언 없이 바로 쓸 수 있는 이유가 이것이다. 전부 `Project` 객체의
+메서드이고, delegate가 `Project`이므로 `project.`을 생략할 수 있는 것이다.
+
+이 구조는 한 단계 더 중첩된다. `repositories { }`의 delegate는 `RepositoryHandler`이고, `dependencies { }`의 delegate는
+`DependencyHandler`이다. 우리가 만든 미니 DSL과 정확히 같은 구조이며, `build.gradle`의 중첩된 블록들은 이 위임이 겹겹이 쌓인 결과이다.
+
+```
+build.gradle (Script)
+  └─ delegate: Project
+       ├─ repositories { }  → delegate: RepositoryHandler
+       ├─ dependencies { }  → delegate: DependencyHandler
+       └─ tasks.register('x') { }  → delegate: Task
+```
+
+### 위임의 대가: IDE 자동 완성 문제
+
+이 방식에는 뚜렷한 단점이 하나 있다. **delegate는 런타임에 결정되므로, IDE는 클로저 안에서 어떤 메서드를 쓸 수 있는지 정적으로 알 수 없다.** Groovy DSL로 작성한
+`build.gradle`에서 자동 완성이 잘 동작하지 않는 근본 원인이 여기에 있다.
+
+Groovy는 이를 보완하기 위해 `@DelegatesTo` 애노테이션을 제공한다. 위임 대상 타입을 명시하면 IDE와 정적 컴파일러가 이를 참고할 수 있다.
+
+```groovy
+def repositories(@DelegatesTo(RepositoryHandler) Closure closure) {
+    // ...
+}
+```
+
+하지만 어디까지나 보완책이며, 모든 플러그인이 이를 붙여주지도 않는다. Kotlin DSL은 이 문제를 언어 차원에서 해결한다. Kotlin의 **수신 객체 지정 람다 (lambda with receiver)** 는
+위임 대상 타입이 함수 시그니처에 포함되어 컴파일 타임에 결정된다.
+
+```kotlin
+// Kotlin DSL — RepositoryHandler.() -> Unit 타입이므로 IDE가 정확히 알 수 있다
+repositories {
+    mavenCentral()   // 자동 완성과 타입 검증이 모두 동작
+}
+```
+
+앞선 글에서 "Kotlin DSL은 타입 안전성과 IDE 자동 완성이 강점"이라고 했던 이유가 바로 이것이다. 겉모습은 거의 같지만, Groovy DSL은 런타임 위임으로, Kotlin DSL은 컴파일 타임 수신
+객체로 같은 결과를 만들어낸다.
+
+### 정리
+
+이 글에서 다룬 Groovy 문법들이 Gradle에서 어떻게 쓰이는지 마지막으로 연결해보자.
+
+| Groovy 문법          | Gradle에서의 역할                                                |
+|----------------------|------------------------------------------------------------------|
+| 클로저               | 모든 설정 블록 (`repositories`, `dependencies`, `doLast`)        |
+| delegate + 위임 전략 | 설정 블록 안에서 핸들러의 메서드를 바로 호출할 수 있게 하는 원리 |
+| 괄호 생략            | `implementation 'g:a:v'` 같은 자연스러운 표기                    |
+| Named Argument       | `apply plugin: 'java'`                                           |
+| 커맨드 체인          | `id 'java' version '1.0'`                                        |
+| 연산자 오버로딩      | `srcDirs += '...'`, `list << item`                               |
+| Groovy Truth         | `if (project.hasProperty('env'))` 류의 간결한 조건 판별          |
+| `each` / `collect`   | `subprojects { }`, 동적 태스크 생성                              |
+
+`build.gradle`은 설정 파일처럼 생겼지만 실제로는 **Groovy 프로그램**이다. 이 사실을 이해하고 나면 빌드 스크립트를 읽을 때 "이건 어떤 문법이지?"가 아니라 "이건 어떤 객체의 어떤 메서드
+호출이지?"로 질문이 바뀐다. 다음 글에서 다룰 `Project`와 `Task` 클래스가 바로 그 "어떤 객체"에 해당한다.
