@@ -3,7 +3,7 @@ title: "[Gradle] 기본"
 tags:
   - gradle
 image: ./assets/banner.png
-date: 2026-03-29 15:14:27
+date: 2026-08-22 14:25:27
 series: gradle
 draft: false
 ---
@@ -70,18 +70,18 @@ BUILD SUCCESSFUL in 46s
 
 각 파일과 디렉토리의 역할은 다음과 같다.
 
-| 파일/디렉토리                     | 설명                                                |
-|-----------------------------|---------------------------------------------------|
-| `build.gradle`              | 프로젝트의 빌드 스크립트. 태스크, 플러그인, 의존성 등을 정의한다.            |
-| `settings.gradle`           | 프로젝트의 이름과 멀티 프로젝트 구성을 정의한다.                       |
-| `gradle.properties`         | Gradle 빌드에서 사용할 프로퍼티를 정의한다.                       |
-| `gradlew` / `gradlew.bat`   | Gradle Wrapper 실행 스크립트 (Unix / Windows).          |
+| 파일/디렉토리               | 설명                                                                  |
+|-----------------------------|-----------------------------------------------------------------------|
+| `build.gradle`              | 프로젝트의 빌드 스크립트. 태스크, 플러그인, 의존성 등을 정의한다.     |
+| `settings.gradle`           | 프로젝트의 이름과 멀티 프로젝트 구성을 정의한다.                      |
+| `gradle.properties`         | Gradle 빌드에서 사용할 프로퍼티를 정의한다.                           |
+| `gradlew` / `gradlew.bat`   | Gradle Wrapper 실행 스크립트 (Unix / Windows).                        |
 | `gradle/wrapper/`           | Gradle Wrapper 관련 파일. 프로젝트에서 사용할 Gradle 버전을 고정한다. |
 | `gradle/libs.versions.toml` | 의존성 버전을 중앙에서 관리하기 위한 Version Catalog 파일이다.        |
 
 ### Task 등록하기
 
-Gradle의 핵심은 **태스크(Task)** 이다. `build.gradle` 파일에 태스크를 등록하여 원하는 작업을 정의할 수 있다. `tasks.register`를 사용하여 첫 번째 태스크를 만들어보자.
+Gradle의 핵심은 **태스크 (Task)** 이다. `build.gradle` 파일에 태스크를 등록하여 원하는 작업을 정의할 수 있다. `tasks.register`를 사용하여 첫 번째 태스크를 만들어보자.
 
 ```groovy
 tasks.register('firstTask') {
@@ -221,9 +221,183 @@ BUILD SUCCESSFUL in 244ms
 
 ![image04](./assets/04.png)
 
+### 등록된 Task 확인하기
+
+앞에서 `gradle tasks --all`을 사용했는데, `--all`을 빼면 결과가 달라진다.
+
+```bash
+$ gradle tasks
+ 
+> Task :tasks
+ 
+------------------------------------------------------------
+Tasks runnable from root project 'first-project'
+------------------------------------------------------------
+ 
+Build Setup tasks
+-----------------
+init - Initializes a new Gradle build.
+wrapper - Generates Gradle wrapper files.
+ 
+Help tasks
+----------
+buildEnvironment - Displays all buildscript dependencies...
+dependencies - Displays all dependencies declared in root project 'first-project'.
+projects - Displays the sub-projects of root project 'first-project'.
+tasks - Displays the tasks runnable from root project 'first-project'.
+ 
+To see all tasks and more detail, run gradle tasks --all
+```
+
+우리가 만든 `firstTask`가 보이지 않는다. `gradle tasks`는 **그룹 (group)이 지정된 태스크만** 출력하기 때문이다. `--all`을 붙여야 그룹이 없는 태스크까지 `Other tasks`
+항목으로 함께 표시된다.
+
+특정 태스크의 상세 정보만 보고 싶다면 `help --task` 옵션을 사용한다.
+
+```bash
+$ gradle help --task firstTask
+ 
+> Task :help
+Detailed task information for firstTask
+ 
+Path
+     :firstTask
+ 
+Type
+     Task (org.gradle.api.Task)
+ 
+Description
+     -
+ 
+Group
+     -
+```
+
+`Description`과 `Group`이 모두 `-`로 비어 있는 것이 보인다. 이것이 `gradle tasks`에서 태스크가 보이지 않았던 이유이다.
+
+### Task에 group과 description 부여하기
+
+태스크에 `group`과 `description`을 지정하면 `gradle tasks` 목록에 분류되어 나타난다.
+
+```groovy
+tasks.register('firstTask') {
+    group = 'custom'
+    description = '첫 번째 커스텀 태스크'
+ 
+    println "Hello World!"
+    doFirst {
+        println "do First Action!!"
+    }
+ 
+    doLast {
+        println "do Last Action!!"
+    }
+}
+```
+
+```bash
+$ gradle tasks
+ 
+Custom tasks
+------------
+firstTask - 첫 번째 커스텀 태스크
+```
+
+`group`에 지정한 문자열이 그대로 섹션 제목 (`Custom tasks`)이 되고, `description`이 태스크 이름 옆에 설명으로 붙는다. `build`, `verification`,
+`documentation`처럼 Gradle이 이미 사용하는 그룹명을 지정하면 해당 섹션에 함께 묶인다.
+
+혼자 쓰는 스크립트라면 생략해도 무방하지만, 팀이 공유하는 빌드 스크립트라면 **커스텀 태스크에는 `group`과 `description`을 붙이는 것이 사실상의 관례이다.** 다른 팀원이
+`gradle tasks`만 실행해도 어떤 태스크가 있고 무엇을 하는지 파악할 수 있기 때문이다.
+
+### Task 실행 순서 제어하기
+
+지금까지 만든 `firstTask`와 `secondTask`는 서로 아무런 관계가 없어 각각 따로 실행해야 했다. Gradle은 태스크 간의 관계를 선언하는 네 가지 방법을 제공한다.
+
+#### dependsOn — 선행 태스크 지정
+
+가장 많이 쓰이는 방식이다. `secondTask`를 실행하면 `firstTask`가 **자동으로 먼저 실행된다.**
+
+```groovy
+tasks.register('secondTask') {
+    dependsOn 'firstTask'
+ 
+    doFirst {
+        println "do First Action in second Task!!"
+    }
+ 
+    doLast {
+        println "do Last Action!! in second Task"
+    }
+}
+```
+
+```bash
+$ gradle secondTask
+Hello World!
+ 
+> Task :firstTask
+do First Action!!
+do Last Action!!
+ 
+> Task :secondTask
+do First Action in second Task!!
+do Last Action!! in second Task
+ 
+BUILD SUCCESSFUL in 289ms
+2 actionable tasks: 2 executed
+```
+
+`secondTask` 하나만 지정했는데 `firstTask`까지 실행되었다. 앞서 살펴본 `gradle build`가 컴파일과 테스트까지 함께 수행하는 것도 바로 이 `dependsOn` 관계 때문이다.
+
+#### finalizedBy — 후행 태스크 지정
+
+`dependsOn`의 반대로, 태스크가 끝난 뒤에 실행할 태스크를 지정한다. 중요한 점은 **대상 태스크가 실패해도 finalizer는 실행된다**는 것이다.
+
+```groovy
+tasks.register('firstTask') {
+    finalizedBy 'secondTask'
+    // ...
+}
+```
+
+테스트 실행 후 리포트 생성처럼 "성공하든 실패하든 반드시 뒤따라야 하는 작업"에 적합하다. JaCoCo 플러그인이 대표적인 예이다.
+
+```groovy
+tasks.named('test') {
+    finalizedBy 'jacocoTestReport'  // 테스트가 실패해도 커버리지 리포트는 생성
+}
+```
+
+#### mustRunAfter / shouldRunAfter — 순서만 지정
+
+`dependsOn`과 결정적으로 다른 점은, **이 둘은 태스크를 실행 대상에 추가하지 않는다**는 것이다. 이미 실행이 예정된 두 태스크 사이의 순서만 강제한다.
+
+```groovy
+tasks.named('secondTask') {
+    mustRunAfter 'firstTask'
+}
+```
+
+이 상태에서 `gradle secondTask`만 실행하면 `firstTask`는 실행되지 않는다. 반면 `gradle firstTask secondTask`처럼 둘 다 실행 대상이 되면 반드시
+`firstTask` → `secondTask` 순서로 실행된다.
+
+`shouldRunAfter`는 `mustRunAfter`의 완화된 버전으로, 순환 참조가 발생하거나 병렬 실행 상황에서는 순서가 지켜지지 않을 수 있다.
+
+네 가지를 정리하면 다음과 같다.
+
+| 선언             | 대상 태스크를 실행 대상에 추가하는가? | 순서 보장      | 실패 시 동작                   |
+|------------------|---------------------------------------|----------------|--------------------------------|
+| `dependsOn`      | O                                     | 강제           | 선행 태스크 실패 시 중단       |
+| `finalizedBy`    | O                                     | 강제           | 대상이 실패해도 finalizer 실행 |
+| `mustRunAfter`   | X                                     | 강제           | —                              |
+| `shouldRunAfter` | X                                     | 가능한 한 지킴 | —                              |
+
+실무에서는 `dependsOn`을 가장 많이 쓰지만, 무분별하게 사용하면 태스크 그래프가 복잡해지고 불필요한 태스크까지 끌려 들어와 빌드가 느려질 수 있다. **"이 태스크의 결과물이 정말 필요한가"** 를 기준으로
+`dependsOn`과 `mustRunAfter`를 구분해서 쓰는 것이 좋다.
+
 ### Gradle Wrapper로 실행하기
 
-지금까지는 시스템에 설치된 `gradle` 명령어로 태스크를 실행했다. 하지만 실무에서는 **Gradle Wrapper(`./gradlew`)** 를 사용하는 것이 권장된다. Wrapper를 사용하면 프로젝트에
+지금까지는 시스템에 설치된 `gradle` 명령어로 태스크를 실행했다. 하지만 실무에서는 **Gradle Wrapper (`./gradlew`)** 를 사용하는 것이 권장된다. Wrapper를 사용하면 프로젝트에
 고정된 Gradle 버전으로 빌드하게 되어 팀원 간 환경 차이 문제를 방지할 수 있다.
 
 ```bash
@@ -312,7 +486,7 @@ Enter selection (default: JUnit Jupiter) [1..4] 4
 - **Target Java version**: 25 — 대상 Java 버전을 지정한다.
 - **Application structure**: Single application project — 단일 애플리케이션 프로젝트 구조를 선택한다.
 - **Build script DSL**: Groovy — 빌드 스크립트를 Groovy DSL로 작성한다.
-- **Test framework**: JUnit Jupiter — JUnit 5(Jupiter)를 테스트 프레임워크로 사용한다.
+- **Test framework**: JUnit Jupiter — JUnit 5 (Jupiter)를 테스트 프레임워크로 사용한다.
 
 ![image06](./assets/06.png)
 
@@ -348,8 +522,8 @@ Enter selection (default: JUnit Jupiter) [1..4] 4
 └── settings.gradle
 ```
 
-이전의 Basic 프로젝트와 비교했을 때 눈에 띄는 차이점이 있다. `build.gradle`과 소스 코드가 루트가 아닌 **`app`이라는 하위 프로젝트(subproject)** 안에 위치한다는 것이다. 이는
-Gradle의 멀티 프로젝트 구조로, 루트 프로젝트(`javaProject`) 아래에 `app`이라는 서브 프로젝트가 포함된 형태이다.
+이전의 Basic 프로젝트와 비교했을 때 눈에 띄는 차이점이 있다. `build.gradle`과 소스 코드가 루트가 아닌 **`app`이라는 하위 프로젝트 (subproject)** 안에 위치한다는 것이다. 이는
+Gradle의 멀티 프로젝트 구조로, 루트 프로젝트 (`javaProject`) 아래에 `app`이라는 서브 프로젝트가 포함된 형태이다.
 
 소스 코드 구조는 Maven과 동일한 **컨벤션**을 따른다. `src/main/java`에 메인 소스가, `src/test/java`에 테스트 소스가 위치한다.
 
@@ -424,7 +598,7 @@ tasks.named('test') {
 
 #### Version Catalog (libs.versions.toml)
 
-의존성 선언에서 `libs.junit.jupiter`, `libs.guava`와 같이 직접 좌표(coordinates)를 쓰지 않고 별칭(alias)을 사용하는 것을 볼 수 있다. 이는 **Version
+의존성 선언에서 `libs.junit.jupiter`, `libs.guava`와 같이 직접 좌표 (coordinates)를 쓰지 않고 별칭 (alias)을 사용하는 것을 볼 수 있다. 이는 **Version
 Catalog** 기능으로, `gradle/libs.versions.toml` 파일에서 의존성 버전을 중앙 관리한다. 멀티 모듈 프로젝트에서 모든 서브 프로젝트가 동일한 의존성 버전을 사용하도록 보장해주는 유용한
 기능이다.
 
@@ -513,7 +687,7 @@ BUILD SUCCESSFUL in 305ms
 2 actionable tasks: 1 executed, 1 up-to-date
 ```
 
-`jar` 태스크는 컴파일된 클래스 파일들을 하나의 JAR(Java Archive) 파일로 패키징한다. 실행 후 `app/build/libs/app.jar` 파일이 생성된다.
+`jar` 태스크는 컴파일된 클래스 파일들을 하나의 JAR (Java Archive) 파일로 패키징한다. 실행 후 `app/build/libs/app.jar` 파일이 생성된다.
 
 ```
 app/build/
@@ -550,6 +724,76 @@ app/build/
         └── TEST-org.example.AppTest.xml
 ```
 
+테스트가 실패하면 어떻게 될까? `AppTest.java`를 일부러 실패하도록 수정해보자.
+
+```java
+package org.example;
+ 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+ 
+class AppTest {
+    @Test void appHasAGreeting() {
+        App classUnderTest = new App();
+        // 일부러 null을 넘겨 테스트를 실패시킨다
+        assertNotNull(null, "app should have a greeting");
+    }
+}
+```
+
+```bash
+$ gradle test
+ 
+AppTest > appHasAGreeting() FAILED
+    org.opentest4j.AssertionFailedError at AppTest.java:10
+ 
+1 test completed, 1 failed
+ 
+> Task :app:test FAILED
+ 
+FAILURE: Build failed with an exception.
+ 
+* What went wrong:
+Execution failed for task ':app:test'.
+> There were failing tests. See the report at:
+  file:///.../javaProject/app/build/reports/tests/test/index.html
+```
+
+어느 테스트가 어느 줄에서 실패했는지 콘솔에 표시되고, 빌드가 `FAILED`로 중단된다. 함께 출력되는 리포트 URL을 브라우저로 열면 실패한 테스트의 스택 트레이스까지 확인할 수 있다.
+
+테스트가 많아지면 특정 테스트만 골라 실행하고 싶어진다. 이때는 `--tests` 옵션을 사용한다.
+
+```bash
+# 특정 클래스만 실행
+gradle test --tests "org.example.AppTest"
+ 
+# 특정 메서드만 실행
+gradle test --tests "org.example.AppTest.appHasAGreeting"
+ 
+# 와일드카드로 패턴 매칭
+gradle test --tests "*AppTest"
+```
+
+한 가지 주의할 점이 있다. `test` 태스크도 증분 빌드의 대상이므로, 코드가 바뀌지 않았다면 두 번째 실행부터는 `UP-TO-DATE`로 건너뛴다. 코드 변경 없이 테스트를 다시 돌리고 싶다면
+`--rerun-tasks`를 사용한다.
+
+```bash
+gradle test --rerun-tasks
+```
+
+기본 설정에서는 성공한 테스트의 로그가 콘솔에 출력되지 않는데, 진행 상황을 보고 싶다면 `build.gradle`에 `testLogging`을 설정하면 된다.
+
+```groovy
+tasks.named('test') {
+    useJUnitPlatform()
+ 
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'full'
+    }
+}
+```
+
 #### clean — 빌드 결과물 삭제
 
 ```bash
@@ -563,7 +807,7 @@ BUILD SUCCESSFUL in 251ms
 
 ### 태스크 의존성 그래프
 
-지금까지 실행한 태스크들은 서로 독립적이지 않다. Gradle의 태스크들은 **의존성 그래프(DAG, Directed Acyclic Graph)** 를 형성하며, 특정 태스크를 실행하면 그 태스크가 의존하는 선행
+지금까지 실행한 태스크들은 서로 독립적이지 않다. Gradle의 태스크들은 **의존성 그래프 (DAG, Directed Acyclic Graph)** 를 형성하며, 특정 태스크를 실행하면 그 태스크가 의존하는 선행
 태스크들이 자동으로 먼저 실행된다.
 
 ```
@@ -585,22 +829,22 @@ compileJava → compileTestJava → test → check
 
 실무에서 자주 사용하는 태스크 조합을 정리하면 다음과 같다.
 
-| 명령어                    | 설명                                    |
-|------------------------|---------------------------------------|
+| 명령어                 | 설명                                                         |
+|------------------------|--------------------------------------------------------------|
 | `gradle clean build`   | 빌드 결과물을 삭제한 후 전체 빌드 (컴파일 + 테스트 + 패키징) |
-| `gradle run`           | 애플리케이션 실행                             |
-| `gradle test`          | 테스트만 실행                               |
-| `gradle jar`           | JAR 파일만 생성                            |
-| `gradle clean`         | 빌드 디렉토리 삭제                            |
-| `gradle build -x test` | 테스트를 제외하고 빌드 (`-x`는 태스크 제외 옵션)        |
-| `gradle dependencies`  | 의존성 트리 확인                             |
+| `gradle run`           | 애플리케이션 실행                                            |
+| `gradle test`          | 테스트만 실행                                                |
+| `gradle jar`           | JAR 파일만 생성                                              |
+| `gradle clean`         | 빌드 디렉토리 삭제                                           |
+| `gradle build -x test` | 테스트를 제외하고 빌드 (`-x`는 태스크 제외 옵션)             |
+| `gradle dependencies`  | 의존성 트리 확인                                             |
 
 ## Java 외부 라이브러리를 가져와서 Dependency 해결해 보기
 
 ### 의존성 관리란?
 
-Java 프로젝트를 생성하고 기본 태스크들을 실행해보았다. 이번에는 Gradle의 핵심 기능 중 하나인 **의존성 관리(Dependency Management)** 를 직접 실습해보자. 외부 라이브러리를
-프로젝트에 추가하고, Gradle이 이를 어떻게 해결(resolve)하고 캐싱하는지 살펴본다.
+Java 프로젝트를 생성하고 기본 태스크들을 실행해보았다. 이번에는 Gradle의 핵심 기능 중 하나인 **의존성 관리 (Dependency Management)** 를 직접 실습해보자. 외부 라이브러리를 프로젝트에
+추가하고, Gradle이 이를 어떻게 해결 (resolve)하고 캐싱하는지 살펴본다.
 
 ### 프로젝트 준비
 
@@ -655,24 +899,24 @@ dependencies {
 }
 ```
 
-의존성 선언은 `'그룹:아티팩트:버전'` 형식을 따른다. 여기서 `org.apache.commons`가 그룹, `commons-math3`가 아티팩트, `3.6.1`이 버전이다. 이 형식은 Maven의 좌표(
-coordinates) 체계와 동일하다. Maven Repository에서 검색한 의존성을 그대로 복사해서 붙여넣으면 된다.
+의존성 선언은 `'그룹:아티팩트:버전'` 형식을 따른다. 여기서 `org.apache.commons`가 그룹, `commons-math3`가 아티팩트, `3.6.1`이 버전이다. 이 형식은 Maven의 좌표
+(coordinates) 체계와 동일하다. Maven Repository에서 검색한 의존성을 그대로 복사해서 붙여넣으면 된다.
 
-#### 의존성 구성(Configuration)
+#### 의존성 구성 (Configuration)
 
-`dependencies` 블록 안에서 `implementation`, `testImplementation` 같은 키워드가 보이는데, 이를 **의존성 구성(Dependency Configuration)** 이라고
+`dependencies` 블록 안에서 `implementation`, `testImplementation` 같은 키워드가 보이는데, 이를 **의존성 구성 (Dependency Configuration)** 이라고
 한다. 어떤 구성을 사용하느냐에 따라 해당 의존성이 언제, 어디서 사용 가능한지가 결정된다.
 
-| 구성                   | 컴파일 | 런타임 | 테스트 컴파일 | 테스트 런타임 | 설명                                              |
-|----------------------|:---:|:---:|:-------:|:-------:|-------------------------------------------------|
-| `implementation`     |  O  |  O  |    O    |    O    | 가장 일반적인 의존성. 내부 구현에 사용된다.                       |
-| `api`                |  O  |  O  |    O    |    O    | `java-library` 플러그인 전용. 의존성이 소비자에게도 노출된다.       |
-| `compileOnly`        |  O  |  X  |    X    |    X    | 컴파일 시에만 필요하고 런타임에는 불필요한 의존성. (예: Lombok)        |
-| `runtimeOnly`        |  X  |  O  |    X    |    O    | 런타임에만 필요한 의존성. (예: JDBC 드라이버)                   |
-| `testImplementation` |  X  |  X  |    O    |    O    | 테스트 코드에서만 사용하는 의존성.                             |
-| `testRuntimeOnly`    |  X  |  X  |    X    |    O    | 테스트 런타임에만 필요한 의존성. (예: JUnit Platform Launcher) |
+| 구성                 | 컴파일 | 런타임 | 테스트 컴파일 | 테스트 런타임 | 설명                                                            |
+|----------------------|:------:|:------:|:-------------:|:-------------:|-----------------------------------------------------------------|
+| `implementation`     |   O    |   O    |       O       |       O       | 가장 일반적인 의존성. 내부 구현에 사용된다.                     |
+| `api`                |   O    |   O    |       O       |       O       | `java-library` 플러그인 전용. 의존성이 소비자에게도 노출된다.   |
+| `compileOnly`        |   O    |   X    |       X       |       X       | 컴파일 시에만 필요하고 런타임에는 불필요한 의존성. (예: Lombok) |
+| `runtimeOnly`        |   X    |   O    |       X       |       O       | 런타임에만 필요한 의존성. (예: JDBC 드라이버)                   |
+| `testImplementation` |   X    |   X    |       O       |       O       | 테스트 코드에서만 사용하는 의존성.                              |
+| `testRuntimeOnly`    |   X    |   X    |       X       |       O       | 테스트 런타임에만 필요한 의존성. (예: JUnit Platform Launcher)  |
 
-`implementation`과 `api`의 차이가 헷갈릴 수 있는데, 핵심은 **의존성의 전이(transitivity)** 이다. 모듈 A가 모듈 B에 의존하고, 모듈 B가 라이브러리 C를
+`implementation`과 `api`의 차이가 헷갈릴 수 있는데, 핵심은 **의존성의 전이 (transitivity)** 이다. 모듈 A가 모듈 B에 의존하고, 모듈 B가 라이브러리 C를
 `implementation`으로 선언했다면, 모듈 A는 라이브러리 C에 직접 접근할 수 없다. 반면 `api`로 선언했다면 모듈 A에서도 라이브러리 C를 사용할 수 있다. `implementation`을 사용하면
 불필요한 재컴파일을 줄여 빌드 성능이 향상되므로, 가능한 한 `implementation`을 사용하는 것이 권장된다.
 
@@ -743,7 +987,7 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 - **`[libraries]`**: 라이브러리의 그룹:아티팩트와 버전 참조를 매핑한다.
 - **`[plugins]`** (여기서는 미사용): 플러그인 버전을 관리한다.
 
-`build.gradle`에서는 `libs.guava`, `libs.junit.jupiter`와 같이 별칭(accessor)으로 참조할 수 있다. commons-math3도 Version Catalog로 관리하고
+`build.gradle`에서는 `libs.guava`, `libs.junit.jupiter`와 같이 별칭 (accessor)으로 참조할 수 있다. commons-math3도 Version Catalog로 관리하고
 싶다면 다음과 같이 추가하면 된다.
 
 ```toml
@@ -789,14 +1033,14 @@ aopalliance          com.google.guava     io.netty             org.apache.common
 
 캐시 구조를 정리하면 다음과 같다.
 
-| 디렉토리                                    | 설명                               |
-|-----------------------------------------|----------------------------------|
-| `~/.gradle/caches/modules-2/files-2.1/` | 다운로드된 JAR, POM 파일 등 의존성 아티팩트     |
-| `~/.gradle/caches/modules-2/metadata-*` | 의존성 메타데이터 (버전 정보, 전이 의존성 등)      |
-| `~/.gradle/caches/build-cache-1/`       | 빌드 캐시 (태스크 결과물)                  |
-| `~/.gradle/wrapper/`                    | Gradle Wrapper로 다운로드한 Gradle 배포판 |
-| `~/.gradle/daemon/`                     | Gradle Daemon 관련 파일              |
-| `~/.gradle/jdks/`                       | Toolchain으로 자동 다운로드한 JDK         |
+| 디렉토리                                | 설명                                          |
+|-----------------------------------------|-----------------------------------------------|
+| `~/.gradle/caches/modules-2/files-2.1/` | 다운로드된 JAR, POM 파일 등 의존성 아티팩트   |
+| `~/.gradle/caches/modules-2/metadata-*` | 의존성 메타데이터 (버전 정보, 전이 의존성 등) |
+| `~/.gradle/caches/build-cache-1/`       | 빌드 캐시 (태스크 결과물)                     |
+| `~/.gradle/wrapper/`                    | Gradle Wrapper로 다운로드한 Gradle 배포판     |
+| `~/.gradle/daemon/`                     | Gradle Daemon 관련 파일                       |
+| `~/.gradle/jdks/`                       | Toolchain으로 자동 다운로드한 JDK             |
 
 캐시에 문제가 생겨 의존성을 다시 다운로드하고 싶다면 `--refresh-dependencies` 옵션을 사용할 수 있다.
 
@@ -841,8 +1085,8 @@ gradle dependencyInsight --dependency commons-math3 --configuration compileClass
 
 ### 의존성 충돌 해결
 
-여러 라이브러리가 동일한 의존성의 서로 다른 버전을 요구하면 **의존성 충돌(Dependency Conflict)** 이 발생한다. Gradle은 기본적으로 **가장 높은 버전을 선택(newest wins)** 하는
-전략으로 충돌을 해결한다.
+여러 라이브러리가 동일한 의존성의 서로 다른 버전을 요구하면 **의존성 충돌 (Dependency Conflict)** 이 발생한다. Gradle은 기본적으로 **가장 높은 버전을 선택 (newest wins)**
+하는 전략으로 충돌을 해결한다.
 
 예를 들어, 라이브러리 A가 `commons-lang3:3.12`를, 라이브러리 B가 `commons-lang3:3.14`를 요구하면, Gradle은 `3.14`를 선택한다. 이 해결 과정은
 `dependencies` 태스크에서 확인할 수 있으며, 버전이 올라간 경우 `→` 기호로 표시된다.
@@ -864,7 +1108,7 @@ configurations.all {
 
 ### Build Lifecycle이란?
 
-Gradle은 빌드를 실행할 때 세 가지 단계를 순서대로 거친다. 이 세 단계를 **Build Lifecycle(빌드 생명주기)** 라고 하며, 모든 빌드는 이 생명주기를 반복한다. Gradle을 제대로 이해하려면
+Gradle은 빌드를 실행할 때 세 가지 단계를 순서대로 거친다. 이 세 단계를 **Build Lifecycle (빌드 생명주기)** 라고 하며, 모든 빌드는 이 생명주기를 반복한다. Gradle을 제대로 이해하려면
 각 단계에서 무슨 일이 일어나는지, 어떤 코드가 어느 단계에서 실행되는지를 명확히 알아야 한다.
 
 세 단계는 다음과 같다.
@@ -881,7 +1125,7 @@ Gradle은 빌드를 실행할 때 세 가지 단계를 순서대로 거친다. �
 
 #### 과정
 
-Gradle은 `settings.gradle` (또는 `settings.gradle.kts`) 파일을 평가(evaluate)하여 프로젝트 계층 구조를 설정하고, 포함할 서브 프로젝트를 정의한다.
+Gradle은 `settings.gradle` (또는 `settings.gradle.kts`) 파일을 평가 (evaluate)하여 프로젝트 계층 구조를 설정하고, 포함할 서브 프로젝트를 정의한다.
 
 ```groovy
 // settings.gradle
@@ -899,8 +1143,8 @@ include('app')
 
 #### 목적
 
-Initialization Phase에서 생성된 모든 프로젝트의 빌드 스크립트(`build.gradle`)를 평가하여 프로젝트와 태스크를 구성하는 단계이다. 이 단계에서 **태스크 그래프(Task Graph)** 가
-완성되어 Gradle은 어떤 태스크를 어떤 순서로 실행해야 하는지를 알게 된다.
+Initialization Phase에서 생성된 모든 프로젝트의 빌드 스크립트 (`build.gradle`)를 평가하여 프로젝트와 태스크를 구성하는 단계이다. 이 단계에서 **태스크 그래프 (Task Graph)**
+가 완성되어 Gradle은 어떤 태스크를 어떤 순서로 실행해야 하는지를 알게 된다.
 
 #### 과정
 
@@ -955,12 +1199,12 @@ BUILD SUCCESSFUL in 276ms
 
 정리하면 다음과 같다.
 
-| 코드 위치                                              | 실행 단계                         |
-|----------------------------------------------------|-------------------------------|
-| `build.gradle` 최상위                                 | Configuration Phase           |
-| `tasks.register { ... }` 블록 내부 (doFirst/doLast 바깥) | Configuration Phase           |
-| `doFirst { ... }`                                  | Execution Phase (태스크 액션 시작 시) |
-| `doLast { ... }`                                   | Execution Phase (태스크 액션 종료 시) |
+| 코드 위치                                                | 실행 단계                             |
+|----------------------------------------------------------|---------------------------------------|
+| `build.gradle` 최상위                                    | Configuration Phase                   |
+| `tasks.register { ... }` 블록 내부 (doFirst/doLast 바깥) | Configuration Phase                   |
+| `doFirst { ... }`                                        | Execution Phase (태스크 액션 시작 시) |
+| `doLast { ... }`                                         | Execution Phase (태스크 액션 종료 시) |
 
 ### Execution Phase (실행 단계)
 
@@ -970,8 +1214,8 @@ Configuration Phase에서 완성된 태스크 그래프에 따라 실제로 태�
 
 #### 과정
 
-Gradle은 태스크의 의존 관계에 따라 순서대로 태스크를 실행한다. 이때 태스크는 실행 대상으로 표시되어 있고, 출력이 최신 상태가 아닌(outdated) 경우에만 실행된다. 컴파일, 파일 복사, JAR 패키징 등
-실제 작업(Task Action)이 이 단계에서 수행된다.
+Gradle은 태스크의 의존 관계에 따라 순서대로 태스크를 실행한다. 이때 태스크는 실행 대상으로 표시되어 있고, 출력이 최신 상태가 아닌 (outdated) 경우에만 실행된다. 컴파일, 파일 복사, JAR 패키징
+등 실제 작업 (Task Action)이 이 단계에서 수행된다.
 
 #### 결과
 
@@ -988,21 +1232,116 @@ BUILD SUCCESSFUL in 267ms
 1 actionable task: 1 up-to-date
 ```
 
-`1 up-to-date`는 소스 코드에 변경이 없어 컴파일을 건너뛰었다는 의미이다. Gradle은 태스크의 입력(Input)과 출력(Output)을 추적하여 입력이 변경되지 않았다면 태스크를 다시 실행하지 않는다.
+`1 up-to-date`는 소스 코드에 변경이 없어 컴파일을 건너뛰었다는 의미이다. Gradle은 태스크의 입력 (Input)과 출력 (Output)을 추적하여 입력이 변경되지 않았다면 태스크를 다시 실행하지
+않는다.
 
 태스크 실행 시 나타나는 상태 레이블을 정리하면 다음과 같다.
 
-| 레이블          | 의미                         |
-|--------------|----------------------------|
-| (레이블 없음)     | 태스크가 정상적으로 실행됨             |
-| `UP-TO-DATE` | 입력/출력이 변경되지 않아 건너뜀 (증분 빌드) |
-| `FROM-CACHE` | 빌드 캐시에서 이전 결과를 가져옴         |
-| `SKIPPED`    | 명시적으로 건너뜀 (예: `-x` 옵션 사용)  |
-| `NO-SOURCE`  | 입력 파일이 없어 실행할 필요 없음        |
+| 레이블        | 의미                                         |
+|---------------|----------------------------------------------|
+| (레이블 없음) | 태스크가 정상적으로 실행됨                   |
+| `UP-TO-DATE`  | 입력/출력이 변경되지 않아 건너뜀 (증분 빌드) |
+| `FROM-CACHE`  | 빌드 캐시에서 이전 결과를 가져옴             |
+| `SKIPPED`     | 명시적으로 건너뜀 (예: `-x` 옵션 사용)       |
+| `NO-SOURCE`   | 입력 파일이 없어 실행할 필요 없음            |
+
+### 커스텀 태스크를 증분 빌드 대상으로 만들기
+
+`compileJava`, `jar` 같은 내장 태스크는 별다른 설정 없이도 `UP-TO-DATE` 판정을 받는다. 하지만 우리가 직접 만든 `firstTask`는 몇 번을 실행해도 항상 다시 실행된다.
+
+```bash
+$ gradle firstTask
+> Task :firstTask
+do First Action!!
+do Last Action!!
+ 
+BUILD SUCCESSFUL in 271ms
+1 actionable task: 1 executed
+```
+
+**입력과 출력을 선언하지 않은 태스크는 Gradle이 비교할 대상이 없으므로 매번 실행된다.** 증분 빌드의 혜택을 받으려면 `inputs`와 `outputs`를 명시해야 한다.
+
+```groovy
+tasks.register('generateVersionFile') {
+    group = 'build'
+    description = '버전 정보를 담은 프로퍼티 파일을 생성한다'
+ 
+    def versionFile = layout.buildDirectory.file('generated/version.properties')
+    def projectVersion = project.version.toString()
+ 
+    inputs.property('version', projectVersion)   // 입력: 프로젝트 버전
+    outputs.file(versionFile)                    // 출력: 생성될 파일
+ 
+    doLast {
+        def target = versionFile.get().asFile
+        target.parentFile.mkdirs()
+        target.text = "version=${projectVersion}"
+    }
+}
+```
+
+이제 두 번 실행해보면 결과가 달라진다.
+
+```bash
+$ gradle generateVersionFile
+> Task :generateVersionFile
+ 
+BUILD SUCCESSFUL in 318ms
+1 actionable task: 1 executed
+ 
+$ gradle generateVersionFile
+> Task :generateVersionFile UP-TO-DATE
+ 
+BUILD SUCCESSFUL in 247ms
+1 actionable task: 1 up-to-date
+```
+
+두 번째 실행에서 `UP-TO-DATE`가 붙었다. Gradle이 입력 (`version` 값)과 출력 (생성된 파일)을 비교하여 변경이 없다고 판단했기 때문이다. `project.version`을 바꾸거나 생성된
+파일을 삭제하면 다시 실행된다.
+
+주요 입출력 선언 방식은 다음과 같다.
+
+| 선언                    | 용도                      |
+|-------------------------|---------------------------|
+| `inputs.property(k, v)` | 단순 값 (문자열, 숫자 등) |
+| `inputs.file(...)`      | 입력 파일 하나            |
+| `inputs.dir(...)`       | 입력 디렉토리             |
+| `inputs.files(...)`     | 입력 파일 여러 개         |
+| `outputs.file(...)`     | 출력 파일 하나            |
+| `outputs.dir(...)`      | 출력 디렉토리             |
+
+위 예제처럼 `doLast` 밖에서 값을 미리 지역 변수에 담아두는 것이 중요하다. `doLast` 안에서 `project`에 직접 접근하면 Configuration Cache와 호환되지 않아 경고가 발생한다.
+
+재사용할 태스크라면 스크립트에 인라인으로 작성하는 대신 클래스로 분리하고 애노테이션으로 입출력을 선언하는 방식이 권장된다.
+
+```groovy
+abstract class GenerateVersionTask extends DefaultTask {
+    @Input
+    abstract Property<String> getVersion()
+ 
+    @OutputFile
+    abstract RegularFileProperty getOutputFile()
+ 
+    @TaskAction
+    void generate() {
+        def target = outputFile.get().asFile
+        target.parentFile.mkdirs()
+        target.text = "version=${version.get()}"
+    }
+}
+ 
+tasks.register('generateVersionFile', GenerateVersionTask) {
+    version = project.version.toString()
+    outputFile = layout.buildDirectory.file('generated/version.properties')
+}
+```
+
+`@Input`, `@OutputFile` 애노테이션이 앞서 본 `inputs`/`outputs` 선언과 동일한 역할을 한다. 여기에 클래스에 `@CacheableTask`를 추가하면 로컬 증분 빌드를 넘어 빌드
+캐시 (다른 브랜치나 다른 팀원의 빌드 결과 재사용)까지 활용할 수 있다.
 
 ### Configuration Avoidance: `tasks.register` vs `tasks.create`
 
-Configuration Phase에서의 성능도 중요한데, 여기서 알아야 할 개념이 **Configuration Avoidance(구성 회피)** 이다.
+Configuration Phase에서의 성능도 중요한데, 여기서 알아야 할 개념이 **Configuration Avoidance (구성 회피)** 이다.
 
 ```groovy
 // ❌ tasks.create — Configuration Phase에서 즉시 태스크 객체가 생성되고 구성된다.
@@ -1024,7 +1363,7 @@ tasks.register('newWayTask') {
 실행되거나 다른 태스크에 의해 참조될 때까지 생성을 지연시킨다.
 
 프로젝트에 수십, 수백 개의 태스크가 있는 대규모 빌드에서는 이 차이가 Configuration Phase 성능에 상당한 영향을 미친다. **Gradle 공식 문서에서도 `tasks.register`를 사용하는 것을
-권장하며, `tasks.create`는 레거시(legacy) API로 간주된다.**
+권장하며, `tasks.create`는 레거시 (legacy) API로 간주된다.**
 
 ### Build Lifecycle Hook
 
@@ -1100,12 +1439,12 @@ Gradle 빌드의 전체 흐름을 하나의 그림으로 정리하면 다음과 
 
 ### Gradle Daemon이란?
 
-Gradle Daemon은 빌드 성능을 향상시키기 위해 Gradle이 사용하는 **장수(long-running) 백그라운드 JVM 프로세스**이다. 빌드가 완료된 후에도 종료되지 않고 계속 실행 상태를 유지하며,
+Gradle Daemon은 빌드 성능을 향상시키기 위해 Gradle이 사용하는 **장수 (long-running) 백그라운드 JVM 프로세스**이다. 빌드가 완료된 후에도 종료되지 않고 계속 실행 상태를 유지하며,
 다음 빌드 요청이 들어오면 이미 준비된 상태에서 바로 처리한다. Gradle이 자동으로 데몬을 시작하고 빌드 간에 유지시키며, 기본적으로 활성화되어 있다.
 
 ### 왜 Daemon이 필요한가?
 
-Gradle은 JVM 위에서 동작한다. JVM을 새로 기동하면 클래스 로딩, JIT(Just-In-Time) 컴파일, 메모리 할당 등 상당한 초기화 오버헤드가 발생한다. 매 빌드마다 이 과정을 반복하면 실제 빌드
+Gradle은 JVM 위에서 동작한다. JVM을 새로 기동하면 클래스 로딩, JIT (Just-In-Time) 컴파일, 메모리 할당 등 상당한 초기화 오버헤드가 발생한다. 매 빌드마다 이 과정을 반복하면 실제 빌드
 작업보다 JVM 시작에 더 많은 시간을 소모하게 된다.
 
 Daemon은 이 문제를 해결한다. 첫 빌드에서 JVM을 기동한 뒤 종료하지 않고 백그라운드에서 유지하므로, 두 번째 빌드부터는 JVM 기동 비용 없이 바로 빌드를 시작할 수 있다.
@@ -1152,11 +1491,11 @@ $ gradle --status
  12345 IDLE     9.4.1
 ```
 
-| 상태        | 의미                    |
-|-----------|-----------------------|
+| 상태      | 의미                                |
+|-----------|-------------------------------------|
 | `IDLE`    | 대기 중 — 빌드 요청을 기다리고 있다 |
-| `BUSY`    | 빌드 실행 중               |
-| `STOPPED` | 중지됨                   |
+| `BUSY`    | 빌드 실행 중                        |
+| `STOPPED` | 중지됨                              |
 
 ### Daemon의 생명주기
 
@@ -1173,14 +1512,38 @@ Daemon은 영원히 실행되지 않는다. 일정 시간 동안 빌드 요청�
 
 Daemon이 재사용되려면 몇 가지 조건이 맞아야 한다. 조건이 맞지 않으면 Gradle은 새로운 데몬을 시작한다.
 
-| 조건        | 설명                       |
-|-----------|--------------------------|
+| 조건        | 설명                               |
+|-------------|------------------------------------|
 | Gradle 버전 | 동일한 Gradle 버전이어야 한다      |
-| JVM 버전    | 동일한 JVM으로 실행되어야 한다       |
+| JVM 버전    | 동일한 JVM으로 실행되어야 한다     |
 | JVM 옵션    | `-Xmx` 등 JVM 인자가 동일해야 한다 |
 
 이전 실습에서 `./gradlew fT` 실행 시 `configuration cache cannot be reused because JVM has changed`라는 메시지가 나온 적이 있는데, 이는 시스템의
 `gradle`과 Wrapper의 `./gradlew`가 서로 다른 JVM을 사용했기 때문이다. JVM이 달라지면 별도의 데몬 인스턴스가 생성된다.
+
+JVM이 달라져 데몬이 여러 개 뜨는 문제를 근본적으로 막고 싶다면, Gradle 8.8부터 제공되는 **Daemon JVM criteria**를 사용할 수 있다. Wrapper가 Gradle 버전을 고정하듯, 이
+기능은 데몬이 사용할 JVM 버전을 프로젝트에 고정한다.
+
+```bash
+./gradlew updateDaemonJvm --jvm-version=17
+```
+
+실행하면 `gradle/gradle-daemon-jvm.properties` 파일이 생성된다.
+
+```properties
+#This file is generated by updateDaemonJvm
+toolchainVersion=17
+```
+
+이 파일을 **Wrapper 파일들과 마찬가지로 버전 관리 시스템에 커밋해두면**, 팀원과 CI 서버 모두 동일한 JVM으로 데몬을 기동하게 되어 "누구는 되고 누구는 안 되는" 문제와 불필요한 데몬 중복 생성을
+함께 막을 수 있다.
+
+여기서 `java.toolchain`과 혼동하기 쉬운데, 둘은 대상이 다르다.
+
+| 설정                           | 대상                                         |
+|--------------------------------|----------------------------------------------|
+| `gradle-daemon-jvm.properties` | **Gradle 자신이** 실행될 JVM (데몬 프로세스) |
+| `java { toolchain { ... } }`   | **내 코드가** 컴파일·실행될 JVM              |
 
 ### 트러블슈팅과 주의사항
 
@@ -1195,10 +1558,10 @@ org.gradle.jvmargs=-Xmx2g
 
 `gradle.properties`는 두 곳에 위치할 수 있으며, 적용 우선순위가 다르다.
 
-| 위치                            | 적용 범위                              |
-|-------------------------------|------------------------------------|
-| `~/.gradle/gradle.properties` | User-level. 해당 사용자의 모든 프로젝트에 적용된다. |
-| `프로젝트 루트/gradle.properties`   | Project-level. 해당 프로젝트에만 적용된다.     |
+| 위치                              | 적용 범위                                           |
+|-----------------------------------|-----------------------------------------------------|
+| `~/.gradle/gradle.properties`     | User-level. 해당 사용자의 모든 프로젝트에 적용된다. |
+| `프로젝트 루트/gradle.properties` | Project-level. 해당 프로젝트에만 적용된다.          |
 
 Project-level 설정이 User-level 설정보다 우선한다. 팀에서 공유하는 프로젝트라면 Project-level에 설정하여 모든 팀원이 동일한 JVM 옵션을 사용하도록 하는 것이 좋다.
 
@@ -1240,11 +1603,86 @@ org.gradle.parallel=true
 CI/CD 환경에서는 Daemon 사용에 대해 다른 전략이 필요할 수 있다. 로컬 개발 환경에서는 빌드를 반복적으로 실행하므로 Daemon의 캐싱 효과가 크지만, CI 환경에서는 매번 새로운 환경에서 빌드하는 경우가
 많아 Daemon의 이점이 제한적일 수 있다.
 
-| 환경                | 권장 설정                                 |
-|-------------------|---------------------------------------|
-| 로컬 개발             | Daemon 활성화 (기본값) — 반복 빌드에서 큰 성능 이점    |
-| CI/CD (일회성 빌드)    | `--no-daemon` 고려 — 메모리 관리가 깔끔하고 예측 가능 |
-| CI/CD (캐시 재사용 가능) | Daemon 활성화 + 빌드 캐시 활용                 |
+| 환경                     | 권장 설정                                             |
+|--------------------------|-------------------------------------------------------|
+| 로컬 개발                | Daemon 활성화 (기본값) — 반복 빌드에서 큰 성능 이점   |
+| CI/CD (일회성 빌드)      | `--no-daemon` 고려 — 메모리 관리가 깔끔하고 예측 가능 |
+| CI/CD (캐시 재사용 가능) | Daemon 활성화 + 빌드 캐시 활용                        |
+
+## 빌드를 진단하는 CLI 옵션
+
+지금까지 `-x`, `--refresh-dependencies`, `--rerun-tasks`, `--parallel` 등을 상황에 따라 사용했다. 빌드가 의도대로 동작하지 않을 때 알아두면 유용한 옵션들을 한 곳에
+정리한다.
+
+| 옵션                  | 설명                                                           |
+|-----------------------|----------------------------------------------------------------|
+| `--dry-run` (`-m`)    | 실제로 실행하지 않고 어떤 태스크가 어떤 순서로 실행될지만 출력 |
+| `--info` (`-i`)       | 상세 로그. 태스크를 건너뛴 이유까지 표시                       |
+| `--debug` (`-d`)      | 디버그 레벨 로그 (매우 장황함)                                 |
+| `--stacktrace` (`-s`) | 빌드 실패 시 예외 스택 트레이스 출력                           |
+| `--quiet` (`-q`)      | 에러를 제외한 로그 억제. 스크립트에서 출력을 파싱할 때 유용    |
+| `--continue`          | 태스크가 실패해도 의존 관계가 없는 나머지 태스크를 계속 실행   |
+| `--rerun-tasks`       | `UP-TO-DATE` 판정을 무시하고 모든 태스크를 강제 재실행         |
+| `--offline`           | 네트워크에 접근하지 않고 캐시된 의존성만 사용                  |
+| `--profile`           | 단계별 소요 시간 리포트를 `build/reports/profile`에 생성       |
+| `--scan`              | 빌드 스캔을 생성하여 웹에서 상세 분석                          |
+| `-x <task>`           | 특정 태스크를 제외하고 실행                                    |
+| `-P<key>=<value>`     | 프로젝트 프로퍼티 전달                                         |
+
+### 실행 계획만 확인하기: `--dry-run`
+
+`gradle build`가 정확히 어떤 태스크를 실행하는지 궁금할 때 유용하다. 실제로는 아무것도 실행되지 않으므로 안전하게 확인할 수 있다.
+
+```bash
+$ gradle build --dry-run
+ 
+:app:compileJava SKIPPED
+:app:processResources SKIPPED
+:app:classes SKIPPED
+:app:jar SKIPPED
+:app:startScripts SKIPPED
+:app:distTar SKIPPED
+:app:distZip SKIPPED
+:app:assemble SKIPPED
+:app:compileTestJava SKIPPED
+:app:testClasses SKIPPED
+:app:test SKIPPED
+:app:check SKIPPED
+:app:build SKIPPED
+ 
+BUILD SUCCESSFUL in 274ms
+```
+
+앞서 그림으로 설명한 태스크 의존성 그래프가 실제 실행 순서로 펼쳐진 모습이다.
+
+### UP-TO-DATE 판정 이유 확인하기: `--info`
+
+"분명히 코드를 고쳤는데 왜 다시 컴파일되지 않지?" 혹은 그 반대의 상황에서 `--info`가 답을 알려준다.
+
+```bash
+$ gradle compileJava --info
+ 
+...
+Skipping task ':app:compileJava' as it is up-to-date.
+```
+
+반대로 재실행된 경우에는 어떤 입력이 바뀌어서 다시 실행하는지를 알려준다.
+
+```bash
+Task ':app:compileJava' is not up-to-date because:
+  Input property 'source' file .../App.java has changed.
+```
+
+Task Avoidance가 왜 동작했는지 혹은 왜 동작하지 않았는지를 추적할 때 가장 먼저 써볼 옵션이다.
+
+### 어디서 시간을 쓰는지 확인하기: `--profile`
+
+```bash
+gradle build --profile
+```
+
+실행하면 `build/reports/profile/profile-<타임스탬프>.html` 파일이 생성된다. Configuration Phase에 걸린 시간, 의존성 해결 시간, 태스크별 실행 시간이 표로 정리되어
+있어 빌드가 느려졌을 때 원인을 좁히기 좋다. 더 상세한 분석이 필요하다면 `--scan`을 사용한다.
 
 ## 성능 관련 gradle.properties 종합 정리
 
@@ -1268,3 +1706,128 @@ org.gradle.daemon=true
 ```
 
 이 설정들은 프로젝트 루트의 `gradle.properties`에 넣어두면 팀 전체가 동일한 성능 설정으로 빌드할 수 있다.
+
+## Kotlin DSL로 옮기기
+
+지금까지의 실습은 모두 Groovy DSL (`build.gradle`)로 진행했다. 하지만 `gradle init`의 Build script DSL 기본 선택지는 **Kotlin**이며, Gradle도 신규
+프로젝트에는 Kotlin DSL을 권장하고 있다. 정적 타입 검증과 IDE 자동 완성 지원이 결정적인 차이를 만들기 때문이다.
+
+지금까지 작성한 내용을 Kotlin DSL로 옮기면 어떻게 되는지 살펴보자. 파일명은 `build.gradle` → `build.gradle.kts`,
+`settings.gradle` → `settings.gradle.kts`로 바뀐다.
+
+### settings.gradle.kts
+
+```kotlin
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+ 
+rootProject.name = "javaProject"
+include("app")
+```
+
+### app/build.gradle.kts
+
+```kotlin
+plugins {
+    application
+}
+ 
+repositories {
+    mavenCentral()
+}
+ 
+dependencies {
+    implementation(libs.guava)
+    implementation(libs.commons.math3)
+ 
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+ 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+ 
+application {
+    mainClass = "org.example.App"
+}
+ 
+tasks.test {
+    useJUnitPlatform()
+}
+```
+
+`plugins` 블록의 `application`처럼 Gradle 내장 플러그인은 `id("...")` 대신 **타입 안전한 접근자**를 그대로 쓸 수 있다는 점이 눈에 띈다.
+
+### 커스텀 태스크 등록
+
+```kotlin
+tasks.register("firstTask") {
+    group = "custom"
+    description = "첫 번째 커스텀 태스크"
+ 
+    doFirst {
+        println("do First Action!!")
+    }
+ 
+    doLast {
+        println("do Last Action!!")
+    }
+}
+ 
+tasks.register("secondTask") {
+    dependsOn("firstTask")
+ 
+    doLast {
+        println("do Last Action!! in second Task")
+    }
+}
+```
+
+### 문법 대응표
+
+| Groovy DSL                         | Kotlin DSL                             |
+|------------------------------------|----------------------------------------|
+| `build.gradle`                     | `build.gradle.kts`                     |
+| `id 'application'`                 | `id("application")` 또는 `application` |
+| `rootProject.name = 'javaProject'` | `rootProject.name = "javaProject"`     |
+| `include('app')`                   | `include("app")`                       |
+| `implementation 'g:a:v'`           | `implementation("g:a:v")`              |
+| `implementation libs.guava`        | `implementation(libs.guava)`           |
+| `tasks.register('x') { }`          | `tasks.register("x") { }`              |
+| `tasks.named('test') { }`          | `tasks.test { }`                       |
+| `dependsOn 'firstTask'`            | `dependsOn("firstTask")`               |
+| `mainClass = 'org.example.App'`    | `mainClass = "org.example.App"`        |
+
+기본 원칙은 두 가지이다. **문자열은 큰따옴표만 사용하고, 함수 호출에는 괄호를 반드시 붙인다.** 대부분의 변환은 이 두 규칙만으로 해결된다.
+
+### 타입을 명시해야 하는 경우
+
+주의가 필요한 지점은 `tasks.named()`이다. Groovy DSL은 동적 타입이라 아무 제약이 없지만, Kotlin DSL에서 `tasks.named("test")`는 반환 타입이 `Task`이므로
+`Test` 타입의 메서드인 `useJUnitPlatform()`을 호출할 수 없다.
+
+```kotlin
+// ❌ 컴파일 에러 — Task 타입에는 useJUnitPlatform()이 없다
+tasks.named("test") {
+    useJUnitPlatform()
+}
+ 
+// ✅ 타입 파라미터로 명시
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+}
+ 
+// ✅ 또는 타입 안전한 접근자 사용 (더 간결하며 권장)
+tasks.test {
+    useJUnitPlatform()
+}
+```
+
+이런 컴파일 에러는 불편해 보이지만, 오타나 잘못된 API 사용을 **빌드를 실행하기 전에** 잡아준다는 것이 Kotlin DSL의 핵심 장점이다. Groovy DSL이었다면 빌드를 실행한 뒤에야 런타임 에러로
+발견했을 문제이다.
+
+한 가지 트레이드오프는 있다. Kotlin DSL은 빌드 스크립트를 컴파일하는 과정이 있어 스크립트를 수정한 직후의 첫 빌드가 Groovy DSL보다 느리다. 다만 컴파일 결과는 캐싱되므로 이후 빌드에서는 차이가
+거의 없고, 앞서 다룬 Configuration Cache까지 적용하면 체감 차이는 더 줄어든다.
