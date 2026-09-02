@@ -3,7 +3,7 @@ title: "MacOS 세팅과 유닉스 명령어"
 tags:
   - mac
 image: ./assets/banner.png
-date: 2026-08-11 18:40:27
+date: 2026-09-02 18:40:27
 series: mac
 draft: false
 ---
