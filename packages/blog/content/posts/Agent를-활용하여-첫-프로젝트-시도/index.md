@@ -3,7 +3,7 @@ title: "Agent를 활용하여 첫 프로젝트 시도"
 tags:
   - mac
 image: ./assets/banner.png
-date: 2026-08-12 20:32:27
+date: 2026-09-03 19:48:27
 series: mac
 draft: false
 ---
