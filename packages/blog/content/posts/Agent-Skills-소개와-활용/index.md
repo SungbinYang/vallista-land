@@ -3,7 +3,7 @@ title: "Agent Skills 소개와 활용"
 tags:
   - mac
 image: ./assets/banner.png
-date: 2026-08-14 04:44:27
+date: 2026-09-05 14:47:27
 series: mac
 draft: false
 ---
