@@ -3,7 +3,7 @@ title: "Claws Layer 경험하기"
 tags:
   - mac
 image: ./assets/banner.png
-date: 2026-08-15 15:09:27
+date: 2026-09-05 15:33:27
 series: mac
 draft: false
 ---
