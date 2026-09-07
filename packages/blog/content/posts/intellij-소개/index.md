@@ -3,7 +3,7 @@ title: "[IntelliJ] 소개"
 tags:
   - IDE
 image: ./assets/banner.png
-date: 2026-08-17 11:39:27
+date: 2026-09-07 05:12:27
 series: IntelliJ
 draft: false
 ---
