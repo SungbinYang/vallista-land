@@ -3,7 +3,7 @@ title: "[IntelliJ] 리팩토링"
 tags:
   - IDE
 image: ./assets/banner.png
-date: 2026-08-17 14:15:27
+date: 2026-09-12 11:12:27
 series: IntelliJ
 draft: false
 ---
