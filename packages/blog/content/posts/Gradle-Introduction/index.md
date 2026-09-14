@@ -3,7 +3,7 @@ title: "[Gradle] Introduction"
 tags:
   - gradle
 image: ./assets/banner.png
-date: 2026-08-22 13:28:27
+date: 2026-09-15 04:19:27
 series: gradle
 draft: false
 ---
