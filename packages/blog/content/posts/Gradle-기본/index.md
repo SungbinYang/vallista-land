@@ -3,7 +3,7 @@ title: "[Gradle] 기본"
 tags:
   - gradle
 image: ./assets/banner.png
-date: 2026-08-22 14:25:27
+date: 2026-09-16 04:52:27
 series: gradle
 draft: false
 ---
