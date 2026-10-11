@@ -3,7 +3,7 @@ title: "AI 시대의 MacOS"
 tags:
   - mac
 image: ./assets/banner.png
-date: 2026-10-01 12:42:27
+date: 2026-10-11 13:29:27
 series: mac
 draft: false
 ---
