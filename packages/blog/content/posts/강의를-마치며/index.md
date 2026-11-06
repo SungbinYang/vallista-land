@@ -3,7 +3,7 @@ title: "마치며"
 tags:
   - mac
 image: ./assets/banner.png
-date: 2026-09-05 16:19:27
+date: 2026-11-06 21:39:27
 series: mac
 draft: false
 ---
