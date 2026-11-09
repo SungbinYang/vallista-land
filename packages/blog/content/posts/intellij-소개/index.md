@@ -3,7 +3,7 @@ title: "[IntelliJ] 소개"
 tags:
   - IDE
 image: ./assets/banner.png
-date: 2026-09-08 05:12:27
+date: 2026-11-09 21:55:27
 series: IntelliJ
 draft: false
 ---
@@ -150,7 +150,9 @@ draft: false
 >
 > - 설치 파일은 **하나**이고, 구독 없이도 IDE는 완전히 동작한다. 이때 사용 가능한 범위는 기존 Community Edition보다 오히려 넓어졌다.
 > - 무료 범위에 새로 포함된 것: 기본 데이터베이스 연결 및 스키마 조회, 전체 SQL 언어 지원, Spring Boot 프로젝트 마법사, 기본 Spring / Jakarta EE / Thymeleaf 구문
+
     강조, Kubernetes 통합, 비 JVM 언어 지원 등
+
 > - 여전히 Ultimate 구독이 필요한 것: 고급 Spring 개발 도구, IntelliJ Profiler, HTTP Client, AI Assistant, 통합 데이터 도구 등
 > - 신규 사용자에게는 **30일 무료 트라이얼**이 주어지며, 트라이얼이 끝나면 구독하거나 무료 상태로 계속 사용하면 된다.
 > - 기존 Community Edition 사용자는 일반적인 패치 업데이트 과정에서 자동으로 통합 배포판으로 전환된다.
