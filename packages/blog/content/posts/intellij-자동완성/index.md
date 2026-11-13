@@ -3,7 +3,7 @@ title: "[IntelliJ] 자동완성"
 tags:
   - IDE
 image: ./assets/banner.png
-date: 2026-09-12 10:38:27
+date: 2026-11-13 19:22:27
 series: IntelliJ
 draft: false
 ---
@@ -257,10 +257,10 @@ public class Child implements Parent {
 >
 > 사실 IntelliJ에는 비슷하지만 다른 두 개의 단축키가 있다.
 >
-> | 단축키 | 이름 | 대상 |
-> | --- | --- | --- |
+> | 단축키         | 이름              | 대상                                                                    |
+> |----------------|-------------------|-------------------------------------------------------------------------|
 > | **`Ctrl + i`** | Implement Methods | **아직 구현되지 않은** 추상 메서드 (인터페이스 메서드, abstract 메서드) |
-> | **`Ctrl + o`** | Override Methods | **이미 구현이 있는** 부모의 메서드를 재정의 |
+> | **`Ctrl + o`** | Override Methods  | **이미 구현이 있는** 부모의 메서드를 재정의                             |
 >
 > 위 예제처럼 인터페이스를 구현하는 상황은 `Ctrl + i`가 맞다. 반면 `Object`의 `toString()`을 재정의하거나, 부모 클래스의 기본 동작을 바꾸고 싶을 때는 `Ctrl + o`를 쓴다.
 >
@@ -332,11 +332,11 @@ if (member != null) {
 
 > **Live Template과 무엇이 다른가?**
 >
-> | | Live Template | Postfix Completion |
-> | --- | --- | --- |
-> | 입력 위치 | 빈 곳에서 약어 입력 | **표현식 뒤에** `.약어` 입력 |
-> | 예시 | `sout` → `System.out.println()` | `"hello".sout` → `System.out.println("hello")` |
-> | 발상 | 코드를 **만든다** | 이미 쓴 코드를 **감싼다** |
+> |           | Live Template                   | Postfix Completion                             |
+> |-----------|---------------------------------|------------------------------------------------|
+> | 입력 위치 | 빈 곳에서 약어 입력             | **표현식 뒤에** `.약어` 입력                   |
+> | 예시      | `sout` → `System.out.println()` | `"hello".sout` → `System.out.println("hello")` |
+> | 발상      | 코드를 **만든다**               | 이미 쓴 코드를 **감싼다**                      |
 >
 > 둘 다 알아두면 상황에 따라 편한 쪽을 쓸 수 있다. 참고로 `sout`처럼 이름이 같은 것도 많은데, 앞에 표현식이 있으면 후위 완성으로, 없으면 라이브 템플릿으로 동작한다고 이해하면 된다.
 
@@ -429,7 +429,7 @@ LiveTemplate이라고 한다.
 > - **윈도우/리눅스**: `Ctrl + Alt + j`
 >
 > 그러면 `try / catch`, `if`, `for`, `synchronized`, `Runnable` 등으로 감쌀 수 있는 목록이 나온다. 참고로 이것보다 조금 더 넓은 범위의 기능으로 **Surround
-With (`command + option + t` / `Ctrl + Alt + t`)** 도 있으니 함께 알아두면 좋다.
+> With (`command + option + t` / `Ctrl + Alt + t`)** 도 있으니 함께 알아두면 좋다.
 
 ### Live Template 추가하기
 
@@ -494,7 +494,7 @@ public class Comment {
 > **⚠️ Define을 빼먹으면 동작하지 않는다**
 >
 > 이 단계가 가장 많이 실수하는 부분이다. Template text를 다 작성하고 저장했는데 막상 약어를 쳐도 아무 일이 안 일어난다면, 십중팔구 **컨텍스트 (Applicable context)를 지정하지 않은
-것**이다.
+> 것**이다.
 >
 > 템플릿 편집 화면 하단에 노란 경고와 함께 `Define` 링크가 보이는데, 이걸 눌러서 **Java**를 체크해줘야 한다. 자바 안에서도 더 좁게 지정할 수 있다.
 >
